@@ -6,20 +6,18 @@ import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import static com.sun.corba.se.impl.util.Utility.printStackTrace;
+
 public class Main {
     public static void main(String[] args) {
-        //Ask for the file name
-        //System.out.print("What is the name of your file: ");
-        //Scanner scanner = new Scanner(System.in);
-        //String fileName = scanner.nextLine();
-        
+    
+        HashSet<Checking> checkings = new HashSet<>();
         //Read File
         try {
             Scanner fileScnr = new Scanner(
                 new File("D:\\UTEP\\2020 Fall\\AOOP\\advance-object-oriented\\Bank\\src\\BankUsers.csv"));
     
             //For every line make a new Checking instance
-            HashSet<Checking> checkings = new HashSet<>();
             fileScnr.nextLine(); //Ignores first line
             while(fileScnr.hasNextLine()){
                 String line = fileScnr.nextLine();
@@ -37,11 +35,14 @@ public class Main {
                 );
             }
             
-            for(Checking checking: checkings){
-                System.out.println(checking);
-            }
-            
         } catch (FileNotFoundException e) {
+            System.out.println(e);
         }
+        
+        ATM atm = new ATM(checkings);
+        
+        
+        
+        //Welcome Message
     }
 }
