@@ -94,4 +94,17 @@ public class Checking {
 	public void setInterestRate(double interestRate){
 		this.interestRate = interestRate;
 	}
+	
+	@Override
+	public String toString(){
+		return "{\n" +
+			"\tfisrtName: " + firstName + "\n" +
+			"\tlastName: " + lastName + "\n" +
+			"\taccountNumber: " + accountNumber + "\n" +
+			"\tchecking: " + checking + "\n" +
+			"\tsavings: " + savings + "\n" +
+			"\tstartingBalance: " + startingBalance + "\n" +
+			"\tinterestRate: " + interestRate + "\n" +
+			"}";
+	}
 }
