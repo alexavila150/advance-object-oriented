@@ -41,8 +41,8 @@ public class Main {
         
         ATM atm = new ATM(checkings);
         
-        
-        
-        //Welcome Message
+        while(true){
+            atm.optionsMenu();
+        }
     }
 }

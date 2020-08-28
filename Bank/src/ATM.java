@@ -85,6 +85,37 @@ public class ATM {
 	 *                                      Methods
 	 * **************************************************************************************************************/
 	
+	public void deposit(){
+		do{
+			System.out.print("How much money do you want to deposit?: ");
+		}while(true);
+		
+	}
+	
+	public void withdraw(){
+		boolean validAmount = false;
+		do{
+			System.out.print("How much money do you want to withdraw?: ");
+			double amount;
+			try{
+				amount = Double.parseDouble(scanner.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Only numbers accepted, try again");
+				continue;
+			}
+			
+			if(amount < 0){
+				System.out.println("No negative transactions are allowed, try again");
+				continue;
+			}
+			
+			currAccount.setStartingBalance(currAccount.getStartingBalance() - amount);
+			System.out.println("Withdrew successful!\n" +
+				"Your current balance in now: " + currAccount.getStartingBalance());
+			validAmount = true;
+		}while(!validAmount);
+	}
+	
 	public boolean transferToAccount(double amount){
 		//No negative transactions
 		if(amount < 0){
@@ -121,18 +152,28 @@ public class ATM {
 		//Make transfer
 		currAccount.setStartingBalance(currAccount.getStartingBalance() + amount);
 		selectedAccount.setStartingBalance(selectedAccount.getStartingBalance() - amount);
+		System.out.println("");
 		
 		return true;
 	}
 	
+	public void showFunds(){
+		System.out.println("You currently have " + currAccount.getStartingBalance() + "$ in your account");
+	}
+	
+	public void exit(){
+		System.out.println("Thank you for coming!!");
+		System.exit(0);
+	}
+	
 	public void listener(){
 		selectedOption = scanner.nextLine();
-		switch (selectedOption){
+		switch (selectedOption) {
 			case "a":
 				optionA();
 				break;
 			case "b":
-				optionB();
+				withdraw();
 				break;
 			case "c":
 				optionC();
@@ -140,9 +181,15 @@ public class ATM {
 			case "d":
 				optionD();
 				break;
+			case "e":
+				showFunds();
+				break;
+			case "f":
+				exit();
+				break;
 			default:
+				System.out.println("Not an option please try again");
 		}
-		
 	}
 	
 	/*******************************************************************************************************************
@@ -150,19 +197,19 @@ public class ATM {
 	 * ****************************************************************************************************************/
 	
 	public void optionA(){
-	
+		System.out.println("optionA");
 	}
 	
 	public void optionB(){
-	
+		System.out.println("optionB");
 	}
 	
 	public void optionC(){
-	
+		System.out.println("optionC");
 	}
 	
 	public void optionD(){
-	
+		System.out.println("optionD");
 	}
 	
 	public void optionsMenu(){
@@ -170,7 +217,9 @@ public class ATM {
 			"\ta) Deposit money\n" +
 			"\tb) Withdraw money\n" +
 			"\tc) Transfer to another account\n" +
-			"\td) Transfer to this account from another account\n");
+			"\td) Transfer to this account from another account\n" +
+			"\te) Show funds\n" +
+			"\tf) Exit\n");
 		
 		listener();
 	}
