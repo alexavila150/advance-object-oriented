@@ -81,16 +81,49 @@ public class ATM {
 		this.selectedAccount = selectedAccount;
 	}
 	
+	public boolean setSelectedAccount(int accountNumber){
+		for(Checking checking: checkings){
+			if(checking.getAccountNumber() == accountNumber){
+				this.selectedAccount = checking;
+				System.out.println("You selected " + checking.getFirstName() + " " + checking.getLastName());
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/****************************************************************************************************************
-	 *                                      Methods
+	 *                                          Deposit
 	 * **************************************************************************************************************/
 	
 	public void deposit(){
+		boolean validAmount = false;
 		do{
 			System.out.print("How much money do you want to deposit?: ");
-		}while(true);
-		
+			double amount;
+			try{
+				amount = Double.parseDouble(scanner.nextLine());
+			}catch (NumberFormatException e){
+				System.out.println("Only numbers, accepted, try again");
+				continue;
+			}
+			
+			if(amount < 0){
+				System.out.println("No negative transactions are allowed, try again");
+				continue;
+			}
+			
+			currAccount.setStartingBalance(currAccount.getStartingBalance() + amount);
+			System.out.println("Deposited successfully!\n" +
+				"Your current balance in now: " + currAccount.getStartingBalance());
+			validAmount = true;
+			
+		}while(!validAmount);
 	}
+	
+	/****************************************************************************************************************
+	 *                                          Withdraw
+	 * **************************************************************************************************************/
 	
 	public void withdraw(){
 		boolean validAmount = false;
@@ -116,6 +149,47 @@ public class ATM {
 		}while(!validAmount);
 	}
 	
+	/******************************************************************************************************************
+	 *                                      Transfer to account
+	 * ***************************************************************************************************************/
+	
+	public void transferToAccount(){
+		//Ask for destination account
+		boolean validAccount = false;
+		do{
+			System.out.print("Enter account number to send money to: ");
+			
+			int accountNumber;
+			try{
+				accountNumber = Integer.parseInt(scanner.nextLine());
+			}catch (NumberFormatException e){
+				System.out.println("Only numbers accepted, try again");
+				continue;
+			}
+			
+			//Check if account was successfull
+			validAccount = setSelectedAccount(accountNumber);
+			
+		}while(!validAccount);
+		
+		//Ask for amount;
+		boolean validAmount = false;
+		do{
+			//Get amount of money from user and check if it is valid
+			System.out.print("How much money do you want to send?: ");
+			double amount;
+			try{
+				amount = Double.parseDouble(scanner.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Only numbers accepted, try again");
+				continue;
+			}
+			
+			// checks if transaction was process successfully
+			validAmount = transferToAccount(amount);
+		}while(!validAmount);
+	}
+	
 	public boolean transferToAccount(double amount){
 		//No negative transactions
 		if(amount < 0){
@@ -125,7 +199,7 @@ public class ATM {
 		
 		//Not enough Funds
 		if(amount > currAccount.getStartingBalance()){
-			System.out.print("Not enough funds to process transaction");
+			System.out.println("Not enough funds to process transaction");
 			return false;
 		}
 		
@@ -133,8 +207,14 @@ public class ATM {
 		currAccount.setStartingBalance(currAccount.getStartingBalance() - amount);
 		selectedAccount.setStartingBalance(selectedAccount.getStartingBalance() + amount);
 		
+		System.out.println(currAccount.getFirstName() + " pay " + amount + "$ to " + selectedAccount.getFirstName());
+		
 		return true;
 	}
+	
+	/****************************************************************************************************************
+	 *                                         Transfer from account
+	 * **************************************************************************************************************/
 	
 	public boolean transferFromAccount(double amount){
 		//No negative transactions
@@ -152,13 +232,44 @@ public class ATM {
 		//Make transfer
 		currAccount.setStartingBalance(currAccount.getStartingBalance() + amount);
 		selectedAccount.setStartingBalance(selectedAccount.getStartingBalance() - amount);
-		System.out.println("");
+		
+		System.out.println(selectedAccount.getFirstName() + " pay " + amount + "$ to " + currAccount.getFirstName());
 		
 		return true;
 	}
 	
+	/****************************************************************************************************************
+	 *                                          Other Options
+	 * **************************************************************************************************************/
+	
 	public void showFunds(){
 		System.out.println("You currently have " + currAccount.getStartingBalance() + "$ in your account");
+	}
+	
+	public void switchAccount(){
+		boolean validAccount = false;
+		do{
+			System.out.print("Enter account number to sign in: ");
+			int accountNumber;
+			try {
+				accountNumber = Integer.parseInt(scanner.nextLine());
+			}catch (NumberFormatException e){
+				System.out.println("Only integers allowed, please try again");
+				continue;
+			}
+			
+			//Look for account in checkings
+			for(Checking checking: checkings){
+				if(checking.getAccountNumber() == accountNumber){
+					currAccount = checking;
+					validAccount = true;
+				}
+			}
+			
+			System.out.println("\nWelcome " + currAccount.getFirstName() + "\n" +
+				"How can we help you today?");
+			
+		}while(!validAccount);
 	}
 	
 	public void exit(){
@@ -170,13 +281,13 @@ public class ATM {
 		selectedOption = scanner.nextLine();
 		switch (selectedOption) {
 			case "a":
-				optionA();
+				deposit();
 				break;
 			case "b":
 				withdraw();
 				break;
 			case "c":
-				optionC();
+				transferToAccount();
 				break;
 			case "d":
 				optionD();
@@ -185,8 +296,10 @@ public class ATM {
 				showFunds();
 				break;
 			case "f":
-				exit();
+				switchAccount();
 				break;
+			case "g":
+				exit();
 			default:
 				System.out.println("Not an option please try again");
 		}
@@ -195,18 +308,6 @@ public class ATM {
 	/*******************************************************************************************************************
 	 *                                          Options
 	 * ****************************************************************************************************************/
-	
-	public void optionA(){
-		System.out.println("optionA");
-	}
-	
-	public void optionB(){
-		System.out.println("optionB");
-	}
-	
-	public void optionC(){
-		System.out.println("optionC");
-	}
 	
 	public void optionD(){
 		System.out.println("optionD");
@@ -219,10 +320,15 @@ public class ATM {
 			"\tc) Transfer to another account\n" +
 			"\td) Transfer to this account from another account\n" +
 			"\te) Show funds\n" +
-			"\tf) Exit\n");
+			"\tf) Switch account\n" +
+			"\tg) Exit\n");
 		
 		listener();
 	}
+	
+	/****************************************************************************************************************
+	 *                                          Override
+	 * **************************************************************************************************************/
 	
 	@Override
 	public String toString() {
