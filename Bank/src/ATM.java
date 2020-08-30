@@ -11,6 +11,7 @@ public class ATM {
 	private String selectedOption;
 	private Scanner scanner;
 	private FileWriter transactionsFile;
+	private boolean running = true;
 	
 	/****************************************************************************************************************
 	 *                                      Constructors
@@ -74,6 +75,14 @@ public class ATM {
 		return selectedAccount;
 	}
 	
+	public String getSelectedOption() {
+		return selectedOption;
+	}
+	
+	public boolean getRunning() {
+		return running;
+	}
+	
 	/****************************************************************************************************************
 	 *                                      Setters
 	 * **************************************************************************************************************/
@@ -112,6 +121,7 @@ public class ATM {
 				return true;
 			}
 		}
+		System.out.println("We are sorry this account does not exist!");
 		return false;
 	}
 	
@@ -160,6 +170,7 @@ public class ATM {
 	public void withdraw(){
 		boolean validAmount = false;
 		do{
+			//Ask for amount and correct format
 			System.out.print("How much money do you want to withdraw?: ");
 			double amount;
 			try{
@@ -169,11 +180,19 @@ public class ATM {
 				continue;
 			}
 			
+			//No negative transactions
 			if(amount < 0){
 				System.out.println("No negative transactions are allowed, try again");
 				continue;
 			}
 			
+			//Cannot withdraw more the current balance
+			if(amount > currAccount.getStartingBalance()){
+				System.out.println("Not enough funds to withdraw this amount, try again");
+				continue;
+			}
+			
+			//Message to user
 			currAccount.setStartingBalance(currAccount.getStartingBalance() - amount);
 			System.out.format("Withdrew successfully!\n" +
 				"Your current balance in now: $%.2f", currAccount.getStartingBalance());
@@ -362,10 +381,10 @@ public class ATM {
 				}
 			}
 			
-			System.out.println("\nWelcome " + currAccount.getFirstName() + "\n" +
-				"How can we help you today?");
-			
 		}while(!validAccount);
+		
+		System.out.println("\nWelcome " + currAccount.getFirstName() + "\n" +
+			"How can we help you today?");
 	}
 	
 	public void exit(){
@@ -375,7 +394,7 @@ public class ATM {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.exit(0);
+		running = false;
 	}
 	
 	/****************************************************************************************************************
@@ -418,6 +437,7 @@ public class ATM {
 				break;
 			case "g":
 				exit();
+				break;
 			default:
 				System.out.println("Not an option please try again");
 		}

@@ -36,12 +36,12 @@ public class Main {
             }
             
         } catch (FileNotFoundException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         
         ATM atm = new ATM(checkings);
         
-        while(true){
+        while(atm.getRunning()){
             atm.optionsMenu();
         }
     }
