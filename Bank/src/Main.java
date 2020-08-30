@@ -15,7 +15,7 @@ public class Main {
         //Read File
         try {
             Scanner fileScnr = new Scanner(
-                new File("D:\\UTEP\\2020 Fall\\AOOP\\advance-object-oriented\\Bank\\src\\BankUsers.csv"));
+                new File(System.getProperty("user.dir") + "src\\BankUsers.csv"));
     
             //For every line make a new Checking instance
             fileScnr.nextLine(); //Ignores first line

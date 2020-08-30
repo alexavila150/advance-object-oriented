@@ -1,3 +1,2 @@
 Disney bank transaction logs!
-Woody Disney withdrew 18.42$
-Buzz Lightyear deposited 50.0$
+Mickey Mouse deposited 100.0$
