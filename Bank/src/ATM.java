@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -5,8 +8,9 @@ public class ATM {
 	private HashSet<Checking> checkings;
 	private Checking currAccount;
 	private Checking selectedAccount;
-	private Scanner scanner;
 	private String selectedOption;
+	private Scanner scanner;
+	private FileWriter transactionsFile;
 	
 	/****************************************************************************************************************
 	 *                                      Constructors
@@ -17,16 +21,35 @@ public class ATM {
 	public ATM(HashSet<Checking> checkings){
 		this.checkings = checkings;
 		
-		//Main page Disneybank
-		System.out.print("Welcome to Disneybank!\n" +
-			"Bank in which if you can save it, we can protect it! \n\n" +
-			"\tPlease enter your account number to sign in: ");
+		//Prepare file
+		try {
+			transactionsFile = new FileWriter("transactions.txt");
+			transactionsFile.write("Disney bank transaction logs!\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		//Scan account number and then set account as currAccount
+		//Main page Disneybank
+		System.out.println("Welcome to Disneybank!\n" +
+			"Bank in which if you can save it, we can protect it!");
+		
+		//Ask for account number until it is valid
+		boolean validAccount = false;
+		int accountNumber = 0;
 		scanner = new Scanner(System.in);
-		int accountNumber = Integer.parseInt(scanner.nextLine());
-		System.out.println();
-		this.setCurrAccount(accountNumber);
+		do{
+			System.out.print("\n\tEnter your account number to sign in: ");
+			try{
+				accountNumber = Integer.parseInt(scanner.nextLine());
+			}catch (NumberFormatException e){
+				System.out.println("\nOnly integers accepted, please try again");
+				continue;
+			}
+			
+			System.out.println();
+			validAccount = setCurrAccount(accountNumber);
+		}while(!validAccount);
+		
 	}
 	
 	public ATM(HashSet<Checking> checkings, Checking currAccount, Checking selectedAccount){
@@ -63,18 +86,18 @@ public class ATM {
 		this.currAccount = currAccount;
 	}
 	
-	public void setCurrAccount(int accountNumber){
+	public boolean setCurrAccount(int accountNumber){
 		for(Checking checking: checkings){
 			if(checking.getAccountNumber() == accountNumber){
 				this.currAccount = checking;
 				System.out.println("Welcome " + currAccount.getFirstName() + "\n" +
 					"How can we help you today?");
 				optionsMenu();
-				return;
+				return true;
 			}
 		}
-		System.out.println("We are sorry your account does not exist!");
-		System.exit(1);
+		System.out.println("We are sorry this account does not exist!");
+		return false;
 	}
 	
 	public void setSelectedAccount(Checking selectedAccount) {
@@ -114,9 +137,18 @@ public class ATM {
 			}
 			
 			currAccount.setStartingBalance(currAccount.getStartingBalance() + amount);
-			System.out.println("Deposited successfully!\n" +
-				"Your current balance in now: " + currAccount.getStartingBalance());
+			System.out.format("Deposited successfully!\n" +
+				"Your current balance in now: $%.2f", currAccount.getStartingBalance());
 			validAmount = true;
+			
+			//File log
+			try {
+				transactionsFile.write(currAccount.getFirstName() + " " +
+					currAccount.getLastName() + " deposited " +
+					amount + "$\n");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 		}while(!validAmount);
 	}
@@ -143,9 +175,19 @@ public class ATM {
 			}
 			
 			currAccount.setStartingBalance(currAccount.getStartingBalance() - amount);
-			System.out.println("Withdrew successful!\n" +
-				"Your current balance in now: " + currAccount.getStartingBalance());
+			System.out.format("Withdrew successfully!\n" +
+				"Your current balance in now: $%.2f", currAccount.getStartingBalance());
 			validAmount = true;
+			
+			//File log
+			try {
+				transactionsFile.write(currAccount.getFirstName() + " " +
+					currAccount.getLastName() + " withdrew " +
+					amount + "$\n");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}while(!validAmount);
 	}
 	
@@ -167,7 +209,7 @@ public class ATM {
 				continue;
 			}
 			
-			//Check if account was successfull
+			//Check if account was successful
 			validAccount = setSelectedAccount(accountNumber);
 			
 		}while(!validAccount);
@@ -206,8 +248,16 @@ public class ATM {
 		//Make transfer
 		currAccount.setStartingBalance(currAccount.getStartingBalance() - amount);
 		selectedAccount.setStartingBalance(selectedAccount.getStartingBalance() + amount);
+		System.out.format("You transferred " + amount + "$ to " + selectedAccount.getFirstName());
 		
-		System.out.println(currAccount.getFirstName() + " pay " + amount + "$ to " + selectedAccount.getFirstName());
+		//File log
+		try {
+			transactionsFile.write(currAccount.getFirstName() + " " +
+				currAccount.getLastName() + " transferred " + amount + "$ to " +
+				selectedAccount.getFirstName() + " " + selectedAccount.getLastName() + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		return true;
 	}
@@ -215,6 +265,43 @@ public class ATM {
 	/****************************************************************************************************************
 	 *                                         Transfer from account
 	 * **************************************************************************************************************/
+	
+	public void transferFromAccount(){
+		//Ask for incoming account
+		boolean validAccount = false;
+		do{
+			System.out.print("Enter account number to take money from: ");
+			
+			int accountNumber;
+			try{
+				accountNumber = Integer.parseInt(scanner.nextLine());
+			}catch (NumberFormatException e){
+				System.out.println("Only numbers accepted, try again");
+				continue;
+			}
+			
+			//Check if account was successfull
+			validAccount = setSelectedAccount(accountNumber);
+			
+		}while(!validAccount);
+		
+		//Ask for amount;
+		boolean validAmount = false;
+		do{
+			//Get amount of money from user and check if it is valid
+			System.out.print("How much money do you want to take?: ");
+			double amount;
+			try{
+				amount = Double.parseDouble(scanner.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Only numbers accepted, try again");
+				continue;
+			}
+			
+			// checks if transaction was process successfully
+			validAmount = transferFromAccount(amount);
+		}while(!validAmount);
+	}
 	
 	public boolean transferFromAccount(double amount){
 		//No negative transactions
@@ -233,7 +320,16 @@ public class ATM {
 		currAccount.setStartingBalance(currAccount.getStartingBalance() + amount);
 		selectedAccount.setStartingBalance(selectedAccount.getStartingBalance() - amount);
 		
-		System.out.println(selectedAccount.getFirstName() + " pay " + amount + "$ to " + currAccount.getFirstName());
+		System.out.println(selectedAccount.getFirstName() + " transferred " + amount + "$ to you");
+		
+		//File log
+		try {
+			transactionsFile.write(selectedAccount.getFirstName() + " " +
+				selectedAccount.getLastName() + " transferred " + amount + "$ to " +
+				currAccount.getFirstName() + " " + currAccount.getLastName() + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		return true;
 	}
@@ -243,7 +339,7 @@ public class ATM {
 	 * **************************************************************************************************************/
 	
 	public void showFunds(){
-		System.out.println("You currently have " + currAccount.getStartingBalance() + "$ in your account");
+		System.out.format("You currently have %.2f$ in your account", currAccount.getStartingBalance());
 	}
 	
 	public void switchAccount(){
@@ -274,7 +370,29 @@ public class ATM {
 	
 	public void exit(){
 		System.out.println("Thank you for coming!!");
+		try {
+			transactionsFile.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.exit(0);
+	}
+	
+	/****************************************************************************************************************
+	 *                                      Menu and listener
+	 * **************************************************************************************************************/
+	
+	public void optionsMenu(){
+		System.out.println("\n" +
+			"\ta) Deposit money\n" +
+			"\tb) Withdraw money\n" +
+			"\tc) Transfer to another account\n" +
+			"\td) Transfer to this account from another account\n" +
+			"\te) Show funds\n" +
+			"\tf) Switch account\n" +
+			"\tg) Exit\n");
+		
+		listener();
 	}
 	
 	public void listener(){
@@ -290,7 +408,7 @@ public class ATM {
 				transferToAccount();
 				break;
 			case "d":
-				optionD();
+				transferFromAccount();
 				break;
 			case "e":
 				showFunds();
@@ -303,27 +421,6 @@ public class ATM {
 			default:
 				System.out.println("Not an option please try again");
 		}
-	}
-	
-	/*******************************************************************************************************************
-	 *                                          Options
-	 * ****************************************************************************************************************/
-	
-	public void optionD(){
-		System.out.println("optionD");
-	}
-	
-	public void optionsMenu(){
-		System.out.println("\n" +
-			"\ta) Deposit money\n" +
-			"\tb) Withdraw money\n" +
-			"\tc) Transfer to another account\n" +
-			"\td) Transfer to this account from another account\n" +
-			"\te) Show funds\n" +
-			"\tf) Switch account\n" +
-			"\tg) Exit\n");
-		
-		listener();
 	}
 	
 	/****************************************************************************************************************
