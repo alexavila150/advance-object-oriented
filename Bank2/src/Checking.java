@@ -3,6 +3,10 @@ public class Checking extends Account {
 	
 	public Checking(){}
 	
+	public Checking(int number, double balance){
+		super(number, balance);
+	}
+	
 	public Checking(int number, double balance, double interestRate){
 		super(number, balance);
 		this.interestRate = interestRate;

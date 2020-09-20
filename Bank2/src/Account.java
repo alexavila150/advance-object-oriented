@@ -32,4 +32,28 @@ public abstract class Account {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+	
+	public boolean deposit(double amount){
+		// no negative deposits
+		if(amount < 0){
+			return false;
+		}
+		balance += amount;
+		return true;
+	}
+	
+	public boolean withdraw(double amount){
+		// no negative deposits
+		if(amount < 0){
+			return false;
+		}
+		
+		//not enough balance to withdraw
+		if(amount > balance){
+			return false;
+		}
+		
+		balance -= amount;
+		return true;
+	}
 }

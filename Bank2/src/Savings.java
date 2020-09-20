@@ -3,6 +3,10 @@ public class Savings extends Account {
 	
 	public Savings(){}
 	
+	public Savings(int number, double balance){
+		super(number, balance);
+	}
+	
 	public Savings(int number, double balance, double interestRate){
 		super(number, balance);
 		this.interestRate = interestRate;
