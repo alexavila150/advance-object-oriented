@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.logging.FileHandler;
 
 public class RunBank {
-	public static HashMap<Integer, Customer> customerFromId;
+	public static HashMap<String, Customer> customerFromId;
 	public static HashMap<String, Customer> customerFromName;
 	
 	public static void main(String[] args){
@@ -28,16 +28,17 @@ public class RunBank {
 			fileScnr.nextLine(); //Ignores first line
 			while(fileScnr.hasNextLine()){
 				String line = fileScnr.nextLine();
+				line = line.replace(", ","#");
 				String[] attributes = line.split(",");
 				
-				// add customers to hashmap with name as the key
+				// add customers to hash map with name as the key
 				customerFromName.put(attributes[0], new Customer(
-					attributes[0],                      //firstName
-					attributes[1],                      //lastName
-					attributes[2],                      //dob
-					attributes[4],                      //address
-					attributes[5],                      //phone
-					Integer.parseInt(attributes[3]),    //id
+					attributes[0],                          //firstName
+					attributes[1],                          //lastName
+					attributes[2],                          //dob
+					attributes[4],                          //address
+					attributes[5],                          //phone
+					attributes[3],                          //id
 					new Checking(
 						Integer.parseInt(attributes[6]),    //checking account number
 						Double.parseDouble(attributes[9])   //checking balance
@@ -54,7 +55,7 @@ public class RunBank {
 			}
 			
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("file not found please try again");
 		}
 		
 		// add names to the map of that gets customer from Id
@@ -64,13 +65,32 @@ public class RunBank {
 		
 		// ask user to sign
 		System.out.println("Successfully entered data");
-		System.out.println("");
+		
+		boolean valid = false;
+		do{
+			System.out.println("Sign in as:");
+			System.out.println("\n\tA) Manager");
+			System.out.println("\tB) Customer\n");
+			String input = scnr.nextLine();
+			
+			switch (input){
+				case "A":
+					System.out.println("You signed in as a manager");
+					valid = true;
+					break;
+				case "B":
+					System.out.println("You signed in as a customer");
+					valid = true;
+					break;
+				default:
+					System.out.println("not an option please try again");
+			}
+		}while(!valid);
 		
 		while(running());
 	}
 	
 	public static boolean running(){
-		System.out.println("");
-		return true;
+		return false;
 	}
 }

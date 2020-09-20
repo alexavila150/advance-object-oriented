@@ -1,5 +1,9 @@
+import com.sun.istack.internal.NotNull;
+
+import javax.print.DocFlavor;
+
 public class Customer extends Person{
-	private int id;
+	private String id;
 	private Checking checking;
 	private Savings savings;
 	private Credit credit;
@@ -14,7 +18,7 @@ public class Customer extends Person{
 		String dob,
 		String address,
 		String phone,
-		int id,
+		String id,
 		Checking checking,
 		Savings savings,
 		Credit credit)
@@ -32,7 +36,7 @@ public class Customer extends Person{
 	 *                                          Getters
 	 * ***************************************************************************************************************/
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -52,7 +56,7 @@ public class Customer extends Person{
 	 *                                          Getters
 	 * ***************************************************************************************************************/
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
@@ -66,5 +70,49 @@ public class Customer extends Person{
 	
 	public void setCredit(Credit credit) {
 		this.credit = credit;
+	}
+	
+	/******************************************************************************************************************
+	 *                                          Transfers
+	 * ***************************************************************************************************************/
+	
+	// from checking to savings
+	public boolean transfer(Checking source, Savings dest, double amount){
+		if(!source.withdraw(amount)){
+			return false;
+		}
+		
+		dest.deposit(amount);
+		return true;
+	}
+	
+	// from checking to credit
+	public boolean transfer(Checking source, Credit dest, double amount){
+		if(!source.withdraw(amount)){
+			return false;
+		}
+		
+		dest.pay(amount);
+		return true;
+	}
+	
+	// from savings to checking
+	public boolean transfer(Savings source, Checking dest, double amount){
+		if(!source.withdraw(amount)){
+			return false;
+		}
+		
+		dest.deposit(amount);
+		return true;
+	}
+	
+	// from savings to Credit
+	public boolean transfer(Savings source, Credit dest, double amount){
+		if(!source.withdraw(amount)){
+			return false;
+		}
+		
+		dest.pay(amount);
+		return true;
 	}
 }
