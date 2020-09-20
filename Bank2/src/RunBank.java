@@ -5,9 +5,14 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 
+/**
+ *
+ */
 public class RunBank {
-	public static HashMap<String, Customer> customerFromId;
-	public static HashMap<String, Customer> customerFromName;
+	private static HashMap<String, Customer> customerFromId;
+	private static HashMap<String, Customer> customerFromName;
+	private static Scanner scnr;
+	private static String menu;
 	
 	public static void main(String[] args){
 		//Welcome message
@@ -15,7 +20,7 @@ public class RunBank {
 		
 		//Ask user for file
 		System.out.print("Enter file name with information: ");
-		Scanner scnr = new Scanner(System.in);
+		scnr = new Scanner(System.in);
 		File infoFile = new File(System.getProperty("user.dir") + "\\" + scnr.nextLine());
 		
 		customerFromId = new HashMap<>();
@@ -66,31 +71,71 @@ public class RunBank {
 		// ask user to sign
 		System.out.println("Successfully entered data");
 		
+		menu = "userType";
+		boolean running = true;
+		while(running){
+			switch (menu){
+				case "userType":
+					userType();
+					break;
+				case "manager":
+					managerMenu();
+					break;
+				case "customer":
+					break;
+				case "done":
+					running = false;
+				default:
+			}
+		}
+	}
+	
+	private static void userType(){
 		boolean valid = false;
 		do{
 			System.out.println("Sign in as:");
 			System.out.println("\n\tA) Manager");
 			System.out.println("\tB) Customer\n");
-			String input = scnr.nextLine();
 			
-			switch (input){
+			switch (scnr.nextLine()){
 				case "A":
 					System.out.println("You signed in as a manager");
 					valid = true;
+					menu = "manager";
 					break;
 				case "B":
 					System.out.println("You signed in as a customer");
 					valid = true;
+					menu = "customer";
 					break;
 				default:
 					System.out.println("not an option please try again");
 			}
 		}while(!valid);
-		
-		while(running());
 	}
 	
-	public static boolean running(){
-		return false;
+	private static boolean managerMenu(){
+		boolean valid = true;
+		do{
+			// Display Menu for the the manager
+			System.out.println("A. Inquire account by name");
+			System.out.println("B. Inquire account by type/number");
+			String input = scnr.nextLine();
+			
+			switch (input){
+				case "A":
+					System.out.println("Who's account would you like to inquire about");
+					valid = true;
+					break;
+				case "B":
+					System.out.println("What account type?");
+					valid = true;
+					break;
+				default:
+					valid = false;
+					System.out.println("not an option please try again");
+			}
+		}while (!valid);
+		return true;
 	}
 }
