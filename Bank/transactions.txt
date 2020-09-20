@@ -1,2 +1,2 @@
 Disney bank transaction logs!
-Mickey Mouse deposited 100.0$
+Mickey Mouse transferred 100.0$ to Donald Duck
