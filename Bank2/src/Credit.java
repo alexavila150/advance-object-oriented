@@ -10,6 +10,30 @@ public class Credit{
 		this.balance = balance;
 	}
 	
+	/******************************************************************************************************************
+	 *                                          Getters
+	 * ***************************************************************************************************************/
+	
+	public int getNumber() {
+		return number;
+	}
+	
+	public double getBalance() {
+		return balance;
+	}
+	
+	/******************************************************************************************************************
+	 *                                          Setters
+	 * ***************************************************************************************************************/
+	
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	
 	public boolean pay(double amount){
 		// not negative amount allowed
 		if(amount < 0){

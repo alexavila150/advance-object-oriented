@@ -88,6 +88,10 @@ public class Customer extends Person{
 	
 	// from checking to credit
 	public boolean transfer(Checking source, Credit dest, double amount){
+		if(dest.getBalance() > -(amount)){
+			return false;
+		}
+		
 		if(!source.withdraw(amount)){
 			return false;
 		}
@@ -108,6 +112,10 @@ public class Customer extends Person{
 	
 	// from savings to Credit
 	public boolean transfer(Savings source, Credit dest, double amount){
+		if(dest.getBalance() > -(amount)){
+			return false;
+		}
+		
 		if(!source.withdraw(amount)){
 			return false;
 		}
@@ -115,4 +123,6 @@ public class Customer extends Person{
 		dest.pay(amount);
 		return true;
 	}
+	
+	
 }
