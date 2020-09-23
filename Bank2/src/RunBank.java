@@ -93,8 +93,8 @@ public class RunBank {
 				case "manager":
 					managerMenu();
 					break;
-				case "customer":
-					customerMenu();
+				case "customerSignIn":
+					customerSignIn();
 					break;
 				case "askForAccountName":
 					askForAccountName();
@@ -135,13 +135,17 @@ public class RunBank {
 				case "B":
 					System.out.println("You signed in as a customer");
 					valid = true;
-					menu = "customer";
+					menu = "customerSignIn";
 					break;
 				default:
 					System.out.println("not an option please try again");
 			}
 		}while(!valid);
 	}
+	
+	/******************************************************************************************************************
+	 *                                          Manager
+	 * ***************************************************************************************************************/
 	
 	private static void managerMenu(){
 		boolean valid;
@@ -286,7 +290,26 @@ public class RunBank {
 		}while(!valid);
 	}
 	
-	private static void customerMenu(){
+	/******************************************************************************************************************
+	 *                                          Customer
+	 * ***************************************************************************************************************/
 	
+	private static void customerSignIn(){
+		boolean valid = false;
+		do{
+			System.out.println("What is your name?");
+			String input = scnr.nextLine();
+			
+			//check if name is in the information
+			if(!customerFromName.keySet().contains(input)){
+				System.out.println("Name not found. Please try again");
+				continue;
+			}
+			
+			//Print customer
+			System.out.println(customerFromName.get(input));
+			menu = "customerMenu";
+			valid = true;
+		}while(!valid);
 	}
 }
