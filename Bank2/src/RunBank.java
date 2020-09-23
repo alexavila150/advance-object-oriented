@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class RunBank {
 	private static HashMap<String, Customer> customerFromName;
+	private static HashMap<Checking, Customer> customerFromChecking;
+	private static HashMap<Savings, Customer> customerFromSavings;
+	private static HashMap<Credit, Customer> customerFromCredit;
 	private static HashMap<Integer, Checking> checkingFromNumber;
 	private static HashMap<Integer, Savings> savingsFromNumber;
 	private static HashMap<Integer, Credit> creditFromNumber;
@@ -23,6 +26,9 @@ public class RunBank {
 		
 		
 		customerFromName = new HashMap<>();
+		customerFromChecking = new HashMap<>();
+		customerFromSavings = new HashMap<>();
+		customerFromCredit = new HashMap<>();
 		checkingFromNumber = new HashMap<>();
 		savingsFromNumber = new HashMap<>();
 		creditFromNumber = new HashMap<>();
@@ -66,9 +72,12 @@ public class RunBank {
 		
 		// add all the accounts to their specific hash map
 		for(Customer customer : customerFromName.values()){
+			customerFromChecking.put(customer.getChecking(), customer);
+			customerFromSavings.put(customer.getSavings(), customer);
+			customerFromCredit.put(customer.getCredit(), customer);
 			checkingFromNumber.put(customer.getChecking().getNumber(), customer.getChecking());
-			savingsFromNumber.put(customer.getChecking().getNumber(), customer.getSavings());
-			creditFromNumber.put(customer.getChecking().getNumber(), customer.getCredit());
+			savingsFromNumber.put(customer.getSavings().getNumber(), customer.getSavings());
+			creditFromNumber.put(customer.getCredit().getNumber(), customer.getCredit());
 		}
 		
 		// ask user to sign
@@ -85,6 +94,7 @@ public class RunBank {
 					managerMenu();
 					break;
 				case "customer":
+					customerMenu();
 					break;
 				case "askForAccountName":
 					askForAccountName();
@@ -139,7 +149,7 @@ public class RunBank {
 			// Display Menu for the the manager
 			System.out.println("What would you like to do?\n");
 			System.out.println("\tA. Inquire account by name");
-			System.out.println("\tB. Inquire account by type/number\n");
+			System.out.println("\tB. Inquire account by type/number");
 			System.out.println("\tC. Sign in as a customer\n");
 			String input = scnr.nextLine();
 			
@@ -224,9 +234,11 @@ public class RunBank {
 				continue;
 			}
 			
-			//get account
+			//Get account
 			Checking checking = checkingFromNumber.get(input);
-			System.out.println(checking);
+			Customer customer = customerFromChecking.get(checking);
+			System.out.println(customer);
+			menu = "manager";
 			valid = true;
 		}while(!valid);
 	}
@@ -245,7 +257,10 @@ public class RunBank {
 			
 			//get account
 			Savings savings = savingsFromNumber.get(input);
-			System.out.println(savings);
+			System.out.println("savings: " + savings.getBalance());
+			Customer customer = customerFromSavings.get(savings);
+			System.out.println(customer);
+			menu = "manager";
 			valid = true;
 		}while(!valid);
 	}
@@ -262,14 +277,16 @@ public class RunBank {
 				continue;
 			}
 			
-			//get account
+			//Get account
 			Credit credit = creditFromNumber.get(input);
-			System.out.println(credit);
+			Customer customer = customerFromCredit.get(credit);
+			System.out.println(customer);
+			menu = "manager";
 			valid = true;
 		}while(!valid);
 	}
 	
-	public static void customerMenu(){
+	private static void customerMenu(){
 	
 	}
 }
