@@ -1,16 +1,14 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.logging.FileHandler;
 
-/**
- *
- */
+
 public class RunBank {
-	private static HashMap<String, Customer> customerFromId;
 	private static HashMap<String, Customer> customerFromName;
+	private static HashMap<Integer, Checking> checkingFromNumber;
+	private static HashMap<Integer, Savings> savingsFromNumber;
+	private static HashMap<Integer, Credit> creditFromNumber;
 	private static Scanner scnr;
 	private static String menu;
 	
@@ -23,8 +21,11 @@ public class RunBank {
 		scnr = new Scanner(System.in);
 		File infoFile = new File(System.getProperty("user.dir") + "\\" + scnr.nextLine());
 		
-		customerFromId = new HashMap<>();
+		
 		customerFromName = new HashMap<>();
+		checkingFromNumber = new HashMap<>();
+		savingsFromNumber = new HashMap<>();
+		creditFromNumber = new HashMap<>();
 		//Read file
 		try {
 			Scanner fileScnr = new Scanner(infoFile);
@@ -33,11 +34,11 @@ public class RunBank {
 			fileScnr.nextLine(); //Ignores first line
 			while(fileScnr.hasNextLine()){
 				String line = fileScnr.nextLine();
-				line = line.replace(", ","#");
+				line = line.replace(", "," ");
 				String[] attributes = line.split(",");
 				
 				// add customers to hash map with name as the key
-				customerFromName.put(attributes[0], new Customer(
+				customerFromName.put(attributes[0] + " " + attributes[1], new Customer(
 					attributes[0],                          //firstName
 					attributes[1],                          //lastName
 					attributes[2],                          //dob
@@ -63,9 +64,11 @@ public class RunBank {
 			System.out.println("file not found please try again");
 		}
 		
-		// add names to the map of that gets customer from Id
-		for(Customer customer: customerFromName.values()){
-			customerFromId.put(customer.getId(), customer);
+		// add all the accounts to their specific hash map
+		for(Customer customer : customerFromName.values()){
+			checkingFromNumber.put(customer.getChecking().getNumber(), customer.getChecking());
+			savingsFromNumber.put(customer.getChecking().getNumber(), customer.getSavings());
+			creditFromNumber.put(customer.getChecking().getNumber(), customer.getCredit());
 		}
 		
 		// ask user to sign
@@ -76,12 +79,27 @@ public class RunBank {
 		while(running){
 			switch (menu){
 				case "userType":
-					userType();
+					userTypeMenu();
 					break;
 				case "manager":
 					managerMenu();
 					break;
 				case "customer":
+					break;
+				case "askForAccountName":
+					askForAccountName();
+					break;
+				case "askForAccountType":
+					askForAccountType();
+					break;
+				case "askForChecking":
+					askForChecking();
+					break;
+				case "askForSavings":
+					askForSavings();
+					break;
+				case "askForCredit":
+					askForCredit();
 					break;
 				case "done":
 					running = false;
@@ -90,8 +108,9 @@ public class RunBank {
 		}
 	}
 	
-	private static void userType(){
+	private static void userTypeMenu(){
 		boolean valid = false;
+		//Ask to sign in as a manager or customer until the user enters a correct input
 		do{
 			System.out.println("Sign in as:");
 			System.out.println("\n\tA) Manager");
@@ -114,21 +133,27 @@ public class RunBank {
 		}while(!valid);
 	}
 	
-	private static boolean managerMenu(){
-		boolean valid = true;
+	private static void managerMenu(){
+		boolean valid;
 		do{
 			// Display Menu for the the manager
-			System.out.println("A. Inquire account by name");
-			System.out.println("B. Inquire account by type/number");
+			System.out.println("What would you like to do?\n");
+			System.out.println("\tA. Inquire account by name");
+			System.out.println("\tB. Inquire account by type/number\n");
+			System.out.println("\tC. Sign in as a customer\n");
 			String input = scnr.nextLine();
 			
 			switch (input){
 				case "A":
-					System.out.println("Who's account would you like to inquire about");
+					menu = "askForAccountName";
 					valid = true;
 					break;
 				case "B":
-					System.out.println("What account type?");
+					menu = "askForAccountType";
+					valid = true;
+					break;
+				case "C":
+					menu = "customerMenu";
 					valid = true;
 					break;
 				default:
@@ -136,6 +161,115 @@ public class RunBank {
 					System.out.println("not an option please try again");
 			}
 		}while (!valid);
-		return true;
+	}
+	
+	private static void askForAccountName(){
+		boolean valid = false;
+		do{
+			System.out.println("Who's account would you like to inquire about");
+			String input = scnr.nextLine();
+			
+			//Check if name is valid
+			if(!customerFromName.keySet().contains(input)){
+				System.out.println("Customer does not exist please try again.");
+				continue;
+			}
+			
+			//find costumer by name
+			Customer customer = customerFromName.get(input);
+			
+			System.out.println(customer);
+			menu = "manager";
+			valid = true;
+		}while(!valid);
+	}
+	
+	private static void askForAccountType(){
+		boolean valid;
+		do{
+			System.out.println("What type of account?");
+			String input = scnr.nextLine();
+			
+			//Check account type
+			switch (input){
+				case "Checking":
+					menu = "askForChecking";
+					valid = true;
+					break;
+				case "Savings":
+					menu = "askForSavings";
+					valid = true;
+					break;
+				case "Credit":
+					menu = "askForCredit";
+					valid = true;
+					break;
+				default:
+					System.out.println("not valid type please try again");
+					valid = false;
+			}
+			
+		}while(!valid);
+	}
+	
+	private static void askForChecking(){
+		boolean valid = false;
+		do{
+			System.out.println("What is the account number?");
+			int input = Integer.parseInt(scnr.nextLine());
+			
+			//check if input is valid
+			if(!checkingFromNumber.keySet().contains(input)){
+				System.out.println("not a valid account number please try again");
+				continue;
+			}
+			
+			//get account
+			Checking checking = checkingFromNumber.get(input);
+			System.out.println(checking);
+			valid = true;
+		}while(!valid);
+	}
+	
+	private static void askForSavings(){
+		boolean valid = false;
+		do{
+			System.out.println("What is the account number?");
+			int input = Integer.parseInt(scnr.nextLine());
+			
+			//check if input is valid
+			if(!savingsFromNumber.keySet().contains(input)){
+				System.out.println("not a valid account number please try again");
+				continue;
+			}
+			
+			//get account
+			Savings savings = savingsFromNumber.get(input);
+			System.out.println(savings);
+			valid = true;
+		}while(!valid);
+	}
+	
+	private static void askForCredit(){
+		boolean valid = false;
+		do{
+			System.out.println("What is the account number?");
+			int input = Integer.parseInt(scnr.nextLine());
+			
+			//check if input is valid
+			if(!creditFromNumber.keySet().contains(input)){
+				System.out.println("not a valid account number please try again");
+				continue;
+			}
+			
+			//get account
+			Credit credit = creditFromNumber.get(input);
+			System.out.println(credit);
+			valid = true;
+		}while(!valid);
+	}
+	
+	public static void customerMenu(){
+	
 	}
 }

@@ -23,13 +23,13 @@ public class CreditTest {
 	@Test
 	public void pay1() {
 		assertFalse(credit1.pay(905.32));
-		assertEquals(-900.50, credit1.getBalance(), 0.01);
+		assertEquals(-900.50, credit1.getBalance(), 0.001);
 	}
 	
 	@Test
 	public void pay2() {
 		assertTrue(credit1.pay(100.50));
-		assertEquals(-800, credit1.getBalance(), 0.01);
+		assertEquals(-800, credit1.getBalance(), 0.001);
 	}
 	
 	@Test
