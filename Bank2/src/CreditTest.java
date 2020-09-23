@@ -21,20 +21,20 @@ public class CreditTest {
 	}
 	
 	@Test
-	public void pay1() {
-		assertFalse(credit1.pay(905.32));
+	public void deposit1() {
+		assertFalse(credit1.deposit(905.32));
 		assertEquals(-900.50, credit1.getBalance(), 0.001);
 	}
 	
 	@Test
-	public void pay2() {
-		assertTrue(credit1.pay(100.50));
+	public void deposit2() {
+		assertTrue(credit1.deposit(100.50));
 		assertEquals(-800, credit1.getBalance(), 0.001);
 	}
 	
 	@Test
-	public void use() {
-		assertTrue(credit1.use(100.50));
+	public void withdraw() {
+		assertTrue(credit1.withdraw(100.50));
 		assertEquals(-1001, credit1.getBalance(), 0.01);
 	}
 }

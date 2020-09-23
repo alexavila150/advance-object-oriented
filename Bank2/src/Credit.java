@@ -1,40 +1,14 @@
-public class Credit{
-	private int number;
-	private double balance;
-	
+public class Credit extends Account{
 	public Credit(){
+		super();
 	}
 	
 	public Credit(int number, double balance){
-		this.number = number;
-		this.balance = balance;
+		super(number, balance);
 	}
 	
-	/******************************************************************************************************************
-	 *                                          Getters
-	 * ***************************************************************************************************************/
-	
-	public int getNumber() {
-		return number;
-	}
-	
-	public double getBalance() {
-		return balance;
-	}
-	
-	/******************************************************************************************************************
-	 *                                          Setters
-	 * ***************************************************************************************************************/
-	
-	public void setNumber(int number) {
-		this.number = number;
-	}
-	
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
-	
-	public boolean pay(double amount){
+	@Override
+	public boolean deposit(double amount){
 		// not negative amount allowed
 		if(amount < 0){
 			return false;
@@ -49,7 +23,8 @@ public class Credit{
 		return true;
 	}
 	
-	public boolean use(double amount){
+	@Override
+	public boolean withdraw(double amount){
 		// not negative amount allowed
 		if(amount < 0){
 			return false;

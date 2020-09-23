@@ -13,7 +13,9 @@ public class RunBank {
 	private static HashMap<Integer, Savings> savingsFromNumber;
 	private static HashMap<Integer, Credit> creditFromNumber;
 	private static Scanner scnr;
-	private static String menu;
+	private static String menu = "customerMenu";
+	private static Customer user;
+	private static Account selectedAccount;
 	
 	public static void main(String[] args){
 		//Welcome message
@@ -93,9 +95,6 @@ public class RunBank {
 				case "manager":
 					managerMenu();
 					break;
-				case "customerSignIn":
-					customerSignIn();
-					break;
 				case "askForAccountName":
 					askForAccountName();
 					break;
@@ -110,6 +109,27 @@ public class RunBank {
 					break;
 				case "askForCredit":
 					askForCredit();
+					break;
+				case "customerSignIn":
+					customerSignIn();
+					break;
+				case "customerMenu":
+					customerMenu();
+					break;
+				case "deposit":
+					deposit();
+					break;
+				case "askDepositMoney":
+					askDepositMoney();
+					break;
+				case "withdraw":
+					withdraw();
+					break;
+				case "transferMoney":
+					transferMoney();
+					break;
+				case "sendMoney":
+					sendMoney();
 					break;
 				case "done":
 					running = false;
@@ -133,7 +153,6 @@ public class RunBank {
 					menu = "manager";
 					break;
 				case "B":
-					System.out.println("You signed in as a customer");
 					valid = true;
 					menu = "customerSignIn";
 					break;
@@ -154,7 +173,7 @@ public class RunBank {
 			System.out.println("What would you like to do?\n");
 			System.out.println("\tA. Inquire account by name");
 			System.out.println("\tB. Inquire account by type/number");
-			System.out.println("\tC. Sign in as a customer\n");
+			System.out.println("\tC. Sign in page\n");
 			String input = scnr.nextLine();
 			
 			switch (input){
@@ -167,7 +186,7 @@ public class RunBank {
 					valid = true;
 					break;
 				case "C":
-					menu = "customerMenu";
+					menu = "userType";
 					valid = true;
 					break;
 				default:
@@ -307,9 +326,109 @@ public class RunBank {
 			}
 			
 			//Print customer
-			System.out.println(customerFromName.get(input));
+			user = customerFromName.get(input);
+			System.out.println(user);
 			menu = "customerMenu";
 			valid = true;
 		}while(!valid);
+	}
+	
+	private static void customerMenu(){
+		boolean valid = false;
+		do{
+			System.out.println("Welcome " + user.firstName + " " + user.lastName);
+			System.out.println("\n\tA. Inquire");
+			System.out.println("\tB. Deposit");
+			System.out.println("\tC. Withdraw");
+			System.out.println("\tD. Transfer money");
+			System.out.println("\tE. Send Money");
+			System.out.println("\tF. Sign in page");
+			
+			switch (scnr.nextLine()) {
+				case "A":
+					System.out.println(user);
+					valid = true;
+					break;
+				case "B":
+					menu = "deposit";
+					valid = true;
+					break;
+				case "C":
+					menu = "withdraw";
+					valid = true;
+					break;
+				case "D":
+					menu = "transferMoney";
+					valid = true;
+					break;
+				case "E":
+					menu = "sendMoney";
+					valid = true;
+					break;
+				case "F":
+					menu = "userType";
+					valid = true;
+					break;
+				default:
+					System.out.println("Not an option please try again");
+			}
+		}while(!valid);
+	}
+	
+	private static void deposit(){
+		boolean valid = false;
+		do{
+			System.out.println("Choose account to deposit your money");
+			System.out.println("\n\tA. Checking");
+			System.out.println("\tB. Savings");
+			System.out.println("\tC. Credit");
+			
+			switch (scnr.nextLine()){
+				case "A":
+					selectedAccount = user.getChecking();
+					menu = "askDepositMoney";
+					valid = true;
+					break;
+				case "B":
+					selectedAccount = user.getSavings();
+					menu = "askDepositMoney";
+					valid = true;
+					break;
+				case "C":
+					selectedAccount = user.getCredit();
+					menu = "askDepositMoney";
+					valid = true;
+					break;
+				default:
+					System.out.println("not an option pleas try again");
+			}
+		}while(!valid);
+	}
+	
+	private static void askDepositMoney(){
+		boolean valid = false;
+		do{
+			System.out.println("How much money do you want to deposit?");
+			
+			int input = Integer.parseInt(scnr.nextLine());
+			if(selectedAccount.deposit(input)){
+				valid = true;
+				menu = "customerMenu";
+				continue;
+			}
+			System.out.println("too many funds try again");
+		}while (!valid);
+	}
+	
+	private static void withdraw(){
+	
+	}
+	
+	private static void transferMoney(){
+	
+	}
+	
+	private static void sendMoney(){
+	
 	}
 }

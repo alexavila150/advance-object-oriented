@@ -1,6 +1,6 @@
 public abstract class Account {
-	private int number;
-	private double balance;
+	protected int number;
+	protected double balance;
 	
 	public Account(){ }
 	

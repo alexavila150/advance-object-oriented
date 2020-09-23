@@ -90,38 +90,7 @@ public class Customer extends Person{
 	 *                                          Transfers
 	 * ***************************************************************************************************************/
 	
-	// from checking to savings
-	public boolean transfer(Checking source, Savings dest, double amount){
-		if(!source.withdraw(amount)){
-			return false;
-		}
-		
-		dest.deposit(amount);
-		return true;
-	}
-	
-	// from checking to credit
-	public boolean transfer(Checking source, Credit dest, double amount){
-		if(dest.getBalance() > -(amount)){
-			return false;
-		}
-		
-		if(!source.withdraw(amount)){
-			return false;
-		}
-		
-		dest.pay(amount);
-		return true;
-	}
-	
-	
-	/**
-	 * @param source Savings account instance that the money will transfer to dest account
-	 * @param dest Checking account that will received money from the source account
-	 * @param amount the amount of money transferred from one account to the other
-	 * @return returns true is transaction was a success and false is transaction failed
-	 */
-	public boolean transfer(Savings source, Checking dest, double amount){
+	public boolean transfer(Account source, Account dest, double amount){
 		if(!source.withdraw(amount)){
 			return false;
 		}
@@ -136,7 +105,7 @@ public class Customer extends Person{
 	 * @param amount the amount of money transferred from one account to the other
 	 * @return returns true is transaction was a success and false is transaction failed
 	 */
-	public boolean transfer(Savings source, Credit dest, double amount){
+	public boolean transfer(Account source, Credit dest, double amount){
 		if(dest.getBalance() > -(amount)){
 			return false;
 		}
@@ -145,8 +114,13 @@ public class Customer extends Person{
 			return false;
 		}
 		
-		dest.pay(amount);
+		dest.deposit(amount);
 		return true;
+	}
+	
+	public boolean transfer(Customer dest, double amount){
+		//get checking account from customer
+		return transfer(checking, dest.getChecking(), amount);
 	}
 	
 	@Override
