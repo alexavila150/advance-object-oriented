@@ -1,5 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -163,6 +167,21 @@ public class RunBank {
 					running = false;
 				default:
 			}
+		}
+		
+		//Write to output file at the end of the program
+		try {
+			FileWriter myWriter = new FileWriter("BankOutput.csv");
+			
+			ArrayList<Customer> customers = new ArrayList<>();
+			
+			for(Customer customer : customerFromName.values()){
+				customers.add(customer);
+			}
+			
+			myWriter.close();
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
 		}
 	}
 	
