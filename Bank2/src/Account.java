@@ -1,6 +1,7 @@
 public abstract class Account {
 	protected int number;
 	protected double balance;
+	protected Customer customer;
 	
 	public Account(){ }
 	
@@ -21,6 +22,10 @@ public abstract class Account {
 		return balance;
 	}
 	
+	public Customer getCustomer() {
+		return customer;
+	}
+	
 	/******************************************************************************************************************
 	 *                                          Setters
 	 * ***************************************************************************************************************/
@@ -32,6 +37,14 @@ public abstract class Account {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+	
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
+	/******************************************************************************************************************
+	 *                                          Actuator
+	 * ***************************************************************************************************************/
 	
 	public boolean deposit(double amount){
 		// no negative deposits
