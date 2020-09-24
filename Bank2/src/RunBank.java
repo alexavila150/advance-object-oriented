@@ -1,4 +1,3 @@
-import java.io.DataOutput;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -23,64 +22,71 @@ public class RunBank {
 	 * @param args arguments for the main method, it is expecting none of them
 	 */
 	public static void main(String[] args){
-		//Welcome message
-		System.out.println("Welcome to DisneyBank");
-		
-		//Ask user for file
-		System.out.print("Enter file name with information: ");
-		scnr = new Scanner(System.in);
-		File infoFile = new File(System.getProperty("user.dir") + "\\" + scnr.nextLine());
-		
-		
 		customerFromName = new HashMap<>();
 		checkingFromNumber = new HashMap<>();
 		savingsFromNumber = new HashMap<>();
 		creditFromNumber = new HashMap<>();
-		//Read file
-		try {
-			Scanner fileScnr = new Scanner(infoFile);
+		
+		//Welcome message
+		System.out.println("Welcome to DisneyBank");
+		
+		boolean valid = false;
+		do{
+			//Ask user for file
+			System.out.print("Enter file name with information: ");
+			scnr = new Scanner(System.in);
+			File infoFile = new File(System.getProperty("user.dir") + "\\" + scnr.nextLine());
 			
-			//For every line make a new Custumer Account instance
-			fileScnr.nextLine(); //Ignores first line
-			while(fileScnr.hasNextLine()){
-				String line = fileScnr.nextLine();
-				line = line.replace(", "," ");
-				String[] attributes = line.split(",");
+			//Read file
+			try {
+				Scanner fileScnr = new Scanner(infoFile);
 				
-				// create customer from csv information
-				Customer customer = new Customer(
-					attributes[0],                          //firstName
-					attributes[1],                          //lastName
-					attributes[2],                          //dob
-					attributes[4],                          //address
-					attributes[5],                          //phone
-					attributes[3],                          //id
-					new Checking(
-						Integer.parseInt(attributes[6]),    //checking account number
-						Double.parseDouble(attributes[9])   //checking balance
-					),
-					new Savings(
-						Integer.parseInt(attributes[7]),    //savings account number
-						Double.parseDouble(attributes[10])  //savings balance
-					),
-					new Credit(
-						Integer.parseInt(attributes[8]),    //credit account number
-						Double.parseDouble(attributes[11])  //credit balance
-					)
-				);
+				//For every line make a new Custumer Account instance
+				fileScnr.nextLine(); //Ignores first line
+				while(fileScnr.hasNextLine()){
+					String line = fileScnr.nextLine();
+					line = line.replace(", "," ");
+					String[] attributes = line.split(",");
+					
+					// create customer from csv information
+					Customer customer = new Customer(
+						attributes[0],                          //firstName
+						attributes[1],                          //lastName
+						attributes[2],                          //dob
+						attributes[4],                          //address
+						attributes[5],                          //phone
+						attributes[3],                          //id
+						new Checking(
+							Integer.parseInt(attributes[6]),    //checking account number
+							Double.parseDouble(attributes[9])   //checking balance
+						),
+						new Savings(
+							Integer.parseInt(attributes[7]),    //savings account number
+							Double.parseDouble(attributes[10])  //savings balance
+						),
+						new Credit(
+							Integer.parseInt(attributes[8]),    //credit account number
+							Double.parseDouble(attributes[11])  //credit balance
+						)
+					);
+					
+					//Set customer attributes to the accounts
+					customer.getSavings().setCustomer(customer);
+					customer.getChecking().setCustomer(customer);
+					customer.getCredit().setCustomer(customer);
+					
+					//Save Customer into hash map
+					customerFromName.put(attributes[0] + " " + attributes[1], customer);
+				}
+				//File was process successfully
+				valid = true;
 				
-				//Set customer attributes to the accounts
-				customer.getSavings().setCustomer(customer);
-				customer.getChecking().setCustomer(customer);
-				customer.getCredit().setCustomer(customer);
-				
-				//Save Customer into hash map
-				customerFromName.put(attributes[0] + " " + attributes[1], customer);
+			} catch (FileNotFoundException e) {
+				System.out.println("file not found please try again");
 			}
-			
-		} catch (FileNotFoundException e) {
-			System.out.println("file not found please try again");
-		}
+		}while(!valid);
+		
+		
 		
 		// add all the accounts to their specific hash map
 		for(Customer customer : customerFromName.values()){

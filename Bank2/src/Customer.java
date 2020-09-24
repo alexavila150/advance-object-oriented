@@ -1,7 +1,3 @@
-import com.sun.istack.internal.NotNull;
-
-import javax.print.DocFlavor;
-
 /**
  * @author Alex Avila
  */
@@ -118,9 +114,23 @@ public class Customer extends Person{
 		return true;
 	}
 	
+	/**
+	 * transfer money from this customer's checking account and sends it to the dest customer checking
+	 * account
+	 * @param dest Destination account that money will be going to
+	 * @param amount Amount of money that is going to be transfer
+	 * @return
+	 */
 	public boolean transfer(Customer dest, double amount){
 		//get checking account from customer
 		return transfer(checking, dest.getChecking(), amount);
+	}
+	
+	public String toCsvLine(){
+		return firstName + "," + lastName + "," + dob + "," + id + "," +
+			address + "," + phone + "," + checking.getNumber() + "," + savings.getNumber() + "," +
+			credit.getNumber() + "," + checking.getBalance() + "," + savings.getBalance() + "," +
+			credit.getBalance();
 	}
 	
 	@Override

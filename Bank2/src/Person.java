@@ -5,8 +5,19 @@ public abstract class Person {
 	protected String address;
 	protected String phone;
 	
+	/**
+	 * Default constructor
+	 */
 	public Person(){}
 	
+	/**
+	 * Abstract class that has all the attributes of a person
+	 * @param firstName First name of the person
+	 * @param lastName Last name of the person
+	 * @param dob Date of birth of the person
+	 * @param address Address of the person contains exact location as String
+	 * @param phone Phone number of the person store as a string.
+	 */
 	public Person(String firstName, String lastName, String dob, String address, String phone){
 		this.firstName = firstName;
 		this.lastName = lastName;
