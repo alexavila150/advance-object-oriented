@@ -172,11 +172,12 @@ public class RunBank {
 		//Write to output file at the end of the program
 		try {
 			FileWriter myWriter = new FileWriter("BankOutput.csv");
-			
-			ArrayList<Customer> customers = new ArrayList<>();
-			
-			for(Customer customer : customerFromName.values()){
-				customers.add(customer);
+			myWriter.write("First Name,Last Name,Date of Birth,IdentificationNumber," +
+				"Address,Phone Number,Checking Account Number,Savings Account Number," +
+				"Checking Starting Balance,Savings Starting Balance,Credit Starting Balance\n");
+			//gets customer sorted by account number
+			for(int i = 0; i < customerFromName.size(); i++){
+				myWriter.write(checkingFromNumber.get(1000 + i).getCustomer().toCsvLine()+ "\n");
 			}
 			
 			myWriter.close();
@@ -694,7 +695,7 @@ public class RunBank {
 			// get customer from name
 			Customer customer = customerFromName.get(input);
 			System.out.println("How much money do you want to send?");
-			if(!user.transfer(customer, Double.parseDouble(scnr.nextLine()))){
+			if(!user.paySomeone(customer, Double.parseDouble(scnr.nextLine()))){
 				continue;
 			}
 			

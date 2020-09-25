@@ -121,7 +121,7 @@ public class Customer extends Person{
 	 * @param amount Amount of money that is going to be transfer
 	 * @return
 	 */
-	public boolean transfer(Customer dest, double amount){
+	public boolean paySomeone(Customer dest, double amount){
 		//get checking account from customer
 		return transfer(checking, dest.getChecking(), amount);
 	}
