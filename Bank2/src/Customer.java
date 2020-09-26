@@ -143,12 +143,12 @@ public class Customer extends Person{
 			"ID: " + id + "\n" +
 			"Checking: \n" +
 			"\tAccount Number: " + checking.getNumber() + "\n" +
-			"\tBalance: $" + checking.getBalance() + "\n" +
+			"\tBalance: $" + String.format("%.2f", checking.getBalance()) + "\n" +
 			"Saving:\n" +
 			"\tAccount Number: " + savings.getNumber() + "\n" +
-			"\tBalance: $" + savings.getBalance() + "\n" +
+			"\tBalance: $" + String.format("%.2f", savings.getBalance()) + "\n" +
 			"Credits:\n" +
 			"\tAccount Number: " + credit.getNumber() + "\n" +
-			"\tBalance: $" + credit.getBalance() + "\n";
+			"\tBalance: $" + String.format("%.2f", credit.getBalance()) + "\n";
 	}
 }

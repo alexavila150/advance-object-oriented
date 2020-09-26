@@ -9,13 +9,23 @@ import java.util.Scanner;
 
 
 public class RunBank {
+	// gets the customer instance using name as a key
 	private static HashMap<String, Customer> customerFromName;
+	
+	//gets any of the accounts from their respective number
 	private static HashMap<Integer, Checking> checkingFromNumber;
 	private static HashMap<Integer, Savings> savingsFromNumber;
 	private static HashMap<Integer, Credit> creditFromNumber;
+	
+	//Scanner of input
 	private static Scanner scnr;
+	
+	//handles the menu UI that the user will go to next
 	private static String menu;
+	
+	//the user that signs in in the sign in menu
 	private static Customer user;
+	
 	private static Account selectedAccount;
 	private static Account destAccount;
 	
