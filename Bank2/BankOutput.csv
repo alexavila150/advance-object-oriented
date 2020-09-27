@@ -1,6 +1,6 @@
 First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance
-Mickey,Mouse,"November 22 1943",000-00-0001,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1000,2000,3000,560.94,3845.93,-1549.33
-Donald,Duck,"September 5 1983",000-00-0002,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1001,2001,3001,1888.89,1731.09,-986.23
+Mickey,Mouse,"November 22 1943",000-00-0001,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1000,2000,3000,1460.94,4045.93,-1549.33
+Donald,Duck,"September 5 1983",000-00-0002,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1001,2001,3001,1688.89,1731.09,-986.23
 Minnie,Mouse,"April 9 2010",000-00-0003,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1002,2002,3002,121.36,676.12,-459.78
 Goofy,Disney,"July 2 1933",000-00-0004,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1003,2003,3003,1587.85,4811.16,-752.22
 Pluto,Disney,"July 5 1941",000-00-0005,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1004,2004,3004,547.56,2316.37,-411.84

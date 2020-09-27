@@ -3,19 +3,23 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class RunBank {
-	// gets the customer instance using name as a key
-	private static HashMap<String, Customer> customerFromName;
 	
-	//gets any of the accounts from their respective number
-	private static HashMap<Integer, Checking> checkingFromNumber;
-	private static HashMap<Integer, Savings> savingsFromNumber;
-	private static HashMap<Integer, Credit> creditFromNumber;
+	/******************************************************************************************************************
+	 *                                          Attributes
+	 * ***************************************************************************************************************/
+	
+	// gets the customer instance using name as a key
+	private static HashMap<String, Customer> namesToCustomers;
+	
+	//gets any of the accounts from their respective account number
+	private static HashMap<Integer, Checking> numbersToCheckings;
+	private static HashMap<Integer, Savings> numbersToSavings;
+	private static HashMap<Integer, Credit> numbersToCredit;
 	
 	//Scanner of input
 	private static Scanner scnr;
@@ -26,8 +30,18 @@ public class RunBank {
 	//the user that signs in in the sign in menu
 	private static Customer user;
 	
+	//account that user selects to do transactions
 	private static Account selectedAccount;
+	
+	//account that user selects to transfer money to
 	private static Account destAccount;
+	
+	//stores the log history to print it later in the log file
+	private static ArrayList<String> logMessages;
+	
+	/******************************************************************************************************************
+	 *                                              Main
+	 * ***************************************************************************************************************/
 	
 	/**
 	 * The main method ask the user for the name of the csv file where the information if coming from
@@ -36,10 +50,12 @@ public class RunBank {
 	 * @param args arguments for the main method, it is expecting none of them
 	 */
 	public static void main(String[] args){
-		customerFromName = new HashMap<>();
-		checkingFromNumber = new HashMap<>();
-		savingsFromNumber = new HashMap<>();
-		creditFromNumber = new HashMap<>();
+		//Initiate the Data Structures
+		namesToCustomers = new HashMap<>();
+		numbersToCheckings = new HashMap<>();
+		numbersToSavings = new HashMap<>();
+		numbersToCredit = new HashMap<>();
+		logMessages = new ArrayList<>();
 		
 		//Welcome message
 		System.out.println("Welcome to DisneyBank");
@@ -90,7 +106,7 @@ public class RunBank {
 					customer.getCredit().setCustomer(customer);
 					
 					//Save Customer into hash map
-					customerFromName.put(attributes[0] + " " + attributes[1], customer);
+					namesToCustomers.put(attributes[0] + " " + attributes[1], customer);
 				}
 				//File was process successfully
 				valid = true;
@@ -103,10 +119,10 @@ public class RunBank {
 		
 		
 		// add all the accounts to their specific hash map
-		for(Customer customer : customerFromName.values()){
-			checkingFromNumber.put(customer.getChecking().getNumber(), customer.getChecking());
-			savingsFromNumber.put(customer.getSavings().getNumber(), customer.getSavings());
-			creditFromNumber.put(customer.getCredit().getNumber(), customer.getCredit());
+		for(Customer customer : namesToCustomers.values()){
+			numbersToCheckings.put(customer.getChecking().getNumber(), customer.getChecking());
+			numbersToSavings.put(customer.getSavings().getNumber(), customer.getSavings());
+			numbersToCredit.put(customer.getCredit().getNumber(), customer.getCredit());
 		}
 		
 		// ask user to sign
@@ -182,17 +198,25 @@ public class RunBank {
 		//Write to output file at the end of the program
 		try {
 			FileWriter myWriter = new FileWriter("BankOutput.csv");
+			
+			//First line of the output file
 			myWriter.write("First Name,Last Name,Date of Birth,IdentificationNumber," +
 				"Address,Phone Number,Checking Account Number,Savings Account Number," +
 				"Checking Starting Balance,Savings Starting Balance,Credit Starting Balance\n");
+			
 			//gets customer sorted by account number
-			for(int i = 0; i < customerFromName.size(); i++){
-				myWriter.write(checkingFromNumber.get(1000 + i).getCustomer().toCsvLine()+ "\n");
+			for(int i = 0; i < namesToCustomers.size(); i++){
+				myWriter.write(numbersToCheckings.get(1000 + i).getCustomer().toCsvLine()+ "\n");
 			}
 			
 			myWriter.close();
 		} catch (IOException e) {
 			System.out.println("An error occurred.");
+		}
+		
+		//Write log file
+		for(String message : logMessages){
+			System.out.println(message);
 		}
 	}
 	
@@ -203,8 +227,8 @@ public class RunBank {
 		boolean valid = false;
 		//Ask to sign in as a manager or customer until the user enters a correct input
 		do{
-			System.out.println("Sign in as:");
-			System.out.println("\n\tA) Manager");
+			System.out.println("Sign in as:\n");
+			System.out.println("\tA) Manager");
 			System.out.println("\tB) Customer");
 			System.out.println("\tC) Exit\n");
 			
@@ -272,18 +296,19 @@ public class RunBank {
 	private static void askForAccountName(){
 		boolean valid = false;
 		do{
-			System.out.println("Who's account would you like to inquire about");
+			System.out.println("Who's account would you like to inquire about?");
 			String input = scnr.nextLine();
 			
 			//Check if name is valid
-			if(!customerFromName.keySet().contains(input)){
+			if(!namesToCustomers.keySet().contains(input)){
 				System.out.println("Customer does not exist please try again.");
 				continue;
 			}
 			
 			//find costumer by name
-			Customer customer = customerFromName.get(input);
+			Customer customer = namesToCustomers.get(input);
 			
+			//Inquire customer's information
 			System.out.println(customer);
 			menu = "manager";
 			valid = true;
@@ -331,14 +356,16 @@ public class RunBank {
 			int input = Integer.parseInt(scnr.nextLine());
 			
 			//check if input is valid
-			if(!checkingFromNumber.keySet().contains(input)){
+			if(!numbersToCheckings.keySet().contains(input)){
 				System.out.println("not a valid account number please try again");
 				continue;
 			}
 			
 			//Get account
-			Checking checking = checkingFromNumber.get(input);
+			Checking checking = numbersToCheckings.get(input);
 			Customer customer = checking.customer;
+			
+			//Inquire customer's information
 			System.out.println(customer);
 			menu = "manager";
 			valid = true;
@@ -355,15 +382,17 @@ public class RunBank {
 			int input = Integer.parseInt(scnr.nextLine());
 			
 			//check if input is valid
-			if(!savingsFromNumber.keySet().contains(input)){
+			if(!numbersToSavings.keySet().contains(input)){
 				System.out.println("not a valid account number please try again");
 				continue;
 			}
 			
 			//get account
-			Savings savings = savingsFromNumber.get(input);
+			Savings savings = numbersToSavings.get(input);
 			System.out.println("savings: " + savings.getBalance());
 			Customer customer = savings.getCustomer();
+			
+			//Inquire customer's information
 			System.out.println(customer);
 			menu = "manager";
 			valid = true;
@@ -380,14 +409,16 @@ public class RunBank {
 			int input = Integer.parseInt(scnr.nextLine());
 			
 			//check if input is valid
-			if(!creditFromNumber.keySet().contains(input)){
+			if(!numbersToCredit.keySet().contains(input)){
 				System.out.println("not a valid account number please try again");
 				continue;
 			}
 			
 			//Get account
-			Credit credit = creditFromNumber.get(input);
+			Credit credit = numbersToCredit.get(input);
 			Customer customer = credit.getCustomer();
+			
+			//Inquire customer's information
 			System.out.println(customer);
 			menu = "manager";
 			valid = true;
@@ -409,13 +440,13 @@ public class RunBank {
 			String input = scnr.nextLine();
 			
 			//check if name is in the information
-			if(!customerFromName.keySet().contains(input)){
+			if(!namesToCustomers.keySet().contains(input)){
 				System.out.println("Name not found. Please try again");
 				continue;
 			}
 			
-			//Print customer
-			user = customerFromName.get(input);
+			//Print customer's information
+			user = namesToCustomers.get(input);
 			System.out.println("Welcome " + user.firstName + " " + user.lastName);
 			System.out.println(user);
 			menu = "customerMenu";
@@ -429,18 +460,24 @@ public class RunBank {
 	private static void customerMenu(){
 		boolean valid = false;
 		do{
-			System.out.println("What would you like to do?");
-			System.out.println("\n\tA. Inquire");
+			System.out.println("What would you like to do?\n");
+			System.out.println("\tA. Inquire");
 			System.out.println("\tB. Deposit");
 			System.out.println("\tC. Withdraw");
 			System.out.println("\tD. Transfer money");
-			System.out.println("\tE. Send Money");
-			System.out.println("\tF. Sign in page");
+			System.out.println("\tE. Send Money to another person");
+			System.out.println("\tF. Sign in page\n");
 			
 			switch (scnr.nextLine()) {
 				case "A":
 					System.out.println(user);
 					valid = true;
+					
+					// Log message
+					logMessages.add(user.getFullName() + " made a balance inquire. Checking: $" +
+						String.format("%.2f", user.getChecking().getBalance()) + " Savings: $" +
+						String.format("%.2f", user.getSavings().getBalance()) + " Credit: $" +
+						String.format("%.2f", user.getCredit().getBalance()));
 					break;
 				case "B":
 					menu = "deposit";
@@ -478,10 +515,10 @@ public class RunBank {
 	private static void deposit(){
 		boolean valid = false;
 		do{
-			System.out.println("Choose account to deposit your money");
-			System.out.println("\n\tA. Checking");
+			System.out.println("Choose account to deposit your money\n");
+			System.out.println("\tA. Checking");
 			System.out.println("\tB. Savings");
-			System.out.println("\tC. Credit");
+			System.out.println("\tC. Credit\n");
 			
 			switch (scnr.nextLine()){
 				case "A":
@@ -500,7 +537,7 @@ public class RunBank {
 					valid = true;
 					break;
 				default:
-					System.out.println("not an option pleas try again");
+					System.out.println("not an option please try again");
 			}
 		}while(!valid);
 	}
@@ -517,9 +554,18 @@ public class RunBank {
 			if(selectedAccount.deposit(input)){
 				valid = true;
 				menu = "customerMenu";
-				continue;
+				
+				//Message to user
+				System.out.println("Successfully deposited $" + String.format("%.2f", input) +
+					" to " + selectedAccount.getClass().getName());
+				
+				//Log message
+				logMessages.add(user.getFullName() + " deposited $" + String.format("%.2f", input) +
+					" on " + selectedAccount.getClass().getName() + "-" + selectedAccount.number + ". New balance: 4" +
+					String.format("%.2f", selectedAccount.balance));
+			}else{
+				System.out.println("too many funds try again");
 			}
-			System.out.println("too many funds try again");
 		}while (!valid);
 	}
 	
@@ -534,9 +580,9 @@ public class RunBank {
 	private static void withdraw(){
 		boolean valid = false;
 		do{
-			System.out.println("Choose account to withdraw money from");
-			System.out.println("\n\tA. Checking");
-			System.out.println("\tB. Savings");
+			System.out.println("Choose account to withdraw money from\n");
+			System.out.println("\tA. Checking");
+			System.out.println("\tB. Savings\n");
 			
 			switch (scnr.nextLine()){
 				case "A":
@@ -569,6 +615,15 @@ public class RunBank {
 			if(selectedAccount.withdraw(input)){
 				valid = true;
 				menu = "customerMenu";
+				
+				//User message
+				System.out.println("Successfully withdrew $" + String.format("%.2f", input) +
+					" from " + selectedAccount.getClass().getName());
+				
+				//Log message
+				logMessages.add(user.getFullName() + " withdrew $" + String.format("%.2f", input) +
+					" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
+					". New balance: 4" + String.format("%.2f", selectedAccount.balance));
 				continue;
 			}
 			System.out.println("not enough funds to withdraw please try again");
@@ -616,9 +671,9 @@ public class RunBank {
 	private static void checkingAskDestAccount(){
 		boolean valid;
 		do{
-			System.out.println("What account do you want to transfer to?");
-			System.out.println("\n\t A. Savings");
-			System.out.println("\t B. Credit");
+			System.out.println("What account do you want to transfer to?\n");
+			System.out.println("\t A. Savings");
+			System.out.println("\t B. Credit\n");
 			
 			switch (scnr.nextLine()){
 				case "A":
@@ -645,9 +700,9 @@ public class RunBank {
 	private static void savingsAskDestAccount(){
 		boolean valid;
 		do{
-			System.out.println("What account do you want to transfer to?");
-			System.out.println("\n\t A. Checking");
-			System.out.println("\t B. Credit");
+			System.out.println("What account do you want to transfer to?\n");
+			System.out.println("\t A. Checking");
+			System.out.println("\t B. Credit\n");
 			
 			switch (scnr.nextLine()){
 				case "A":
@@ -697,13 +752,13 @@ public class RunBank {
 			System.out.println("Who would you like to send money to?");
 			
 			String input = scnr.nextLine();
-			if(!customerFromName.keySet().contains(input)){
+			if(!namesToCustomers.keySet().contains(input)){
 				System.out.println("name not found please try again");
 				continue;
 			}
 			
 			// get customer from name
-			Customer customer = customerFromName.get(input);
+			Customer customer = namesToCustomers.get(input);
 			System.out.println("How much money do you want to send?");
 			if(!user.paySomeone(customer, Double.parseDouble(scnr.nextLine()))){
 				continue;
