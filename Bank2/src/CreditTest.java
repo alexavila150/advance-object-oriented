@@ -34,7 +34,6 @@ public class CreditTest {
 	
 	@Test
 	public void withdraw() {
-		assertTrue(credit1.withdraw(100.50));
-		assertEquals(-1001, credit1.getBalance(), 0.01);
+		assertFalse(credit1.withdraw(100.50));
 	}
 }

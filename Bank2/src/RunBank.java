@@ -9,9 +9,9 @@ import java.util.Scanner;
 
 public class RunBank {
 	
-	/******************************************************************************************************************
-	 *                                          Attributes
-	 * ***************************************************************************************************************/
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Attributes
+	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	// gets the customer instance using name as a key
 	private static HashMap<String, Customer> namesToCustomers;
@@ -39,9 +39,9 @@ public class RunBank {
 	//stores the log history to print it later in the log file
 	private static ArrayList<String> logMessages;
 	
-	/******************************************************************************************************************
-	 *                                              Main
-	 * ***************************************************************************************************************/
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Main
+	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	/**
 	 * The main method ask the user for the name of the csv file where the information if coming from
@@ -252,9 +252,9 @@ public class RunBank {
 		}while(!valid);
 	}
 	
-	/******************************************************************************************************************
-	 *                                          Manager
-	 * ***************************************************************************************************************/
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Manager
+	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	/**
 	 * Ask user if he wants to look for a customer by either using their name or one of their account
@@ -425,9 +425,9 @@ public class RunBank {
 		}while(!valid);
 	}
 	
-	/******************************************************************************************************************
-	 *                                          Customer
-	 * ***************************************************************************************************************/
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Deposit
+	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	/**
 	 * If user want to sign in as a customer then this menu will ask the user to enter their name to
@@ -447,7 +447,7 @@ public class RunBank {
 			
 			//Print customer's information
 			user = namesToCustomers.get(input);
-			System.out.println("Welcome " + user.firstName + " " + user.lastName);
+			System.out.println("Welcome " + user.getFullName());
 			System.out.println(user);
 			menu = "customerMenu";
 			valid = true;
@@ -505,9 +505,9 @@ public class RunBank {
 		}while(!valid);
 	}
 	
-	/******************************************************************************************************************
-	 *                                          Deposit
-	 * ***************************************************************************************************************/
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Deposit
+	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	/**
 	 *  Ask the user to choose for any of their three account to deposit money into
@@ -569,9 +569,9 @@ public class RunBank {
 		}while (!valid);
 	}
 	
-	/******************************************************************************************************************
-	 *                                          Withdraw
-	 * ***************************************************************************************************************/
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Withdraw
+	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	/**
 	 * Asks user to select an account to withdraw from either checking or savings since user cannot
@@ -630,9 +630,9 @@ public class RunBank {
 		}while (!valid);
 	}
 	
-	/******************************************************************************************************************
-	 *                                          Transfer
-	 * ***************************************************************************************************************/
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Transfer
+	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	/**
 	 * Asks the user what account the user wants to use to transfer to another account
@@ -640,9 +640,9 @@ public class RunBank {
 	private static void transferMoney(){
 		boolean valid;
 		do{
-			System.out.println("Choose account to transfer money from");
-			System.out.println("\n\tA. Checking");
-			System.out.println("\tB. Savings");
+			System.out.println("Choose account to transfer money from\n");
+			System.out.println("\tA. Checking");
+			System.out.println("\tB. Savings\n");
 			
 			//Check if input is valid
 			switch (scnr.nextLine()){
@@ -701,8 +701,8 @@ public class RunBank {
 		boolean valid;
 		do{
 			System.out.println("What account do you want to transfer to?\n");
-			System.out.println("\t A. Checking");
-			System.out.println("\t B. Credit\n");
+			System.out.println("\tA. Checking");
+			System.out.println("\tB. Credit\n");
 			
 			switch (scnr.nextLine()){
 				case "A":
@@ -725,22 +725,37 @@ public class RunBank {
 	/**
 	 * For for the amount the user wants to send from the selected account to the destination account
 	 */
-	public static void askTransferAmount(){
+	private static void askTransferAmount(){
 		boolean valid = false;
 		do{
 			System.out.println("How much money do you want to transfer?");
-			if(user.transfer(selectedAccount, destAccount, Double.parseDouble(scnr.nextLine()))){
+			double input = Double.parseDouble(scnr.nextLine());
+			if(user.transfer(selectedAccount, destAccount, input)){
 				valid = true;
 				menu = "customerMenu";
+				
+				//User message
+				System.out.println("Successfully transferred $" + String.format("%.2f", input) +
+					" from " + selectedAccount.getClass().getName() + " to " +
+					destAccount.getClass().getName());
+				
+				//Log message
+				logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", input) +
+					" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
+					" to " + destAccount.getClass().getName() + "-" + destAccount.number +
+					". " + selectedAccount.getClass().getName() + " balance: $" +
+					String.format("%.2f", selectedAccount.balance) + ". " +
+					destAccount.getClass().getName() + "-" + destAccount.number + " balance: $" +
+					String.format("%.2f", destAccount.balance));
 			}else{
 				System.out.println("Not a valid amount please try again.");
 			}
 		}while(!valid);
 	}
 	
-	/******************************************************************************************************************
-	 *                                          Send Money
-	 * ***************************************************************************************************************/
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Send Money
+	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	/**
 	 * After the user says they want to send money this menu asks the signed in customer for the
@@ -751,21 +766,33 @@ public class RunBank {
 		do{
 			System.out.println("Who would you like to send money to?");
 			
-			String input = scnr.nextLine();
-			if(!namesToCustomers.keySet().contains(input)){
+			String name = scnr.nextLine();
+			if(!namesToCustomers.keySet().contains(name)){
 				System.out.println("name not found please try again");
 				continue;
 			}
 			
 			// get customer from name
-			Customer customer = namesToCustomers.get(input);
+			Customer customer = namesToCustomers.get(name);
 			System.out.println("How much money do you want to send?");
-			if(!user.paySomeone(customer, Double.parseDouble(scnr.nextLine()))){
+			double amount = Double.parseDouble(scnr.nextLine());
+			if(!user.paySomeone(customer, amount)){
 				continue;
 			}
 			
 			menu = "customerMenu";
 			valid = true;
+			
+			//User message
+			System.out.println("Successfully transferred $" + String.format("%.2f", amount) +
+				" to " + selectedAccount.getCustomer().getFullName());
+			
+			//Log message
+			logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", amount) +
+				" to " + customer.getFullName() + ". Checking-" + user.getChecking().getNumber() + " balance: $" +
+				String.format("%.2f", user.getChecking().getBalance())
+			);
+			
 		}while(!valid);
 	}
 }

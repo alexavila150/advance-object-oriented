@@ -140,4 +140,12 @@ public class CustomerTest {
 			customer1.getChecking().getBalance(),
 			0.001);
 	}
+	
+	@Test
+	public void transfer4() {
+		assertTrue(customer1.getChecking().deposit(1000));
+		assertEquals(1960.94, customer1.getChecking().getBalance(), 0.001);
+		assertFalse(customer1.transfer(customer1.getChecking(), customer1.getCredit(), 1600));
+		assertFalse(customer2.transfer(customer2.getSavings(), customer2.getCredit(), 1000));
+	}
 }

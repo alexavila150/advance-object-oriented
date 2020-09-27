@@ -1,5 +1,7 @@
 /**
  * @author Alex Avila
+ * @version 1.0
+ * @since 9/27/2020
  */
 public class Customer extends Person{
 	private String id;
@@ -86,31 +88,25 @@ public class Customer extends Person{
 	 *                                          Transfers
 	 * ***************************************************************************************************************/
 	
-	public boolean transfer(Account source, Account dest, double amount){
-		if(!source.withdraw(amount)){
-			return false;
-		}
-		
-		dest.deposit(amount);
-		return true;
-	}
-	
 	/**
-	 * @param source Savings account instance that the money will transfer to dest
-	 * @param dest Credit account that will be paid using the source account
-	 * @param amount the amount of money transferred from one account to the other
-	 * @return returns true is transaction was a success and false is transaction failed
+	 * Transfers money determined by amount from source to dest account
+	 * @param source Account where money is coming from to pay the destination account
+	 * @param dest Account where money if going to from the source account
+	 * @param amount the amount of money that is being transfer between both accounts
+	 * @return returns true if the transaction was successful and false otherwise
 	 */
-	public boolean transfer(Account source, Credit dest, double amount){
-		if(dest.getBalance() > -(amount)){
-			return false;
-		}
-		
+	public boolean transfer(Account source, Account dest, double amount){
+		//if there are not enough funds return false
 		if(!source.withdraw(amount)){
 			return false;
 		}
 		
-		dest.deposit(amount);
+		//if cannot deposit then deposit back to source and return false
+		if(!dest.deposit(amount)){
+			source.deposit(amount);
+			return false;
+		}
+		
 		return true;
 	}
 	
@@ -126,6 +122,10 @@ public class Customer extends Person{
 		return transfer(checking, dest.getChecking(), amount);
 	}
 	
+	/**
+	 * Formats the user information into csv style
+	 * @return String with the Customers information formatted to be a line of the CSV file
+	 */
 	public String toCsvLine(){
 		return firstName + "," + lastName + "," + dob + "," + id + "," +
 			address + "," + phone + "," + checking.getNumber() + "," + savings.getNumber() + "," +
@@ -133,6 +133,10 @@ public class Customer extends Person{
 			credit.getBalance();
 	}
 	
+	/**
+	 * converts information of the Customer into a formatted String
+	 * @return returns a String with all the Customer's information
+	 */
 	@Override
 	public String toString() {
 		return "Costumer Information:\n" +
