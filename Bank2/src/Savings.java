@@ -1,6 +1,9 @@
 public class Savings extends Account {
 	private double interestRate;
 	
+	/**
+	 * Default Constructor
+	 */
 	public Savings(){}
 	
 	/**

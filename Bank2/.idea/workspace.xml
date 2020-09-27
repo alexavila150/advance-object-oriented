@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0640903e-10ad-4867-b130-30ce09e54fbd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BankOutput.csv" beforeDir="false" afterPath="$PROJECT_DIR$/BankOutput.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Credit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Credit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreditTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreditTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RunBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunBank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SavingsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Savings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Savings.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,7 +21,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Checking.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="-105">
               <caret column="16" selection-start-column="16" selection-end-column="16" />
             </state>
           </provider>
@@ -39,20 +36,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Customer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
+            <state relative-caret-position="1071">
               <caret line="137" column="67" selection-start-line="137" selection-start-column="67" selection-end-line="137" selection-end-column="67" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Credit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="42" column="7" lean-forward="true" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
+            <state relative-caret-position="192">
+              <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
               <folding>
                 <element signature="e#68#69#0" expanded="true" />
                 <element signature="e#82#83#0" expanded="true" />
@@ -87,15 +84,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/transactions.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CreditTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="375">
@@ -120,7 +108,18 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Savings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-360" />
+            <state relative-caret-position="24">
+              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/SavingsTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1056">
+              <caret line="48" column="9" lean-forward="true" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -162,7 +161,6 @@
         <option value="$PROJECT_DIR$/src/ATMTest.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/ATM.java" />
-        <option value="$PROJECT_DIR$/src/Savings.java" />
         <option value="$PROJECT_DIR$/src/Checking.java" />
         <option value="$PROJECT_DIR$/src/Account.java" />
         <option value="$PROJECT_DIR$/src/Person.java" />
@@ -171,6 +169,8 @@
         <option value="$PROJECT_DIR$/src/CreditTest.java" />
         <option value="$PROJECT_DIR$/src/Credit.java" />
         <option value="$PROJECT_DIR$/src/Customer.java" />
+        <option value="$PROJECT_DIR$/src/Savings.java" />
+        <option value="$PROJECT_DIR$/src/SavingsTest.java" />
       </list>
     </option>
   </component>
@@ -223,6 +223,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="true" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
@@ -246,7 +247,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RunBank">
+  <component name="RunManager" selected="JUnit.All in Bank2">
     <configuration name="RunBank" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="RunBank" />
       <module name="Bank2" />
@@ -293,8 +294,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RunBank" />
         <item itemvalue="JUnit.All in Bank2" />
+        <item itemvalue="Application.RunBank" />
         <item itemvalue="JUnit.CustomerTest.transfer4" />
         <item itemvalue="JUnit.CustomerTest.transfer1" />
         <item itemvalue="JUnit.ATMTest" />
@@ -315,21 +316,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_Bank2 - 2020.09.27 at 14h 01m 40s.xml">
-      <configuration name="All in Bank2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Bank2 - 2020.09.27 at 14h 08m 37s.xml">
-      <configuration name="All in Bank2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Bank2 - 2020.09.27 at 14h 14m 31s.xml">
-      <configuration name="All in Bank2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Bank2 - 2020.09.27 at 14h 21m 49s.xml">
-      <configuration name="All in Bank2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_Bank2 - 2020.09.27 at 14h 31m 00s.xml">
-      <configuration name="All in Bank2" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="All_in_Bank2 - 2020.09.27 at 14h 35m 01s.xml">
       <configuration name="All in Bank2" configurationId="JUnit" />
     </history-entry>
@@ -345,12 +331,27 @@
     <history-entry file="All_in_Bank2 - 2020.09.27 at 14h 41m 07s.xml">
       <configuration name="All in Bank2" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="All_in_Bank2 - 2020.09.27 at 15h 08m 49s.xml">
+      <configuration name="All in Bank2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Bank2 - 2020.09.27 at 15h 10m 37s.xml">
+      <configuration name="All in Bank2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Bank2 - 2020.09.27 at 15h 10m 54s.xml">
+      <configuration name="All in Bank2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Bank2 - 2020.09.27 at 15h 11m 29s.xml">
+      <configuration name="All in Bank2" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_Bank2 - 2020.09.27 at 15h 12m 04s.xml">
+      <configuration name="All in Bank2" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-7" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10660981" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10660981" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -359,7 +360,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4989339" weight="0.32998884" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4946695" visible="true" weight="0.29988852" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4946695" visible="true" weight="0.29988852" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -458,33 +459,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Credit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="42" column="7" lean-forward="true" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
-          <folding>
-            <element signature="e#68#69#0" expanded="true" />
-            <element signature="e#82#83#0" expanded="true" />
-            <element signature="e#165#166#0" expanded="true" />
-            <element signature="e#194#195#0" expanded="true" />
-            <element signature="e#1142#1143#0" expanded="true" />
-            <element signature="e#1161#1162#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Checking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="16" selection-start-column="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Savings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Account.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -503,6 +477,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/CustomerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Customer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="137" column="67" selection-start-line="137" selection-start-column="67" selection-end-line="137" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/RunBank.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-328">
@@ -513,17 +501,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CustomerTest.java">
+    <entry file="file://$PROJECT_DIR$/src/Savings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="8" />
+        <state relative-caret-position="24">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Customer.java">
+    <entry file="file://$PROJECT_DIR$/src/SavingsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="137" column="67" selection-start-line="137" selection-start-column="67" selection-end-line="137" selection-end-column="67" />
+        <state relative-caret-position="1056">
+          <caret line="48" column="9" lean-forward="true" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Checking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-105">
+          <caret column="16" selection-start-column="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Credit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+          <folding>
+            <element signature="e#68#69#0" expanded="true" />
+            <element signature="e#82#83#0" expanded="true" />
+            <element signature="e#165#166#0" expanded="true" />
+            <element signature="e#194#195#0" expanded="true" />
+            <element signature="e#1142#1143#0" expanded="true" />
+            <element signature="e#1161#1162#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
