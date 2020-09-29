@@ -1,3 +1,10 @@
+/**
+ * @author Alex Avila
+ * @version 1.0
+ * @since 9/28/20
+ * <p>
+ * A type of account where the user cannot withdraw and only can deposit until dept is pay off
+ */
 public class Credit extends Account{
 	/**
 	 * Default constructor

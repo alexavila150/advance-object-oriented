@@ -5,8 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CreditTest {
-	Credit credit1;
-	Credit credit2;
+	private Credit credit1;
 	
 	@Before
 	public void setUp() throws Exception {

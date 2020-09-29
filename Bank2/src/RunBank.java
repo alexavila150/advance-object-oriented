@@ -6,7 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-
+/**
+ * @author Alex Avila
+ * @version 1.0
+ * @since 9/28/20
+ * <p>
+ * Main class which handles all the messages and menu UI. It reads the file with information and
+ * creates the update information file as well as the transaction log file
+ */
 public class RunBank {
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -215,8 +222,20 @@ public class RunBank {
 		}
 		
 		//Write log file
-		for(String message : logMessages){
-			System.out.println(message);
+		try {
+			FileWriter myWriter = new FileWriter("transactions.txt");
+			
+			//First line of the output file
+			myWriter.write("Disney Bank transaction file\n");
+			
+			//gets customer sorted by account number
+			for(String message : logMessages){
+				myWriter.write(message + "\n");
+			}
+			
+			myWriter.close();
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
 		}
 	}
 	
@@ -550,7 +569,15 @@ public class RunBank {
 		do{
 			System.out.println("How much money do you want to deposit?");
 			
-			double input = Double.parseDouble(scnr.nextLine());
+			//Check if amount if double
+			double input;
+			try{
+				input = Double.parseDouble(scnr.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Please insert a number");
+				continue;
+			}
+			
 			if(selectedAccount.deposit(input)){
 				valid = true;
 				menu = "customerMenu";
@@ -611,7 +638,14 @@ public class RunBank {
 		do{
 			System.out.println("How much money do you want to withdraw?");
 			
-			double input = Double.parseDouble(scnr.nextLine());
+			//Check if input is a double
+			double input;
+			try{
+				input = Double.parseDouble(scnr.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Please insert a number");
+				continue;
+			}
 			if(selectedAccount.withdraw(input)){
 				valid = true;
 				menu = "customerMenu";
@@ -729,7 +763,13 @@ public class RunBank {
 		boolean valid = false;
 		do{
 			System.out.println("How much money do you want to transfer?");
-			double input = Double.parseDouble(scnr.nextLine());
+			double input;
+			try{
+				input = Double.parseDouble(scnr.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Please insert a number");
+				continue;
+			}
 			if(user.transfer(selectedAccount, destAccount, input)){
 				valid = true;
 				menu = "customerMenu";
@@ -767,7 +807,7 @@ public class RunBank {
 			System.out.println("Who would you like to send money to?");
 			
 			String name = scnr.nextLine();
-			if(!namesToCustomers.keySet().contains(name)){
+			if(!namesToCustomers.keySet().contains(name) || name.equals(user.getFullName())){
 				System.out.println("name not found please try again");
 				continue;
 			}
@@ -775,8 +815,17 @@ public class RunBank {
 			// get customer from name
 			Customer customer = namesToCustomers.get(name);
 			System.out.println("How much money do you want to send?");
-			double amount = Double.parseDouble(scnr.nextLine());
+			
+			double amount;
+			try{
+				amount = Double.parseDouble(scnr.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Please insert a number");
+				continue;
+			}
+			
 			if(!user.paySomeone(customer, amount)){
+				System.out.println("Not enough funds please try again");
 				continue;
 			}
 			
@@ -785,7 +834,7 @@ public class RunBank {
 			
 			//User message
 			System.out.println("Successfully transferred $" + String.format("%.2f", amount) +
-				" to " + selectedAccount.getCustomer().getFullName());
+				" to " + customer.getFullName());
 			
 			//Log message
 			logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", amount) +

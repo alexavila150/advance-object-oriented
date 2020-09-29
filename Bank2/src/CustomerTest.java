@@ -148,4 +148,25 @@ public class CustomerTest {
 		assertFalse(customer1.transfer(customer1.getChecking(), customer1.getCredit(), 1600));
 		assertFalse(customer2.transfer(customer2.getSavings(), customer2.getCredit(), 1000));
 	}
+	
+	@Test
+	public void paySomeone1(){
+		assertTrue(customer1.paySomeone(customer2, 100));
+		assertEquals(860.94, customer1.getChecking().getBalance(), 0.001);
+		assertEquals(1788.89, customer2.getChecking().getBalance(), 0.001);
+	}
+	
+	@Test
+	public void paySomeone2(){
+		assertTrue(customer2.paySomeone(customer1, 1600.50));
+		assertEquals(2561.44, customer1.getChecking().getBalance(), 0.001);
+		assertEquals(88.39, customer2.getChecking().getBalance(), 0.001);
+	}
+	
+	@Test
+	public void paySomeone3(){
+		assertFalse(customer1.paySomeone(customer2, 1000.50));
+		assertEquals(960.94, customer1.getChecking().getBalance(), 0.001);
+		assertEquals(1688.89, customer2.getChecking().getBalance(), 0.001);
+	}
 }

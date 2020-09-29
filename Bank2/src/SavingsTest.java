@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SavingsTest {
-	Savings savings;
+	private Savings savings;
 	
 	@Before
 	public void setUp() throws Exception {
