@@ -117,7 +117,7 @@ public class Customer extends Person{
 	 * account
 	 * @param dest Destination account that money will be going to
 	 * @param amount Amount of money that is going to be transfer
-	 * @return
+	 * @return returns true if transaction was successful and false otherwise.
 	 */
 	public boolean paySomeone(Customer dest, double amount){
 		//get checking account from customer

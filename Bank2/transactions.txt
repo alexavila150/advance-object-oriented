@@ -1,7 +1,4 @@
 Disney Bank transaction file
-Mickey Mouse transferred $20.00 to Minnie Mouse. Checking-1000 balance: $940.94
-Mickey Mouse made a balance inquire. Checking: $940.94 Savings: $3845.93 Credit: $-1549.33
-Mickey Mouse deposited $5000.00 on Checking-1000. New balance: 45940.94
-Mickey Mouse made a balance inquire. Checking: $5940.94 Savings: $3845.93 Credit: $-1549.33
-Mickey Mouse withdrew $3000.00 from Savings-2000. New balance: 4845.93
-Mickey Mouse transferred $3000.00 to Donald Duck. Checking-1000 balance: $2940.94
+Mickey Mouse deposited $1000.00 on Checking-1000. New balance: 41960.94
+Mickey Mouse transferred $500.00 to Donald Duck. Checking-1000 balance: $1460.94
+Donald Duck withdrew $250.00 from Checking-1001. New balance: 41938.89
