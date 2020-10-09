@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -74,12 +75,34 @@ public class RunBank {
 			scnr = new Scanner(System.in);
 			File infoFile = new File(System.getProperty("user.dir") + "\\" + scnr.nextLine());
 			
+			System.out.println("Before try");
 			//Read file
 			try {
 				Scanner fileScnr = new Scanner(infoFile);
+				String[] columnTitles = fileScnr.nextLine().split(",");
 				
-				//For every line make a new Custumer Account instance
-				fileScnr.nextLine(); //Ignores first line
+				//Makes a respective index for each of the titles
+				HashMap<String, Integer> titleToExpectedIndex = new HashMap<>();
+				titleToExpectedIndex.put("First Name", 0);
+				titleToExpectedIndex.put("Last Name", 1);
+				titleToExpectedIndex.put("Date of Birth", 2);
+				titleToExpectedIndex.put("Address", 3);
+				titleToExpectedIndex.put("Phone Number", 4);
+				titleToExpectedIndex.put("Identification Number", 5);
+				titleToExpectedIndex.put("Checking Account Number", 6);
+				titleToExpectedIndex.put("Checking Starting Balance", 7);
+				titleToExpectedIndex.put("Savings Account Number", 8);
+				titleToExpectedIndex.put("Savings Starting Balance", 9);
+				titleToExpectedIndex.put("Credit Account Number", 10);
+				titleToExpectedIndex.put("Credit Starting Balance", 11);
+				titleToExpectedIndex.put("Credit Max", 12);
+				
+				int[] indexMapping = new int[13];
+				for(int i = 0; i < 13; i++){
+					indexMapping[titleToExpectedIndex.get(columnTitles[i])] = i;
+				}
+				
+				//For every line make a new Customer Account instance
 				while(fileScnr.hasNextLine()){
 					String line = fileScnr.nextLine();
 					line = line.replace(", "," ");
@@ -87,24 +110,19 @@ public class RunBank {
 					
 					// create customer from csv information
 					Customer customer = new Customer(
-						attributes[0],                          //firstName
-						attributes[1],                          //lastName
-						attributes[2],                          //dob
-						attributes[4],                          //address
-						attributes[5],                          //phone
-						attributes[3],                          //id
-						new Checking(
-							Integer.parseInt(attributes[6]),    //checking account number
-							Double.parseDouble(attributes[9])   //checking balance
-						),
-						new Savings(
-							Integer.parseInt(attributes[7]),    //savings account number
-							Double.parseDouble(attributes[10])  //savings balance
-						),
-						new Credit(
-							Integer.parseInt(attributes[8]),    //credit account number
-							Double.parseDouble(attributes[11])  //credit balance
-						)
+						attributes[indexMapping[0]],                          //firstName
+						attributes[indexMapping[1]],                          //lastName
+						attributes[indexMapping[2]],                          //dob
+						attributes[indexMapping[3]],                          //address
+						attributes[indexMapping[4]],                          //phone
+						attributes[indexMapping[5]],                          //id
+						Integer.parseInt(attributes[indexMapping[6]]),        //checking account number
+						Double.parseDouble(attributes[indexMapping[7]]),      //checking balance
+						Integer.parseInt(attributes[indexMapping[8]]),        //savings account number
+						Double.parseDouble(attributes[indexMapping[9]]),     //savings balance
+						Integer.parseInt(attributes[indexMapping[10]]),        //credit account number
+						Double.parseDouble(attributes[indexMapping[11]]),     //credit balance
+						Integer.parseInt(attributes[indexMapping[12]])
 					);
 					
 					//Set customer attributes to the accounts
@@ -113,7 +131,7 @@ public class RunBank {
 					customer.getCredit().setCustomer(customer);
 					
 					//Save Customer into hash map
-					namesToCustomers.put(attributes[0] + " " + attributes[1], customer);
+					namesToCustomers.put(attributes[indexMapping[0]] + " " + attributes[indexMapping[1]], customer);
 				}
 				//File was process successfully
 				valid = true;

@@ -1,4 +1,3 @@
 Disney Bank transaction file
-Mickey Mouse deposited $1000.00 on Checking-1000. New balance: 41960.94
-Mickey Mouse transferred $500.00 to Donald Duck. Checking-1000 balance: $1460.94
-Donald Duck withdrew $250.00 from Checking-1001. New balance: 41938.89
+Mickey Mouse made a balance inquire. Checking: $403.12 Savings: $4479.46 Credit: $-1653.84
+Alex Avila deposited $500.50 on Checking-1037. New balance: 4585.59

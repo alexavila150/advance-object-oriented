@@ -44,7 +44,38 @@ public class Customer extends Person{
 		this.credit = credit;
 	}
 	
-	
+	public Customer(
+		String firstName,
+		String lastName,
+		String dob,
+		String address,
+		String phone,
+		String id,
+		int checkingAccountNumber,
+		double checkingAmount,
+		int savingsAccountNumber,
+		double savingsAmount,
+		int creditAccountNumber,
+		double creditAmount,
+		int maxCredit
+	)
+	{
+		super(firstName, lastName, dob, address, phone);
+		this.id = id;
+		this.checking = new Checking(
+			checkingAccountNumber,
+			checkingAmount
+		);
+		this.savings = new Savings(
+			savingsAccountNumber,
+			savingsAmount
+		);
+		this.credit = new Credit(
+			creditAccountNumber,
+			creditAmount,
+			maxCredit
+		);
+	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
 	                                            Getters

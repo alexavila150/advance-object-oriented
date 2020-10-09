@@ -6,6 +6,8 @@
  * A type of account where the user cannot withdraw and only can deposit until dept is pay off
  */
 public class Credit extends Account{
+	private int maxCredit;
+	
 	/**
 	 * Default constructor
 	 */
@@ -20,6 +22,17 @@ public class Credit extends Account{
 	 */
 	public Credit(int number, double balance){
 		super(number, balance);
+	}
+	
+	/**
+	 * This constructor accepts all the attributes used in PA3
+	 * @param number Account number of the credit card. Always starts with digit 3
+	 * @param balance current balance of the credit card which is negative because it is dept
+	 * @param maxCredit the limit of money that the user can borrow.
+	 */
+	public Credit(int number, double balance, int maxCredit){
+		super(number, balance);
+		this.maxCredit = maxCredit;
 	}
 	
 	/**
