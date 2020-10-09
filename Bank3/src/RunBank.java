@@ -141,8 +141,6 @@ public class RunBank {
 			}
 		}while(!valid);
 		
-		
-		
 		// add all the accounts to their specific hash map
 		for(Customer customer : namesToCustomers.values()){
 			numbersToCheckings.put(customer.getChecking().getNumber(), customer.getChecking());
@@ -227,7 +225,7 @@ public class RunBank {
 			//First line of the output file
 			myWriter.write("First Name,Last Name,Date of Birth,IdentificationNumber," +
 				"Address,Phone Number,Checking Account Number,Savings Account Number," +
-				"Checking Starting Balance,Savings Starting Balance,Credit Starting Balance\n");
+				"Checking Starting Balance,Savings Starting Balance,Credit Starting Balance,Max Credit\n");
 			
 			//gets customer sorted by account number
 			for(int i = 0; i < namesToCustomers.size(); i++){
@@ -261,32 +259,29 @@ public class RunBank {
 	 * Asks the user if they want to sign in as a Customer or as a Manager
 	 */
 	private static void userTypeMenu(){
-		boolean valid = false;
-		//Ask to sign in as a manager or customer until the user enters a correct input
-		do{
-			System.out.println("Sign in as:\n");
-			System.out.println("\tA) Manager");
-			System.out.println("\tB) Customer");
-			System.out.println("\tC) Exit\n");
-			
-			switch (scnr.nextLine()){
-				case "A":
-					System.out.println("You signed in as a manager");
-					valid = true;
-					menu = "manager";
-					break;
-				case "B":
-					valid = true;
-					menu = "customerSignIn";
-					break;
-				case "C":
-					valid = true;
-					menu = "done";
-					break;
-				default:
-					System.out.println("not an option please try again");
-			}
-		}while(!valid);
+		System.out.println("Sign in as:\n");
+		System.out.println("\tA) Manager");
+		System.out.println("\tB) Customer");
+		System.out.println("\tC) Create new customer");
+		System.out.println("\tD) Exit\n");
+		
+		switch (scnr.nextLine()){
+			case "A":
+				System.out.println("You signed in as a manager");
+				menu = "manager";
+				return;
+			case "B":
+				menu = "customerSignIn";
+				return;
+			case "C":
+				menu = "createNewCustomer";
+				return;
+			case "D":
+				menu = "done";
+				return;
+			default:
+				System.out.println("not an option please try again");
+		}
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -298,168 +293,137 @@ public class RunBank {
 	 * number
 	 */
 	private static void managerMenu(){
-		boolean valid;
-		do{
-			// Display Menu for the the manager
-			System.out.println("What would you like to do?\n");
-			System.out.println("\tA. Inquire account by name");
-			System.out.println("\tB. Inquire account by type/number");
-			System.out.println("\tC. Sign in page\n");
-			String input = scnr.nextLine();
-			
-			switch (input){
-				case "A":
-					menu = "askForAccountName";
-					valid = true;
-					break;
-				case "B":
-					menu = "askForAccountType";
-					valid = true;
-					break;
-				case "C":
-					menu = "userType";
-					valid = true;
-					break;
-				default:
-					valid = false;
-					System.out.println("not an option please try again");
-			}
-		}while (!valid);
+		// Display Menu for the the manager
+		System.out.println("What would you like to do?\n");
+		System.out.println("\tA. Inquire account by name");
+		System.out.println("\tB. Inquire account by type/number");
+		System.out.println("\tC. Sign in page\n");
+		String input = scnr.nextLine();
+		
+		switch (input){
+			case "A":
+				menu = "askForAccountName";
+				break;
+			case "B":
+				menu = "askForAccountType";
+				break;
+			case "C":
+				menu = "userType";
+				break;
+			default:
+				System.out.println("not an option please try again");
+		}
 	}
 	
 	/**
 	 * Ask for the name of the customer that the manager wants to inquire
 	 */
 	private static void askForAccountName(){
-		boolean valid = false;
-		do{
-			System.out.println("Who's account would you like to inquire about?");
-			String input = scnr.nextLine();
-			
-			//Check if name is valid
-			if(!namesToCustomers.keySet().contains(input)){
-				System.out.println("Customer does not exist please try again.");
-				continue;
-			}
-			
-			//find costumer by name
-			Customer customer = namesToCustomers.get(input);
-			
-			//Inquire customer's information
-			System.out.println(customer);
-			menu = "manager";
-			valid = true;
-		}while(!valid);
+		System.out.println("Who's account would you like to inquire about?");
+		String input = scnr.nextLine();
+		
+		//Check if name is valid
+		if(!namesToCustomers.keySet().contains(input)){
+			System.out.println("Customer does not exist please try again.");
+			return;
+		}
+		
+		//find costumer by name
+		Customer customer = namesToCustomers.get(input);
+		
+		//Inquire customer's information
+		System.out.println(customer);
+		menu = "manager";
 	}
 	
 	/**
 	 * Ask the manager what the account number is if they selected a checking account to look for
 	 */
 	private static void askForAccountType(){
-		boolean valid;
-		do{
-			System.out.println("What type of account?");
-			String input = scnr.nextLine();
-			
-			//Check account type
-			switch (input){
-				case "Checking":
-					menu = "askForChecking";
-					valid = true;
-					break;
-				case "Savings":
-					menu = "askForSavings";
-					valid = true;
-					break;
-				case "Credit":
-					menu = "askForCredit";
-					valid = true;
-					break;
-				default:
-					System.out.println("not valid type please try again");
-					valid = false;
-			}
-			
-		}while(!valid);
+		System.out.println("What type of account?");
+		String input = scnr.nextLine();
+		
+		//Check account type
+		switch (input){
+			case "Checking":
+				menu = "askForChecking";
+				break;
+			case "Savings":
+				menu = "askForSavings";
+				break;
+			case "Credit":
+				menu = "askForCredit";
+				break;
+			default:
+				System.out.println("not valid type please try again");
+		}
 	}
 	
 	/**
 	 * Ask the manager what the account number is if they selected a savings account to look for
 	 */
 	private static void askForChecking(){
-		boolean valid = false;
-		do{
-			System.out.println("What is the account number?");
-			int input = Integer.parseInt(scnr.nextLine());
-			
-			//check if input is valid
-			if(!numbersToCheckings.keySet().contains(input)){
-				System.out.println("not a valid account number please try again");
-				continue;
-			}
-			
-			//Get account
-			Checking checking = numbersToCheckings.get(input);
-			Customer customer = checking.customer;
-			
-			//Inquire customer's information
-			System.out.println(customer);
-			menu = "manager";
-			valid = true;
-		}while(!valid);
+		System.out.println("What is the account number?");
+		int input = Integer.parseInt(scnr.nextLine());
+		
+		//check if input is valid
+		if(!numbersToCheckings.keySet().contains(input)){
+			System.out.println("not a valid account number please try again");
+			return;
+		}
+		
+		//Get account
+		Checking checking = numbersToCheckings.get(input);
+		Customer customer = checking.customer;
+		
+		//Inquire customer's information
+		System.out.println(customer);
+		menu = "manager";
 	}
 	
 	/**
 	 * Ask the manager what the account number is if they selected a savings account to look for
 	 */
 	private static void askForSavings(){
-		boolean valid = false;
-		do{
-			System.out.println("What is the account number?");
-			int input = Integer.parseInt(scnr.nextLine());
-			
-			//check if input is valid
-			if(!numbersToSavings.keySet().contains(input)){
-				System.out.println("not a valid account number please try again");
-				continue;
-			}
-			
-			//get account
-			Savings savings = numbersToSavings.get(input);
-			System.out.println("savings: " + savings.getBalance());
-			Customer customer = savings.getCustomer();
-			
-			//Inquire customer's information
-			System.out.println(customer);
-			menu = "manager";
-			valid = true;
-		}while(!valid);
+		System.out.println("What is the account number?");
+		int input = Integer.parseInt(scnr.nextLine());
+		
+		//check if input is valid
+		if(!numbersToSavings.keySet().contains(input)){
+			System.out.println("not a valid account number please try again");
+			return;
+		}
+		
+		//get account
+		Savings savings = numbersToSavings.get(input);
+		System.out.println("savings: " + savings.getBalance());
+		Customer customer = savings.getCustomer();
+		
+		//Inquire customer's information
+		System.out.println(customer);
+		menu = "manager";
 	}
 	
 	/**
 	 * Ask the manager what the account number is if they selected a credit account to look for
 	 */
 	private static void askForCredit(){
-		boolean valid = false;
-		do{
-			System.out.println("What is the account number?");
-			int input = Integer.parseInt(scnr.nextLine());
-			
-			//check if input is valid
-			if(!numbersToCredit.keySet().contains(input)){
-				System.out.println("not a valid account number please try again");
-				continue;
-			}
-			
-			//Get account
-			Credit credit = numbersToCredit.get(input);
-			Customer customer = credit.getCustomer();
-			
-			//Inquire customer's information
-			System.out.println(customer);
-			menu = "manager";
-			valid = true;
-		}while(!valid);
+		System.out.println("What is the account number?");
+		int input = Integer.parseInt(scnr.nextLine());
+		
+		//check if input is valid
+		if(!numbersToCredit.keySet().contains(input)){
+			System.out.println("not a valid account number please try again");
+			return;
+		}
+		
+		//Get account
+		Credit credit = numbersToCredit.get(input);
+		Customer customer = credit.getCustomer();
+		
+		//Inquire customer's information
+		System.out.println(customer);
+		menu = "manager";
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -471,75 +435,62 @@ public class RunBank {
 	 * sign in
 	 */
 	private static void customerSignIn(){
-		boolean valid = false;
-		do{
-			System.out.println("What is your name?");
-			String input = scnr.nextLine();
-			
-			//check if name is in the information
-			if(!namesToCustomers.keySet().contains(input)){
-				System.out.println("Name not found. Please try again");
-				continue;
-			}
-			
-			//Print customer's information
-			user = namesToCustomers.get(input);
-			System.out.println("Welcome " + user.getFullName());
-			System.out.println(user);
-			menu = "customerMenu";
-			valid = true;
-		}while(!valid);
+		System.out.println("What is your name?");
+		String input = scnr.nextLine();
+		
+		//check if name is in the information
+		if(!namesToCustomers.keySet().contains(input)){
+			System.out.println("Name not found. Please try again");
+			return;
+		}
+		
+		//Print customer's information
+		user = namesToCustomers.get(input);
+		System.out.println("Welcome " + user.getFullName());
+		System.out.println(user);
+		menu = "customerMenu";
 	}
 	
 	/**
 	 * This is the main menu for the user with the main choices for him to do
 	 */
 	private static void customerMenu(){
-		boolean valid = false;
-		do{
-			System.out.println("What would you like to do?\n");
-			System.out.println("\tA. Inquire");
-			System.out.println("\tB. Deposit");
-			System.out.println("\tC. Withdraw");
-			System.out.println("\tD. Transfer money");
-			System.out.println("\tE. Send Money to another person");
-			System.out.println("\tF. Sign in page\n");
-			
-			switch (scnr.nextLine()) {
-				case "A":
-					System.out.println(user);
-					valid = true;
-					
-					// Log message
-					logMessages.add(user.getFullName() + " made a balance inquire. Checking: $" +
-						String.format("%.2f", user.getChecking().getBalance()) + " Savings: $" +
-						String.format("%.2f", user.getSavings().getBalance()) + " Credit: $" +
-						String.format("%.2f", user.getCredit().getBalance()));
-					break;
-				case "B":
-					menu = "deposit";
-					valid = true;
-					break;
-				case "C":
-					menu = "withdraw";
-					valid = true;
-					break;
-				case "D":
-					menu = "transferMoney";
-					valid = true;
-					break;
-				case "E":
-					menu = "sendMoney";
-					valid = true;
-					break;
-				case "F":
-					menu = "userType";
-					valid = true;
-					break;
-				default:
-					System.out.println("Not an option please try again");
-			}
-		}while(!valid);
+		System.out.println("What would you like to do?\n");
+		System.out.println("\tA. Inquire");
+		System.out.println("\tB. Deposit");
+		System.out.println("\tC. Withdraw");
+		System.out.println("\tD. Transfer money");
+		System.out.println("\tE. Send Money to another person");
+		System.out.println("\tF. Sign in page\n");
+		
+		switch (scnr.nextLine()) {
+			case "A":
+				System.out.println(user);
+				
+				// Log message
+				logMessages.add(user.getFullName() + " made a balance inquire. Checking: $" +
+					String.format("%.2f", user.getChecking().getBalance()) + " Savings: $" +
+					String.format("%.2f", user.getSavings().getBalance()) + " Credit: $" +
+					String.format("%.2f", user.getCredit().getBalance()));
+				break;
+			case "B":
+				menu = "deposit";
+				break;
+			case "C":
+				menu = "withdraw";
+				break;
+			case "D":
+				menu = "transferMoney";
+				break;
+			case "E":
+				menu = "sendMoney";
+				break;
+			case "F":
+				menu = "userType";
+				break;
+			default:
+				System.out.println("Not an option please try again");
+		}
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -550,68 +501,58 @@ public class RunBank {
 	 *  Ask the user to choose for any of their three account to deposit money into
 	 */
 	private static void deposit(){
-		boolean valid = false;
-		do{
-			System.out.println("Choose account to deposit your money\n");
-			System.out.println("\tA. Checking");
-			System.out.println("\tB. Savings");
-			System.out.println("\tC. Credit\n");
-			
-			switch (scnr.nextLine()){
-				case "A":
-					selectedAccount = user.getChecking();
-					menu = "askDepositMoney";
-					valid = true;
-					break;
-				case "B":
-					selectedAccount = user.getSavings();
-					menu = "askDepositMoney";
-					valid = true;
-					break;
-				case "C":
-					selectedAccount = user.getCredit();
-					menu = "askDepositMoney";
-					valid = true;
-					break;
-				default:
-					System.out.println("not an option please try again");
-			}
-		}while(!valid);
+		System.out.println("Choose account to deposit your money\n");
+		System.out.println("\tA. Checking");
+		System.out.println("\tB. Savings");
+		System.out.println("\tC. Credit\n");
+		
+		switch (scnr.nextLine()){
+			case "A":
+				selectedAccount = user.getChecking();
+				menu = "askDepositMoney";
+				break;
+			case "B":
+				selectedAccount = user.getSavings();
+				menu = "askDepositMoney";
+				break;
+			case "C":
+				selectedAccount = user.getCredit();
+				menu = "askDepositMoney";
+				break;
+			default:
+				System.out.println("not an option please try again");
+		}
 	}
 	
 	/**
 	 *  Ask the user for how much money they want to deposit into the previously selected account
 	 */
 	private static void askDepositMoney(){
-		boolean valid = false;
-		do{
-			System.out.println("How much money do you want to deposit?");
+		System.out.println("How much money do you want to deposit?");
+		
+		//Check if amount if double
+		double input;
+		try{
+			input = Double.parseDouble(scnr.nextLine());
+		}catch(NumberFormatException e){
+			System.out.println("Please insert a number");
+			return;
+		}
+		
+		if(selectedAccount.deposit(input)){
+			menu = "customerMenu";
 			
-			//Check if amount if double
-			double input;
-			try{
-				input = Double.parseDouble(scnr.nextLine());
-			}catch(NumberFormatException e){
-				System.out.println("Please insert a number");
-				continue;
-			}
+			//Message to user
+			System.out.println("Successfully deposited $" + String.format("%.2f", input) +
+				" to " + selectedAccount.getClass().getName());
 			
-			if(selectedAccount.deposit(input)){
-				valid = true;
-				menu = "customerMenu";
-				
-				//Message to user
-				System.out.println("Successfully deposited $" + String.format("%.2f", input) +
-					" to " + selectedAccount.getClass().getName());
-				
-				//Log message
-				logMessages.add(user.getFullName() + " deposited $" + String.format("%.2f", input) +
-					" on " + selectedAccount.getClass().getName() + "-" + selectedAccount.number + ". New balance: 4" +
-					String.format("%.2f", selectedAccount.balance));
-			}else{
-				System.out.println("too many funds try again");
-			}
-		}while (!valid);
+			//Log message
+			logMessages.add(user.getFullName() + " deposited $" + String.format("%.2f", input) +
+				" on " + selectedAccount.getClass().getName() + "-" + selectedAccount.number + ". New balance: 4" +
+				String.format("%.2f", selectedAccount.balance));
+		}else{
+			System.out.println("too many funds try again");
+		}
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -623,63 +564,53 @@ public class RunBank {
 	 * withdraw from credit
 	 */
 	private static void withdraw(){
-		boolean valid = false;
-		do{
-			System.out.println("Choose account to withdraw money from\n");
-			System.out.println("\tA. Checking");
-			System.out.println("\tB. Savings\n");
-			
-			switch (scnr.nextLine()){
-				case "A":
-					selectedAccount = user.getChecking();
-					menu = "askWithdrawMoney";
-					valid = true;
-					break;
-				case "B":
-					selectedAccount = user.getSavings();
-					menu = "askWithdrawMoney";
-					valid = true;
-					break;
-				default:
-					System.out.println("not a valid option please try again");
-					break;
-			}
-			
-		}while(!valid);
+		System.out.println("Choose account to withdraw money from\n");
+		System.out.println("\tA. Checking");
+		System.out.println("\tB. Savings\n");
+		
+		switch (scnr.nextLine()){
+			case "A":
+				selectedAccount = user.getChecking();
+				menu = "askWithdrawMoney";
+				break;
+			case "B":
+				selectedAccount = user.getSavings();
+				menu = "askWithdrawMoney";
+				break;
+			default:
+				System.out.println("not a valid option please try again");
+				break;
+		}
 	}
 	
 	/**
 	 * Ask the user for how much money they want to withdraw
 	 */
 	private static void askWithdrawMoney(){
-		boolean valid = false;
-		do{
-			System.out.println("How much money do you want to withdraw?");
+		System.out.println("How much money do you want to withdraw?");
+		
+		//Check if input is a double
+		double input;
+		try{
+			input = Double.parseDouble(scnr.nextLine());
+		}catch(NumberFormatException e){
+			System.out.println("Please insert a number");
+			return;
+		}
+		if(selectedAccount.withdraw(input)){
+			menu = "customerMenu";
 			
-			//Check if input is a double
-			double input;
-			try{
-				input = Double.parseDouble(scnr.nextLine());
-			}catch(NumberFormatException e){
-				System.out.println("Please insert a number");
-				continue;
-			}
-			if(selectedAccount.withdraw(input)){
-				valid = true;
-				menu = "customerMenu";
-				
-				//User message
-				System.out.println("Successfully withdrew $" + String.format("%.2f", input) +
-					" from " + selectedAccount.getClass().getName());
-				
-				//Log message
-				logMessages.add(user.getFullName() + " withdrew $" + String.format("%.2f", input) +
-					" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
-					". New balance: 4" + String.format("%.2f", selectedAccount.balance));
-				continue;
-			}
-			System.out.println("not enough funds to withdraw please try again");
-		}while (!valid);
+			//User message
+			System.out.println("Successfully withdrew $" + String.format("%.2f", input) +
+				" from " + selectedAccount.getClass().getName());
+			
+			//Log message
+			logMessages.add(user.getFullName() + " withdrew $" + String.format("%.2f", input) +
+				" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
+				". New balance: 4" + String.format("%.2f", selectedAccount.balance));
+			return;
+		}
+		System.out.println("not enough funds to withdraw please try again");
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -690,30 +621,24 @@ public class RunBank {
 	 * Asks the user what account the user wants to use to transfer to another account
 	 */
 	private static void transferMoney(){
-		boolean valid;
-		do{
-			System.out.println("Choose account to transfer money from\n");
-			System.out.println("\tA. Checking");
-			System.out.println("\tB. Savings\n");
-			
-			//Check if input is valid
-			switch (scnr.nextLine()){
-				case "A":
-					selectedAccount = user.getChecking();
-					menu = "checkingAskDestAccount";
-					valid = true;
-					break;
-				case "B":
-					selectedAccount = user.getSavings();
-					menu = "savingsAskDestAccount";
-					valid = true;
-					break;
-				default:
-					System.out.println("not a valid option please try again");
-					valid = false;
-					break;
-			}
-		}while(!valid);
+		System.out.println("Choose account to transfer money from\n");
+		System.out.println("\tA. Checking");
+		System.out.println("\tB. Savings\n");
+		
+		//Check if input is valid
+		switch (scnr.nextLine()){
+			case "A":
+				selectedAccount = user.getChecking();
+				menu = "checkingAskDestAccount";
+				break;
+			case "B":
+				selectedAccount = user.getSavings();
+				menu = "savingsAskDestAccount";
+				break;
+			default:
+				System.out.println("not a valid option please try again");
+				break;
+		}
 	}
 	
 	/**
@@ -721,28 +646,22 @@ public class RunBank {
 	 * money into
 	 */
 	private static void checkingAskDestAccount(){
-		boolean valid;
-		do{
-			System.out.println("What account do you want to transfer to?\n");
-			System.out.println("\t A. Savings");
-			System.out.println("\t B. Credit\n");
-			
-			switch (scnr.nextLine()){
-				case "A":
-					destAccount = user.getSavings();
-					menu = "askTransferAmount";
-					valid = true;
-					break;
-				case "B":
-					destAccount = user.getCredit();
-					menu = "askTransferAmount";
-					valid = true;
-					break;
-				default:
-					System.out.println("not an option please try again");
-					valid = false;
-			}
-		}while(!valid);
+		System.out.println("What account do you want to transfer to?\n");
+		System.out.println("\t A. Savings");
+		System.out.println("\t B. Credit\n");
+		
+		switch (scnr.nextLine()){
+			case "A":
+				destAccount = user.getSavings();
+				menu = "askTransferAmount";
+				break;
+			case "B":
+				destAccount = user.getCredit();
+				menu = "askTransferAmount";
+				break;
+			default:
+				System.out.println("not an option please try again");
+		}
 	}
 	
 	/**
@@ -750,65 +669,55 @@ public class RunBank {
 	 * money into
 	 */
 	private static void savingsAskDestAccount(){
-		boolean valid;
-		do{
-			System.out.println("What account do you want to transfer to?\n");
-			System.out.println("\tA. Checking");
-			System.out.println("\tB. Credit\n");
-			
-			switch (scnr.nextLine()){
-				case "A":
-					destAccount = user.getChecking();
-					menu = "askTransferAmount";
-					valid = true;
-					break;
-				case "B":
-					destAccount = user.getCredit();
-					menu = "askTransferAmount";
-					valid = true;
-					break;
-				default:
-					System.out.println("not an option please try again");
-					valid = false;
-			}
-		}while(!valid);
+		System.out.println("What account do you want to transfer to?\n");
+		System.out.println("\tA. Checking");
+		System.out.println("\tB. Credit\n");
+		
+		switch (scnr.nextLine()){
+			case "A":
+				destAccount = user.getChecking();
+				menu = "askTransferAmount";
+				break;
+			case "B":
+				destAccount = user.getCredit();
+				menu = "askTransferAmount";
+				break;
+			default:
+				System.out.println("not an option please try again");
+		}
 	}
 	
 	/**
 	 * For for the amount the user wants to send from the selected account to the destination account
 	 */
 	private static void askTransferAmount(){
-		boolean valid = false;
-		do{
-			System.out.println("How much money do you want to transfer?");
-			double input;
-			try{
-				input = Double.parseDouble(scnr.nextLine());
-			}catch(NumberFormatException e){
-				System.out.println("Please insert a number");
-				continue;
-			}
-			if(user.transfer(selectedAccount, destAccount, input)){
-				valid = true;
-				menu = "customerMenu";
-				
-				//User message
-				System.out.println("Successfully transferred $" + String.format("%.2f", input) +
-					" from " + selectedAccount.getClass().getName() + " to " +
-					destAccount.getClass().getName());
-				
-				//Log message
-				logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", input) +
-					" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
-					" to " + destAccount.getClass().getName() + "-" + destAccount.number +
-					". " + selectedAccount.getClass().getName() + " balance: $" +
-					String.format("%.2f", selectedAccount.balance) + ". " +
-					destAccount.getClass().getName() + "-" + destAccount.number + " balance: $" +
-					String.format("%.2f", destAccount.balance));
-			}else{
-				System.out.println("Not a valid amount please try again.");
-			}
-		}while(!valid);
+		System.out.println("How much money do you want to transfer?");
+		double input;
+		try{
+			input = Double.parseDouble(scnr.nextLine());
+		}catch(NumberFormatException e){
+			System.out.println("Please insert a number");
+			return;
+		}
+		if(user.transfer(selectedAccount, destAccount, input)){
+			menu = "customerMenu";
+			
+			//User message
+			System.out.println("Successfully transferred $" + String.format("%.2f", input) +
+				" from " + selectedAccount.getClass().getName() + " to " +
+				destAccount.getClass().getName());
+			
+			//Log message
+			logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", input) +
+				" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
+				" to " + destAccount.getClass().getName() + "-" + destAccount.number +
+				". " + selectedAccount.getClass().getName() + " balance: $" +
+				String.format("%.2f", selectedAccount.balance) + ". " +
+				destAccount.getClass().getName() + "-" + destAccount.number + " balance: $" +
+				String.format("%.2f", destAccount.balance));
+		}else{
+			System.out.println("Not a valid amount please try again.");
+		}
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -820,46 +729,49 @@ public class RunBank {
 	 * person they want to send money to and what the amount of money will be
 	 */
 	private static void sendMoney(){
-		boolean valid = false;
-		do{
-			System.out.println("Who would you like to send money to?");
-			
-			String name = scnr.nextLine();
-			if(!namesToCustomers.keySet().contains(name) || name.equals(user.getFullName())){
-				System.out.println("name not found please try again");
-				continue;
-			}
-			
-			// get customer from name
-			Customer customer = namesToCustomers.get(name);
-			System.out.println("How much money do you want to send?");
-			
-			double amount;
-			try{
-				amount = Double.parseDouble(scnr.nextLine());
-			}catch(NumberFormatException e){
-				System.out.println("Please insert a number");
-				continue;
-			}
-			
-			if(!user.paySomeone(customer, amount)){
-				System.out.println("Not enough funds please try again");
-				continue;
-			}
-			
-			menu = "customerMenu";
-			valid = true;
-			
-			//User message
-			System.out.println("Successfully transferred $" + String.format("%.2f", amount) +
-				" to " + customer.getFullName());
-			
-			//Log message
-			logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", amount) +
-				" to " + customer.getFullName() + ". Checking-" + user.getChecking().getNumber() + " balance: $" +
-				String.format("%.2f", user.getChecking().getBalance())
-			);
-			
-		}while(!valid);
+		System.out.println("Who would you like to send money to?");
+		
+		String name = scnr.nextLine();
+		if(!namesToCustomers.keySet().contains(name) || name.equals(user.getFullName())){
+			System.out.println("name not found please try again");
+			return;
+		}
+		
+		// get customer from name
+		Customer customer = namesToCustomers.get(name);
+		System.out.println("How much money do you want to send?");
+		
+		double amount;
+		try{
+			amount = Double.parseDouble(scnr.nextLine());
+		}catch(NumberFormatException e){
+			System.out.println("Please insert a number");
+			return;
+		}
+		
+		if(!user.paySomeone(customer, amount)){
+			System.out.println("Not enough funds please try again");
+			return;
+		}
+		
+		menu = "customerMenu";
+		
+		//User message
+		System.out.println("Successfully transferred $" + String.format("%.2f", amount) +
+			" to " + customer.getFullName());
+		
+		//Log message
+		logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", amount) +
+			" to " + customer.getFullName() + ". Checking-" + user.getChecking().getNumber() + " balance: $" +
+			String.format("%.2f", user.getChecking().getBalance())
+		);
+	}
+	
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Create New Customer
+	 ----------------------------------------------------------------------------------------------------------------*/
+	
+	private static void createNewCustomer(){
+		System.out.println("What is your name?");
 	}
 }

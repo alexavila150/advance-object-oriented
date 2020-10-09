@@ -1,3 +1,5 @@
 Disney Bank transaction file
-Mickey Mouse made a balance inquire. Checking: $403.12 Savings: $4479.46 Credit: $-1653.84
-Alex Avila deposited $500.50 on Checking-1037. New balance: 4585.59
+Mickey Mouse transferred $100.00 from Checking-1000 to Credit-3000. Checking balance: $303.12. Credit-3000 balance: $-1553.84
+Mickey Mouse transferred $200.00 to Alex Avila. Checking-1000 balance: $103.12
+Mickey Mouse made a balance inquire. Checking: $103.12 Savings: $4479.46 Credit: $-1553.84
+Alex Avila deposited $100.00 on Checking-1037. New balance: 4385.09

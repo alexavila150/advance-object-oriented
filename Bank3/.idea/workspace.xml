@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0640903e-10ad-4867-b130-30ce09e54fbd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Credit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Credit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunBank.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -56,10 +54,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/RunBank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="133" column="102" selection-start-line="133" selection-start-column="102" selection-end-line="133" selection-end-column="102" />
+            <state relative-caret-position="2619">
+              <caret line="394" column="9" lean-forward="true" selection-start-line="394" selection-start-column="9" selection-end-line="394" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#24791#24792#0" expanded="true" />
+                <element signature="e#24838#24839#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -77,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/transactions.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="72">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -144,6 +144,7 @@
       <find>log</find>
       <find>successfully tran</find>
       <find>Double</find>
+      <find>attributes</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -503,8 +504,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/transactions.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="72">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -567,10 +568,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/RunBank.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="133" column="102" selection-start-line="133" selection-start-column="102" selection-end-line="133" selection-end-column="102" />
+        <state relative-caret-position="2619">
+          <caret line="394" column="9" lean-forward="true" selection-start-line="394" selection-start-column="9" selection-end-line="394" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#24791#24792#0" expanded="true" />
+            <element signature="e#24838#24839#0" expanded="true" />
           </folding>
         </state>
       </provider>

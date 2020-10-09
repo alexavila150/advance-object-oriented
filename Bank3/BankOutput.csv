@@ -1,5 +1,5 @@
-First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance
-Mickey,Mouse,25-Apr-92,1,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1000,2000,3000,403.12,4479.46,-1653.84
+First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance,Max Credit
+Mickey,Mouse,25-Apr-92,1,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1000,2000,3000,103.12,4479.46,-1553.84
 Donald,Duck,7-Apr-94,2,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1001,2001,3001,1928.58,3582.37,-1513.57
 Minnie,Mouse,3-Nov-94,3,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1002,2002,3002,1894.16,327.99,-239.31
 Goofy,Disney,5-Mar-51,4,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1003,2003,3003,1456.69,884.26,-141.39
@@ -36,7 +36,7 @@ Mulan,Disney,14-Oct-79,34,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1
 Lilo,Disney,19-Jul-44,35,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1034,2034,3034,1763.47,1942.89,-1715.37
 Stitch,Disney,3-Feb-28,36,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1035,2035,3035,387.32,4919.61,-16.87
 Alberto,Miranda,5-Oct-38,37,"500 W. University Ave El Paso TX 79968",(915) 747-5000,1036,2036,3036,474.59,3710.89,-150.6
-Alex,Avila,19-Oct-65,38,"500 W. University Ave El Paso TX 79968",(915) 747-5001,1037,2037,3037,585.59,516.33,-1827.58
+Alex,Avila,19-Oct-65,38,"500 W. University Ave El Paso TX 79968",(915) 747-5001,1037,2037,3037,385.09000000000003,516.33,-1827.58
 Alfonso,Beltran,13-Mar-01,39,"500 W. University Ave El Paso TX 79968",(915) 747-5002,1038,2038,3038,474.39,3447.36,-866.29
 Alfredo,Rodriguez,14-Feb-02,40,"500 W. University Ave El Paso TX 79968",(915) 747-5003,1039,2039,3039,1772.98,3443.94,-1734.35
 Alyssandra,Cordero,30-Aug-32,41,"500 W. University Ave El Paso TX 79968",(915) 747-5004,1040,2040,3040,1169.49,1375.06,-1725.64
