@@ -1,5 +1,5 @@
 First Name,Last Name,Date of Birth,IdentificationNumber,Address,Phone Number,Checking Account Number,Savings Account Number,Checking Starting Balance,Savings Starting Balance,Credit Starting Balance,Max Credit
-Mickey,Mouse,25-Apr-92,1,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1000,2000,3000,103.12,4479.46,-1553.84
+Mickey,Mouse,25-Apr-92,1,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1000,2000,3000,403.12,4479.46,-1653.84
 Donald,Duck,7-Apr-94,2,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1001,2001,3001,1928.58,3582.37,-1513.57
 Minnie,Mouse,3-Nov-94,3,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1002,2002,3002,1894.16,327.99,-239.31
 Goofy,Disney,5-Mar-51,4,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1003,2003,3003,1456.69,884.26,-141.39
@@ -36,7 +36,7 @@ Mulan,Disney,14-Oct-79,34,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1
 Lilo,Disney,19-Jul-44,35,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1034,2034,3034,1763.47,1942.89,-1715.37
 Stitch,Disney,3-Feb-28,36,"1313 Disneyland Dr Anaheim CA 92802",(714) 781-4636,1035,2035,3035,387.32,4919.61,-16.87
 Alberto,Miranda,5-Oct-38,37,"500 W. University Ave El Paso TX 79968",(915) 747-5000,1036,2036,3036,474.59,3710.89,-150.6
-Alex,Avila,19-Oct-65,38,"500 W. University Ave El Paso TX 79968",(915) 747-5001,1037,2037,3037,385.09000000000003,516.33,-1827.58
+Alex,Avila,19-Oct-65,38,"500 W. University Ave El Paso TX 79968",(915) 747-5001,1037,2037,3037,85.09,516.33,-1827.58
 Alfonso,Beltran,13-Mar-01,39,"500 W. University Ave El Paso TX 79968",(915) 747-5002,1038,2038,3038,474.39,3447.36,-866.29
 Alfredo,Rodriguez,14-Feb-02,40,"500 W. University Ave El Paso TX 79968",(915) 747-5003,1039,2039,3039,1772.98,3443.94,-1734.35
 Alyssandra,Cordero,30-Aug-32,41,"500 W. University Ave El Paso TX 79968",(915) 747-5004,1040,2040,3040,1169.49,1375.06,-1725.64
@@ -65,40 +65,4 @@ Judith,Garcia,7-Mar-97,63,"500 W. University Ave El Paso TX 79968",(915) 747-502
 Laura,Blanco,7-Aug-04,64,"500 W. University Ave El Paso TX 79968",(915) 747-5027,1063,2063,3063,1506.74,4347.22,-1050.73
 Laurence,Labayen,11-Mar-10,65,"500 W. University Ave El Paso TX 79968",(915) 747-5028,1064,2064,3064,1079.13,4572.26,-1064.52
 Lidice,Castro Jimenez,27-Jan-84,66,"500 W. University Ave El Paso TX 79968",(915) 747-5029,1065,2065,3065,1942.67,655.67,-1930.17
-Manuel,Melendez Lujan,18-Mar-36,67,"500 W. University Ave El Paso TX 79968",(915) 747-5030,1066,2066,3066,1311.35,4334.35,-1003.98
-Manuel,Ruvalcaba,30-Dec-42,68,"500 W. University Ave El Paso TX 79968",(915) 747-5031,1067,2067,3067,870.6,1038.13,-326.57
-Mauricio,Ornelas-Gutierrez,7-Aug-36,69,"500 W. University Ave El Paso TX 79968",(915) 747-5032,1068,2068,3068,192.14,1218.43,-1129.63
-Minh,Dang,21-Dec-09,70,"500 W. University Ave El Paso TX 79968",(915) 747-5033,1069,2069,3069,623.42,1691.78,-1966.94
-Oscar,Decena,14-Nov-07,71,"500 W. University Ave El Paso TX 79968",(915) 747-5034,1070,2070,3070,1450.22,529.74,-689.71
-Robert,Evans,8-Aug-55,72,"500 W. University Ave El Paso TX 79968",(915) 747-5035,1071,2071,3071,1223.55,2907.59,-329.08
-Roberto,Carrasco,21-Oct-02,73,"500 W. University Ave El Paso TX 79968",(915) 747-5036,1072,2072,3072,1152.39,2408.91,-160.0
-Sofia,Hernandez,20-Apr-52,74,"500 W. University Ave El Paso TX 79968",(915) 747-5037,1073,2073,3073,1515.79,740.81,-1721.04
-Yulianna,Torres,20-Aug-92,75,"500 W. University Ave El Paso TX 79968",(915) 747-5038,1074,2074,3074,1035.19,3391.57,-1545.62
-Nathan,Aun,6-Aug-94,76,"500 W. University Ave El Paso TX 79968",(915) 747-5039,1075,2075,3075,1352.3,132.29,-1240.71
-Khandoker,Rahad,15-Jun-57,77,"500 W. University Ave El Paso TX 79968",(915) 747-5040,1076,2076,3076,220.57,1902.09,-157.39
-Daniel,Mejia,29-Jan-36,78,"500 W. University Ave El Paso TX 79968",(915) 747-5041,1077,2077,3077,1887.12,2051.62,-1231.96
-Daniel,A,5-Mar-39,79,"500 W. University Ave El Paso TX 79968",(915) 747-5042,1078,2078,3078,857.56,3364.79,-786.93
-Daniel,B,25-Dec-18,80,"500 W. University Ave El Paso TX 79968",(915) 747-5043,1079,2079,3079,362.4,2413.6,-1911.51
-Daniel,C,25-May-47,81,"500 W. University Ave El Paso TX 79968",(915) 747-5044,1080,2080,3080,909.74,342.74,-505.4
-Daniel,D,7-Oct-01,82,"500 W. University Ave El Paso TX 79968",(915) 747-5045,1081,2081,3081,731.6,3235.49,-883.24
-Daniel,E,17-Jun-72,83,"500 W. University Ave El Paso TX 79968",(915) 747-5046,1082,2082,3082,190.25,3689.98,-269.32
-Daniel,F,24-Mar-86,84,"500 W. University Ave El Paso TX 79968",(915) 747-5047,1083,2083,3083,214.25,1020.81,-814.22
-Daniel,G,18-Nov-77,85,"500 W. University Ave El Paso TX 79968",(915) 747-5048,1084,2084,3084,1930.6,3788.92,-1101.55
-Daniel,H,2-May-37,86,"500 W. University Ave El Paso TX 79968",(915) 747-5049,1085,2085,3085,1326.34,3465.11,-1977.56
-Daniel,I,23-Dec-35,87,"500 W. University Ave El Paso TX 79968",(915) 747-5050,1086,2086,3086,1927.47,2348.02,-1927.99
-Daniel,J,20-Oct-43,88,"500 W. University Ave El Paso TX 79968",(915) 747-5051,1087,2087,3087,1924.71,2813.64,-986.39
-Daniel,K,8-May-73,89,"500 W. University Ave El Paso TX 79968",(915) 747-5052,1088,2088,3088,1082.73,3471.09,-88.26
-Daniel,L,19-Jul-98,90,"500 W. University Ave El Paso TX 79968",(915) 747-5053,1089,2089,3089,585.99,180.84,-777.42
-Daniel,N,4-Mar-59,91,"500 W. University Ave El Paso TX 79968",(915) 747-5054,1090,2090,3090,364.34,2226.15,-1623.03
-Daniel,O,16-Sep-03,92,"500 W. University Ave El Paso TX 79968",(915) 747-5055,1091,2091,3091,1710.28,2761.08,-0.1
-Daniel,P,16-Feb-03,93,"500 W. University Ave El Paso TX 79968",(915) 747-5056,1092,2092,3092,1069.19,3519.67,-1963.63
-Daniel,Q,7-Feb-71,94,"500 W. University Ave El Paso TX 79968",(915) 747-5057,1093,2093,3093,498.13,205.32,-673.84
-Daniel,R,20-Apr-94,95,"500 W. University Ave El Paso TX 79968",(915) 747-5058,1094,2094,3094,745.03,1288.97,-1040.57
-Daniel,S,8-Jan-91,96,"500 W. University Ave El Paso TX 79968",(915) 747-5059,1095,2095,3095,1197.47,2944.12,-718.69
-Daniel,T,22-Oct-92,97,"500 W. University Ave El Paso TX 79968",(915) 747-5060,1096,2096,3096,894.63,4884.23,-828.59
-Daniel,U,27-May-88,98,"500 W. University Ave El Paso TX 79968",(915) 747-5061,1097,2097,3097,417.42,840.66,-978.33
-Daniel,V,25-Aug-06,99,"500 W. University Ave El Paso TX 79968",(915) 747-5062,1098,2098,3098,1187.71,2405.55,-1052.86
-Daniel,W,14-Jun-96,100,"500 W. University Ave El Paso TX 79968",(915) 747-5063,1099,2099,3099,1239.64,261.75,-470.23
-Daniel,X,25-Nov-84,101,"500 W. University Ave El Paso TX 79968",(915) 747-5064,1100,2100,3100,122.74,4668.29,-817.67
-Daniel,Y,12-Mar-84,102,"500 W. University Ave El Paso TX 79968",(915) 747-5065,1101,2101,3101,738.93,3810.87,-199.91
-Daniel,Z,9-Aug-56,103,"500 W. University Ave El Paso TX 79968",(915) 747-5066,1102,2102,3102,1825.29,4635.0,-649.08
+Manuel,Melendez Lujan,18-Mar-36,67,"500 W. University Ave El Paso TX 79

@@ -66,15 +66,18 @@ public class Customer extends Person{
 			checkingAccountNumber,
 			checkingAmount
 		);
+		this.checking.setCustomer(this);
 		this.savings = new Savings(
 			savingsAccountNumber,
 			savingsAmount
 		);
+		this.savings.setCustomer(this);
 		this.credit = new Credit(
 			creditAccountNumber,
 			creditAmount,
 			maxCredit
 		);
+		this.credit.setCustomer(this);
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -172,20 +175,45 @@ public class Customer extends Person{
 	 */
 	@Override
 	public String toString() {
+		//Convert Checking to String
+		String checkingString;
+		try{
+			checkingString = "Checking:\n" +
+				"\tAccount Number: " + checking.getNumber() + "\n" +
+				"\tBalance: $" + String.format("%.2f", checking.getBalance()) + "\n";
+		}catch(NullPointerException e){
+			checkingString = "";
+		}
+		
+		//Convert Savings to String
+		String savingsString;
+		try{
+			savingsString = "Savings:\n" +
+				"\tAccount Number: " + savings.getNumber() + "\n" +
+				"\tBalance: $" + String.format("%.2f", savings.getBalance()) + "\n";
+		}catch(NullPointerException e){
+			savingsString = "";
+		}
+		
+		//Convert Checking to String
+		String creditString;
+		try{
+			creditString = "Credit:\n" +
+				"\tAccount Number: " + credit.getNumber() + "\n" +
+				"\tBalance: $" + String.format("%.2f", credit.getBalance()) + "\n";
+		}catch(NullPointerException e){
+			creditString = "";
+		}
+		
+		
 		return "Costumer Information:\n" +
 			"Full Name: " + firstName + " " + lastName + "\n" +
 			"Date of birth: " + dob + "\n" +
 			"Address: " + address + "\n" +
 			"Phone: " + phone + "\n" +
 			"ID: " + id + "\n" +
-			"Checking: \n" +
-			"\tAccount Number: " + checking.getNumber() + "\n" +
-			"\tBalance: $" + String.format("%.2f", checking.getBalance()) + "\n" +
-			"Saving:\n" +
-			"\tAccount Number: " + savings.getNumber() + "\n" +
-			"\tBalance: $" + String.format("%.2f", savings.getBalance()) + "\n" +
-			"Credits:\n" +
-			"\tAccount Number: " + credit.getNumber() + "\n" +
-			"\tBalance: $" + String.format("%.2f", credit.getBalance()) + "\n";
+			checkingString +
+			savingsString +
+			creditString;
 	}
 }

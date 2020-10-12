@@ -75,7 +75,6 @@ public class RunBank {
 			scnr = new Scanner(System.in);
 			File infoFile = new File(System.getProperty("user.dir") + "\\" + scnr.nextLine());
 			
-			System.out.println("Before try");
 			//Read file
 			try {
 				Scanner fileScnr = new Scanner(infoFile);
@@ -124,11 +123,6 @@ public class RunBank {
 						Double.parseDouble(attributes[indexMapping[11]]),     //credit balance
 						Integer.parseInt(attributes[indexMapping[12]])
 					);
-					
-					//Set customer attributes to the accounts
-					customer.getSavings().setCustomer(customer);
-					customer.getChecking().setCustomer(customer);
-					customer.getCredit().setCustomer(customer);
 					
 					//Save Customer into hash map
 					namesToCustomers.put(attributes[indexMapping[0]] + " " + attributes[indexMapping[1]], customer);
@@ -210,6 +204,9 @@ public class RunBank {
 					break;
 				case "sendMoney":
 					sendMoney();
+					break;
+				case "createNewCustomer":
+					createNewCustomer();
 					break;
 				case "done":
 					System.out.println("Thank you for coming!");
@@ -772,6 +769,94 @@ public class RunBank {
 	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	private static void createNewCustomer(){
-		System.out.println("What is your name?");
+		//Read name
+		System.out.println("Enter your information below");
+		System.out.print("First Name: ");
+		String firstName = scnr.nextLine();
+		System.out.print("Last Name: ");
+		String lastName = scnr.nextLine();
+		
+		
+		//If name already exist then come back
+		if(namesToCustomers.containsKey(firstName + " " + lastName)){
+			System.out.println("Name already exist please try again.");
+			return;
+		}
+		
+		System.out.print("Date of Birth: ");
+		String dob = scnr.nextLine();
+		
+		System.out.print("Address: ");
+		String address = scnr.nextLine();
+		
+		System.out.print("Phone Number: ");
+		String phone = scnr.nextLine();
+		
+		//Create ID
+		int id = namesToCustomers.size() + 1;
+		
+		Savings savings = new Savings(id + 1999, 0);
+		numbersToSavings.put(savings.getNumber(), savings);
+		System.out.println("Congrats " + firstName + " " + lastName + " your account was successfully created\n" +
+			"We have created a Savings account for you with the id " + (id + 1999));
+		
+		Checking checking = null;
+		boolean validInput = false;
+		while(!validInput){
+			System.out.println("Do you want to create a Checking account?\n");
+			System.out.println("\tA) yes");
+			System.out.println("\tB) no\n");
+			
+			String input = scnr.nextLine();
+			switch (input){
+				case "A":
+					checking = new Checking(999 + id, 0);
+					numbersToCheckings.put(checking.getNumber(), checking);
+					validInput = true;
+					break;
+				case "B":
+					validInput = true;
+					break;
+				default:
+					System.out.println("not a valid option please try again.");
+			}
+		}
+		
+		Credit credit = null;
+		validInput = false;
+		while(!validInput){
+			System.out.println("Do you want to create a Credit account?\n");
+			System.out.println("\tA) yes");
+			System.out.println("\tB) no\n");
+			
+			String input = scnr.nextLine();
+			switch (input){
+				case "A":
+					credit = new Credit(2999 + id, 0, 5000); //TODO: make max random
+					numbersToCredit.put(credit.getNumber(), credit);
+					validInput = true;
+					break;
+				case "B":
+					validInput = true;
+					break;
+				default:
+					System.out.println("not a valid option please try again.");
+			}
+		}
+		
+		Customer customer = new Customer(
+			firstName,
+			lastName,
+			dob,
+			address,
+			phone,
+			Integer.toString(id),
+			checking,
+			savings,
+			credit
+		);
+		
+		namesToCustomers.put(firstName + " " + lastName, customer);
+		menu = "userType";
 	}
 }
