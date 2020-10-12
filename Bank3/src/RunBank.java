@@ -224,9 +224,9 @@ public class RunBank {
 				"Address,Phone Number,Checking Account Number,Savings Account Number," +
 				"Checking Starting Balance,Savings Starting Balance,Credit Starting Balance,Max Credit\n");
 			
-			//gets customer sorted by account number
-			for(int i = 0; i < namesToCustomers.size(); i++){
-				myWriter.write(numbersToCheckings.get(1000 + i).getCustomer().toCsvLine()+ "\n");
+			// Write all customers
+			for(Customer customer : namesToCustomers.values()){
+				myWriter.write(customer.toCsvLine() + "\n");
 			}
 			
 			myWriter.close();

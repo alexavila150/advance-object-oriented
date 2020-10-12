@@ -163,10 +163,32 @@ public class Customer extends Person{
 	 * @return String with the Customers information formatted to be a line of the CSV file
 	 */
 	public String toCsvLine(){
+		
+		String checkingNumber = "";
+		String checkingBalance = "";
+		if(checking != null){
+			checkingNumber = checking.getNumber() + "";
+			checkingBalance = checking.getBalance() + "";
+		}
+		
+		String savingsNumber = "";
+		String savingsBalance = "";
+		if(savings != null){
+			savingsNumber =  savings.getNumber() + "";
+			savingsBalance = savings.getBalance() + "";
+		}
+		
+		String creditNumber = "";
+		String creditBalance = "";
+		if(credit != null){
+			creditNumber =  credit.getNumber() + "";
+			creditBalance = credit.getBalance() + "";
+		}
+		
 		return firstName + "," + lastName + "," + dob + "," + id + "," +
-			address + "," + phone + "," + checking.getNumber() + "," + savings.getNumber() + "," +
-			credit.getNumber() + "," + checking.getBalance() + "," + savings.getBalance() + "," +
-			credit.getBalance();
+			address + "," + phone + "," + checkingNumber + "," + savingsNumber + "," +
+			creditNumber + "," + checkingBalance + "," + savingsBalance + "," +
+			creditBalance;
 	}
 	
 	/**
