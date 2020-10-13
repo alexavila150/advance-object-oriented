@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CheckingTest {
 	private Checking checking;
@@ -18,37 +19,47 @@ public class CheckingTest {
 	
 	@Test
 	public void deposit1() {
-		assertTrue(checking.deposit(100));
+		checking.deposit(100);
 		assertEquals(460.24, checking.getBalance(), 0.001);
 	}
 	
 	@Test
 	public void deposit2() {
-		assertTrue(checking.deposit(10.50));
+		checking.deposit(10.50);
 		assertEquals(370.74, checking.getBalance(), 0.001);
 	}
 	
 	@Test
 	public void deposit3() {
-		assertFalse(checking.deposit(-50));
-		assertEquals(360.24, checking.getBalance(), 0.001);
+		try{
+			checking.deposit(-50);
+		}catch (RuntimeException e){
+			assertEquals(360.24, checking.getBalance(), 0.001);
+		}
 	}
 	
 	@Test
 	public void withdraw1() {
-		assertTrue(checking.withdraw(60));
+		checking.withdraw(60);
 		assertEquals(300.24, checking.getBalance(), 0.001);
 	}
 	
 	@Test
 	public void withdraw2() {
-		assertFalse(checking.withdraw(-100));
-		assertEquals(360.24, checking.getBalance(), 0.001);
+		try{
+			checking.withdraw(-100);
+		}catch (RuntimeException e){
+			assertEquals(360.24, checking.getBalance(), 0.001);
+		}
 	}
 	
 	@Test
 	public void withdraw3() {
-		assertFalse(checking.withdraw(500));
-		assertEquals(360.24, checking.getBalance(), 0.001);
+		try{
+			checking.withdraw(500);
+		}catch (RuntimeException e){
+			assertEquals(360.24, checking.getBalance(), 0.001);
+		}
+		
 	}
 }

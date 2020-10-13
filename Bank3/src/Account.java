@@ -65,35 +65,45 @@ public abstract class Account {
 	/**
 	 * Puts money into the account and it could be as much as the user wants
 	 * @param amount the amount of money the user wants to deposit into the account
-	 * @return returns true if transaction was successful, returns false otherwise
 	 */
-	public boolean deposit(double amount){
+	public void deposit(double amount)throws RuntimeException{
 		// no negative deposits
 		if(amount < 0){
-			return false;
+			throw new RuntimeException("No negative numbers accepted");
 		}
+		
 		balance += amount;
-		return true;
 	}
 	
 	/**
 	 * Takes out money from this account if amount is not bigger than current balance
 	 * @param amount the amount of money the user wants to withdraw cannot be more than balance
-	 * @return returns true if transaction was successful, returns false otherwise
 	 */
-	public boolean withdraw(double amount){
+	public void withdraw(double amount) throws RuntimeException{
 		// no negative deposits
 		if(amount < 0){
-			return false;
+			throw new RuntimeException("No negative numbers accepted");
 		}
 		
 		//not enough balance to withdraw
 		if(amount > balance){
-			return false;
+			throw new RuntimeException("Not enough funds to withdraw");
 		}
 		
+		//withdraw amount from the balance
 		balance -= amount;
-		return true;
 	}
 	
+	public void transfer(Account account, double amount) throws RuntimeException{
+		//Grab money from this account
+		this.withdraw(amount);
+		
+		//Deposit the money into the other account
+		try{
+			account.deposit(amount);
+		}catch(RuntimeException e){
+			this.deposit(amount);
+			throw e;
+		}
+	}
 }

@@ -38,31 +38,29 @@ public class Credit extends Account{
 	/**
 	 * Does deposit to credit if it is successful then return false
 	 * @param amount the amount of money the user wants to deposit into the account
-	 * @return returns true is deposit was successful and false otherwise
 	 */
 	@Override
-	public boolean deposit(double amount){
+	public void deposit(double amount) throws RuntimeException{
 		// not negative amount allowed
 		if(amount < 0){
-			return false;
+			throw new RuntimeException("No negative numbers allowed");
 		}
 		
 		// cannot pay more than debt
 		if(balance + amount > 0){
-			return false;
+			throw new RuntimeException("Cannot pay more than debt");
 		}
 		
+		// deposit money
 		balance += amount;
-		return true;
 	}
 	
 	/**
 	 * Cannot withdraw from credit card
 	 * @param amount the amount of money the user wants to withdraw cannot be more than balance
-	 * @return returns false because cannot withdraw from credit card
 	 */
 	@Override
-	public boolean withdraw(double amount){
-		return false;
+	public void withdraw(double amount){
+		throw new RuntimeException("No withdraw allowed from credit account");
 	}
 }

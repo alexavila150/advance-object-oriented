@@ -129,21 +129,9 @@ public class Customer extends Person{
 	 * @param source Account where money is coming from to pay the destination account
 	 * @param dest Account where money if going to from the source account
 	 * @param amount the amount of money that is being transfer between both accounts
-	 * @return returns true if the transaction was successful and false otherwise
 	 */
-	public boolean transfer(Account source, Account dest, double amount){
-		//if there are not enough funds return false
-		if(!source.withdraw(amount)){
-			return false;
-		}
-		
-		//if cannot deposit then deposit back to source and return false
-		if(!dest.deposit(amount)){
-			source.deposit(amount);
-			return false;
-		}
-		
-		return true;
+	public void transfer(Account source, Account dest, double amount) throws RuntimeException{
+		source.transfer(dest, amount);
 	}
 	
 	/**
@@ -151,11 +139,10 @@ public class Customer extends Person{
 	 * account
 	 * @param dest Destination account that money will be going to
 	 * @param amount Amount of money that is going to be transfer
-	 * @return returns true if transaction was successful and false otherwise.
 	 */
-	public boolean paySomeone(Customer dest, double amount){
+	public void paySomeone(Customer dest, double amount) throws RuntimeException{
 		//get checking account from customer
-		return transfer(checking, dest.getChecking(), amount);
+		transfer(checking, dest.getChecking(), amount);
 	}
 	
 	/**

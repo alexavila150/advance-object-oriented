@@ -208,6 +208,9 @@ public class RunBank {
 				case "createNewCustomer":
 					createNewCustomer();
 					break;
+				case "transactionReader":
+					transactionReader();
+					break;
 				case "done":
 					System.out.println("Thank you for coming!");
 					running = false;
@@ -259,8 +262,9 @@ public class RunBank {
 		System.out.println("Sign in as:\n");
 		System.out.println("\tA) Manager");
 		System.out.println("\tB) Customer");
-		System.out.println("\tC) Create new customer");
-		System.out.println("\tD) Exit\n");
+		System.out.println("\tC) Transaction Reader");
+		System.out.println("\tD) Create new customer");
+		System.out.println("\tE) Exit\n");
 		
 		switch (scnr.nextLine()){
 			case "A":
@@ -271,9 +275,12 @@ public class RunBank {
 				menu = "customerSignIn";
 				return;
 			case "C":
-				menu = "createNewCustomer";
+				menu = "transactionReader";
 				return;
 			case "D":
+				menu = "createNewCustomer";
+				return;
+			case "E":
 				menu = "done";
 				return;
 			default:
@@ -536,7 +543,8 @@ public class RunBank {
 			return;
 		}
 		
-		if(selectedAccount.deposit(input)){
+		try{
+			selectedAccount.deposit(input);
 			menu = "customerMenu";
 			
 			//Message to user
@@ -547,8 +555,8 @@ public class RunBank {
 			logMessages.add(user.getFullName() + " deposited $" + String.format("%.2f", input) +
 				" on " + selectedAccount.getClass().getName() + "-" + selectedAccount.number + ". New balance: 4" +
 				String.format("%.2f", selectedAccount.balance));
-		}else{
-			System.out.println("too many funds try again");
+		}catch (RuntimeException e){
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -594,7 +602,9 @@ public class RunBank {
 			System.out.println("Please insert a number");
 			return;
 		}
-		if(selectedAccount.withdraw(input)){
+		
+		try {
+			selectedAccount.withdraw(input);
 			menu = "customerMenu";
 			
 			//User message
@@ -605,9 +615,10 @@ public class RunBank {
 			logMessages.add(user.getFullName() + " withdrew $" + String.format("%.2f", input) +
 				" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
 				". New balance: 4" + String.format("%.2f", selectedAccount.balance));
-			return;
+			
+		}catch (RuntimeException e){
+			System.out.println(e.getMessage());
 		}
-		System.out.println("not enough funds to withdraw please try again");
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -696,7 +707,9 @@ public class RunBank {
 			System.out.println("Please insert a number");
 			return;
 		}
-		if(user.transfer(selectedAccount, destAccount, input)){
+		
+		try{
+			user.transfer(selectedAccount, destAccount, input);
 			menu = "customerMenu";
 			
 			//User message
@@ -712,8 +725,8 @@ public class RunBank {
 				String.format("%.2f", selectedAccount.balance) + ". " +
 				destAccount.getClass().getName() + "-" + destAccount.number + " balance: $" +
 				String.format("%.2f", destAccount.balance));
-		}else{
-			System.out.println("Not a valid amount please try again.");
+		}catch (RuntimeException e){
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -746,22 +759,22 @@ public class RunBank {
 			return;
 		}
 		
-		if(!user.paySomeone(customer, amount)){
-			System.out.println("Not enough funds please try again");
-			return;
+		try{
+			user.paySomeone(customer, amount);
+			menu = "customerMenu";
+			
+			//User message
+			System.out.println("Successfully transferred $" + String.format("%.2f", amount) +
+				" to " + customer.getFullName());
+			
+			//Log message
+			logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", amount) +
+				" to " + customer.getFullName() + ". Checking-" + user.getChecking().getNumber() + " balance: $" +
+				String.format("%.2f", user.getChecking().getBalance())
+			);
+		}catch(RuntimeException e){
+			System.out.println(e.getMessage());
 		}
-		
-		menu = "customerMenu";
-		
-		//User message
-		System.out.println("Successfully transferred $" + String.format("%.2f", amount) +
-			" to " + customer.getFullName());
-		
-		//Log message
-		logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", amount) +
-			" to " + customer.getFullName() + ". Checking-" + user.getChecking().getNumber() + " balance: $" +
-			String.format("%.2f", user.getChecking().getBalance())
-		);
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
@@ -858,5 +871,103 @@ public class RunBank {
 		
 		namesToCustomers.put(firstName + " " + lastName, customer);
 		menu = "userType";
+	}
+	
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            Transaction File
+	 ----------------------------------------------------------------------------------------------------------------*/
+	
+	private static void transactionReader(){
+		System.out.print("Enter file name: ");
+		File transactionFile = new File(System.getProperty("user.dir") + "\\" + scnr.nextLine());
+		Scanner fileScnr;
+		try{
+			fileScnr = new Scanner(transactionFile);
+		}catch (FileNotFoundException e){
+			System.out.println("file not found please try again");
+			return;
+		}
+		
+		fileScnr.nextLine();
+		while(fileScnr.hasNextLine()){
+			String[] actions = fileScnr.nextLine().split(",");
+			System.out.println(actions[3]);
+			
+			switch (actions[3]){
+				case "pays":
+					pays(actions);
+					break;
+				case "transfers":
+					transfers(actions);
+					break;
+				case "inquires":
+					inquires(actions);
+					break;
+				case "withdraws":
+					withdraws(actions);
+					break;
+				case "deposits":
+					deposits(actions);
+					break;
+			}
+		}
+	}
+	
+	private static void pays(String[] actions){
+		//Find source user
+		Customer srcCustomer = namesToCustomers.get(actions[0] + " " + actions[1]);
+		
+		//Find Account
+		Account srcAccount;
+		switch (actions[2]){
+			case "Credit":
+				srcAccount = srcCustomer.getCredit();
+				break;
+			case "Checking":
+				srcAccount = srcCustomer.getChecking();
+				break;
+			case "Savings":
+				srcAccount = srcCustomer.getSavings();
+				break;
+			default:
+				return;
+		}
+		
+		//Find dest user
+		Customer destCustomer = namesToCustomers.get(actions[4] + " " + actions[5]);
+		
+		//Find Account
+		Account destAccount;
+		switch (actions[2]){
+			case "Credit":
+				destAccount = destCustomer.getCredit();
+				break;
+			case "Checking":
+				destAccount = destCustomer.getChecking();
+				break;
+			case "Savings":
+				destAccount = destCustomer.getSavings();
+				break;
+			default:
+				return;
+		}
+		
+		
+	}
+	
+	private static void transfers(String[] actions){
+	
+	}
+	
+	private static void inquires(String[] actions){
+	
+	}
+	
+	private static void withdraws(String[] actions){
+	
+	}
+	
+	private static void deposits(String[] actions){
+	
 	}
 }
