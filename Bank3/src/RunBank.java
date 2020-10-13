@@ -891,7 +891,6 @@ public class RunBank {
 		fileScnr.nextLine();
 		while(fileScnr.hasNextLine()){
 			String[] actions = fileScnr.nextLine().split(",");
-			System.out.println(actions[3]);
 			
 			switch (actions[3]){
 				case "pays":
@@ -911,6 +910,8 @@ public class RunBank {
 					break;
 			}
 		}
+		
+		menu = "userType";
 	}
 	
 	private static void pays(String[] actions){
@@ -952,22 +953,81 @@ public class RunBank {
 				return;
 		}
 		
-		
+		try{
+			srcAccount.transfer(destAccount, Double.parseDouble(actions[7]));
+		}catch(RuntimeException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private static void transfers(String[] actions){
-	
+		//Find source user
+		Customer srcCustomer = namesToCustomers.get(actions[0] + " " + actions[1]);
+		
+		//Find dest user
+		Customer destCustomer = namesToCustomers.get(actions[4] + " " + actions[5]);
+		
+		try{
+			srcCustomer.paySomeone(destCustomer, Double.parseDouble(actions[7]));
+		}catch (NumberFormatException e){
+			System.out.println("Please enter a number");
+		} catch (RuntimeException e){
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	private static void inquires(String[] actions){
-	
+		//Find customer
+		Customer customer = namesToCustomers.get(actions[0] + " " + actions[1]);
+		System.out.println(customer);
 	}
 	
 	private static void withdraws(String[] actions){
-	
+		Customer customer = namesToCustomers.get(actions[0] + " " + actions[1]);
+		Account account = null;
+		switch (actions[2]){
+			case "Savings":
+				account = customer.getSavings();
+				break;
+			case "Checking":
+				account = customer.getChecking();
+				break;
+			case "Credit":
+				account = customer.getCredit();
+				break;
+			default:
+		}
+		
+		try{
+			account.withdraw(Double.parseDouble(actions[7]));
+		}catch (NullPointerException e){
+			System.out.println("not a valid instruction");
+		}catch (RuntimeException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private static void deposits(String[] actions){
-	
+		Customer customer = namesToCustomers.get(actions[4] + " " + actions[5]);
+		Account account = null;
+		switch (actions[6]){
+			case "Savings":
+				account = customer.getSavings();
+				break;
+			case "Checking":
+				account = customer.getChecking();
+				break;
+			case "Credit":
+				account = customer.getCredit();
+				break;
+			default:
+		}
+		
+		try{
+			account.deposit(Double.parseDouble(actions[7]));
+		}catch (NullPointerException e){
+			System.out.println("not a valid instruction");
+		}
 	}
 }
