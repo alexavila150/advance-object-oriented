@@ -917,45 +917,15 @@ public class RunBank {
 	}
 	
 	private static void pays(String[] actions){
-		//Find source user
-		Customer srcCustomer = namesToCustomers.get(actions[0] + " " + actions[1]);
-		
-		//Find Account
-		Account srcAccount;
-		switch (actions[2]){
-			case "Credit":
-				srcAccount = srcCustomer.getCredit();
-				break;
-			case "Checking":
-				srcAccount = srcCustomer.getChecking();
-				break;
-			case "Savings":
-				srcAccount = srcCustomer.getSavings();
-				break;
-			default:
-				return;
-		}
-		
-		//Find dest user
-		Customer destCustomer = namesToCustomers.get(actions[4] + " " + actions[5]);
-		
-		//Find Account
-		Account destAccount;
-		switch (actions[6]){
-			case "Credit":
-				destAccount = destCustomer.getCredit();
-				break;
-			case "Checking":
-				destAccount = destCustomer.getChecking();
-				break;
-			case "Savings":
-				destAccount = destCustomer.getSavings();
-				break;
-			default:
-				return;
-		}
-		
 		try{
+			//Find source user and account
+			Customer srcCustomer = namesToCustomers.get(actions[0] + " " + actions[1]);
+			Account srcAccount = srcCustomer.getAccountByType(actions[2]);
+			
+			//Find dest user and account
+			Customer destCustomer = namesToCustomers.get(actions[4] + " " + actions[5]);
+			Account destAccount = destCustomer.getAccountByType(actions[6]);
+			
 			srcAccount.transfer(destAccount, Double.parseDouble(actions[7]));
 			//Log message
 			logMessages.add(srcCustomer.getFullName() + " transferred $" +
@@ -971,46 +941,16 @@ public class RunBank {
 	}
 	
 	private static void transfers(String[] actions){
-		//Find source user
-		Customer srcCustomer = namesToCustomers.get(actions[0] + " " + actions[1]);
-		
-		//Find Account
-		Account srcAccount;
-		switch (actions[2]){
-			case "Credit":
-				srcAccount = srcCustomer.getCredit();
-				break;
-			case "Checking":
-				srcAccount = srcCustomer.getChecking();
-				break;
-			case "Savings":
-				srcAccount = srcCustomer.getSavings();
-				break;
-			default:
-				return;
-		}
-		
-		//Find dest user
-		Customer destCustomer = namesToCustomers.get(actions[4] + " " + actions[5]);
-		
-		//Find Account
-		Account destAccount;
-		switch (actions[6]){
-			case "Credit":
-				destAccount = destCustomer.getCredit();
-				break;
-			case "Checking":
-				destAccount = destCustomer.getChecking();
-				break;
-			case "Savings":
-				destAccount = destCustomer.getSavings();
-				break;
-			default:
-				return;
-		}
-		
 		try{
+			//Find source user and account
+			Customer srcCustomer = namesToCustomers.get(actions[0] + " " + actions[1]);
+			Account srcAccount = srcCustomer.getAccountByType(actions[2]);
+			
+			//Find dest user and account
+			Customer destCustomer = namesToCustomers.get(actions[4] + " " + actions[5]);
+			Account destAccount = destCustomer.getAccountByType(actions[6]);
 			srcAccount.transfer(destAccount, Double.parseDouble(actions[7]));
+			
 			//Log message
 			logMessages.add(srcCustomer.getFullName() + " transferred $" +
 				String.format("%.2f", Double.parseDouble(actions[7])) +
@@ -1042,28 +982,17 @@ public class RunBank {
 	}
 	
 	private static void withdraws(String[] actions){
-		Customer customer = namesToCustomers.get(actions[0] + " " + actions[1]);
-		Account account = null;
-		switch (actions[2]){
-			case "Savings":
-				account = customer.getSavings();
-				break;
-			case "Checking":
-				account = customer.getChecking();
-				break;
-			case "Credit":
-				account = customer.getCredit();
-				break;
-			default:
-		}
-		
 		try{
+			//Find account and Customer
+			Customer customer = namesToCustomers.get(actions[0] + " " + actions[1]);
+			Account account = customer.getAccountByType(actions[2]);
 			account.withdraw(Double.parseDouble(actions[7]));
 			
 			//Log message
 			logMessages.add(customer.getFullName() + " withdrew $" + String.format("%.2f", Double.parseDouble(actions[7])) +
 				" from " + account.getClass().getName() + "-" + account.number +
-				". New balance: 4" + String.format("%.2f", account.balance));
+				". New balance: 4" + String.format("%.2f", account.balance)
+			);
 		}catch (NullPointerException e){
 			String log = "Failed Transaction: ";
 			for(int i = 0; i < actions.length; i++){
@@ -1078,24 +1007,12 @@ public class RunBank {
 	}
 	
 	private static void deposits(String[] actions){
-		Customer customer = namesToCustomers.get(actions[4] + " " + actions[5]);
-		Account account = null;
-		switch (actions[6]){
-			case "Savings":
-				account = customer.getSavings();
-				break;
-			case "Checking":
-				account = customer.getChecking();
-				break;
-			case "Credit":
-				account = customer.getCredit();
-				break;
-			default:
-				System.out.println("This should not really be happening");
-		}
-		
 		try{
+			//Get customer and account to deposit
+			Customer customer = namesToCustomers.get(actions[4] + " " + actions[5]);
+			Account account = customer.getAccountByType(actions[6]);
 			account.deposit(Double.parseDouble(actions[7]));
+			
 			//Log message
 			logMessages.add(customer.getFullName() + " deposited $" +
 				String.format("%.2f", Double.parseDouble(actions[7])) +
