@@ -44,7 +44,41 @@ public class Customer extends Person{
 		this.credit = credit;
 	}
 	
-	
+	public Customer(
+		String firstName,
+		String lastName,
+		String dob,
+		String address,
+		String phone,
+		String id,
+		int checkingAccountNumber,
+		double checkingAmount,
+		int savingsAccountNumber,
+		double savingsAmount,
+		int creditAccountNumber,
+		double creditAmount,
+		int maxCredit
+	)
+	{
+		super(firstName, lastName, dob, address, phone);
+		this.id = id;
+		this.checking = new Checking(
+			checkingAccountNumber,
+			checkingAmount
+		);
+		this.checking.setCustomer(this);
+		this.savings = new Savings(
+			savingsAccountNumber,
+			savingsAmount
+		);
+		this.savings.setCustomer(this);
+		this.credit = new Credit(
+			creditAccountNumber,
+			creditAmount,
+			maxCredit
+		);
+		this.credit.setCustomer(this);
+	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------
 	                                            Getters
@@ -95,21 +129,9 @@ public class Customer extends Person{
 	 * @param source Account where money is coming from to pay the destination account
 	 * @param dest Account where money if going to from the source account
 	 * @param amount the amount of money that is being transfer between both accounts
-	 * @return returns true if the transaction was successful and false otherwise
 	 */
-	public boolean transfer(Account source, Account dest, double amount){
-		//if there are not enough funds return false
-		if(!source.withdraw(amount)){
-			return false;
-		}
-		
-		//if cannot deposit then deposit back to source and return false
-		if(!dest.deposit(amount)){
-			source.deposit(amount);
-			return false;
-		}
-		
-		return true;
+	public void transfer(Account source, Account dest, double amount) throws RuntimeException{
+		source.transfer(dest, amount);
 	}
 	
 	/**
@@ -117,11 +139,10 @@ public class Customer extends Person{
 	 * account
 	 * @param dest Destination account that money will be going to
 	 * @param amount Amount of money that is going to be transfer
-	 * @return returns true if transaction was successful and false otherwise.
 	 */
-	public boolean paySomeone(Customer dest, double amount){
+	public void paySomeone(Customer dest, double amount) throws RuntimeException{
 		//get checking account from customer
-		return transfer(checking, dest.getChecking(), amount);
+		transfer(checking, dest.getChecking(), amount);
 	}
 	
 	/**
@@ -129,10 +150,32 @@ public class Customer extends Person{
 	 * @return String with the Customers information formatted to be a line of the CSV file
 	 */
 	public String toCsvLine(){
+		
+		String checkingNumber = "";
+		String checkingBalance = "";
+		if(checking != null){
+			checkingNumber = checking.getNumber() + "";
+			checkingBalance = String.format("%.2f", checking.getBalance()) + "";
+		}
+		
+		String savingsNumber = "";
+		String savingsBalance = "";
+		if(savings != null){
+			savingsNumber =  savings.getNumber() + "";
+			savingsBalance = String.format("%.2f", savings.getBalance()) + "";
+		}
+		
+		String creditNumber = "";
+		String creditBalance = "";
+		if(credit != null){
+			creditNumber =  credit.getNumber() + "";
+			creditBalance = String.format("%.2f", credit.getBalance()) + "";
+		}
+		
 		return firstName + "," + lastName + "," + dob + "," + id + "," +
-			address + "," + phone + "," + checking.getNumber() + "," + savings.getNumber() + "," +
-			credit.getNumber() + "," + checking.getBalance() + "," + savings.getBalance() + "," +
-			credit.getBalance();
+			address + "," + phone + "," + checkingNumber + "," + savingsNumber + "," +
+			creditNumber + "," + checkingBalance + "," + savingsBalance + "," +
+			creditBalance;
 	}
 	
 	/**
@@ -141,20 +184,45 @@ public class Customer extends Person{
 	 */
 	@Override
 	public String toString() {
+		//Convert Checking to String
+		String checkingString;
+		try{
+			checkingString = "Checking:\n" +
+				"\tAccount Number: " + checking.getNumber() + "\n" +
+				"\tBalance: $" + String.format("%.2f", checking.getBalance()) + "\n";
+		}catch(NullPointerException e){
+			checkingString = "";
+		}
+		
+		//Convert Savings to String
+		String savingsString;
+		try{
+			savingsString = "Savings:\n" +
+				"\tAccount Number: " + savings.getNumber() + "\n" +
+				"\tBalance: $" + String.format("%.2f", savings.getBalance()) + "\n";
+		}catch(NullPointerException e){
+			savingsString = "";
+		}
+		
+		//Convert Checking to String
+		String creditString;
+		try{
+			creditString = "Credit:\n" +
+				"\tAccount Number: " + credit.getNumber() + "\n" +
+				"\tBalance: $" + String.format("%.2f", credit.getBalance()) + "\n";
+		}catch(NullPointerException e){
+			creditString = "";
+		}
+		
+		
 		return "Costumer Information:\n" +
 			"Full Name: " + firstName + " " + lastName + "\n" +
 			"Date of birth: " + dob + "\n" +
 			"Address: " + address + "\n" +
 			"Phone: " + phone + "\n" +
 			"ID: " + id + "\n" +
-			"Checking: \n" +
-			"\tAccount Number: " + checking.getNumber() + "\n" +
-			"\tBalance: $" + String.format("%.2f", checking.getBalance()) + "\n" +
-			"Saving:\n" +
-			"\tAccount Number: " + savings.getNumber() + "\n" +
-			"\tBalance: $" + String.format("%.2f", savings.getBalance()) + "\n" +
-			"Credits:\n" +
-			"\tAccount Number: " + credit.getNumber() + "\n" +
-			"\tBalance: $" + String.format("%.2f", credit.getBalance()) + "\n";
+			checkingString +
+			savingsString +
+			creditString;
 	}
 }

@@ -21,18 +21,16 @@ public class CreditTest {
 	
 	@Test
 	public void deposit1() {
-		assertFalse(credit1.deposit(905.32));
-		assertEquals(-900.50, credit1.getBalance(), 0.001);
+		try{
+			credit1.deposit(905.32);
+		}catch (RuntimeException e){
+			assertEquals(-900.50, credit1.getBalance(), 0.001);
+		}
 	}
 	
 	@Test
 	public void deposit2() {
-		assertTrue(credit1.deposit(100.50));
+		credit1.deposit(100.50);
 		assertEquals(-800, credit1.getBalance(), 0.001);
-	}
-	
-	@Test
-	public void withdraw() {
-		assertFalse(credit1.withdraw(100.50));
 	}
 }

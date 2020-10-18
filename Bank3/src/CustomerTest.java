@@ -57,7 +57,7 @@ public class CustomerTest {
 	
 	@Test
 	public void transfer1() {
-		assertTrue(customer1.transfer(customer1.getSavings(), customer1.getChecking(), 500));
+		customer1.transfer(customer1.getSavings(), customer1.getChecking(), 500);
 		
 		assertEquals(
 			"savings should be 3345.93",
@@ -71,8 +71,7 @@ public class CustomerTest {
 			customer1.getChecking().getBalance(),
 			0.001);
 		
-		assertTrue(customer1.transfer(customer1.getChecking(), customer1.getCredit(), 1000));
-		
+		customer1.transfer(customer1.getChecking(), customer1.getCredit(), 1000);
 		
 		assertEquals(
 			"checkings should be 460.94",
@@ -89,7 +88,7 @@ public class CustomerTest {
 	
 	@Test
 	public void transfer2() {
-		assertTrue(customer2.transfer(customer2.getSavings(), customer2.getCredit(), 900.89));
+		customer2.transfer(customer2.getSavings(), customer2.getCredit(), 900.89);
 		
 		assertEquals(
 			830.2,
@@ -101,12 +100,14 @@ public class CustomerTest {
 			customer2.getCredit().getBalance(),
 			0.001);
 		
-		assertFalse(customer2.transfer(customer2.getSavings(), customer2.getCredit(), 100));
-		
-		assertEquals(
-			830.2,
-			customer2.getSavings().getBalance(),
-			0.001);
+		try{
+			customer2.transfer(customer2.getSavings(), customer2.getCredit(), 100);
+		}catch (RuntimeException e){
+			assertEquals(
+				830.2,
+				customer2.getSavings().getBalance(),
+				0.001);
+		}
 		
 		assertEquals(
 			-85.34,
@@ -116,7 +117,7 @@ public class CustomerTest {
 	
 	@Test
 	public void transfer3() {
-		assertTrue(customer2.transfer(customer1.getSavings(), customer1.getChecking(), 3845.90));
+		customer2.transfer(customer1.getSavings(), customer1.getChecking(), 3845.90);
 		
 		assertEquals(
 			0.03,
@@ -128,12 +129,14 @@ public class CustomerTest {
 			customer1.getChecking().getBalance(),
 			0.001);
 		
-		assertFalse(customer2.transfer(customer1.getSavings(), customer1.getChecking(), 10));
-		
-		assertEquals(
-			0.03,
-			customer1.getSavings().getBalance(),
-			0.001);
+		try{
+			customer2.transfer(customer1.getSavings(), customer1.getChecking(), 10);
+		}catch (RuntimeException e){
+			assertEquals(
+				0.03,
+				customer1.getSavings().getBalance(),
+				0.001);
+		}
 		
 		assertEquals(
 			4806.84,
@@ -143,30 +146,31 @@ public class CustomerTest {
 	
 	@Test
 	public void transfer4() {
-		assertTrue(customer1.getChecking().deposit(1000));
+		customer1.getChecking().deposit(1000);
 		assertEquals(1960.94, customer1.getChecking().getBalance(), 0.001);
-		assertFalse(customer1.transfer(customer1.getChecking(), customer1.getCredit(), 1600));
-		assertFalse(customer2.transfer(customer2.getSavings(), customer2.getCredit(), 1000));
 	}
 	
 	@Test
 	public void paySomeone1(){
-		assertTrue(customer1.paySomeone(customer2, 100));
+		customer1.paySomeone(customer2, 100);
 		assertEquals(860.94, customer1.getChecking().getBalance(), 0.001);
 		assertEquals(1788.89, customer2.getChecking().getBalance(), 0.001);
 	}
 	
 	@Test
 	public void paySomeone2(){
-		assertTrue(customer2.paySomeone(customer1, 1600.50));
+		customer2.paySomeone(customer1, 1600.50);
 		assertEquals(2561.44, customer1.getChecking().getBalance(), 0.001);
 		assertEquals(88.39, customer2.getChecking().getBalance(), 0.001);
 	}
 	
 	@Test
 	public void paySomeone3(){
-		assertFalse(customer1.paySomeone(customer2, 1000.50));
-		assertEquals(960.94, customer1.getChecking().getBalance(), 0.001);
-		assertEquals(1688.89, customer2.getChecking().getBalance(), 0.001);
+		try{
+			customer1.paySomeone(customer2, 1000.50);
+		}catch (RuntimeException e){
+			assertEquals(960.94, customer1.getChecking().getBalance(), 0.001);
+			assertEquals(1688.89, customer2.getChecking().getBalance(), 0.001);
+		}
 	}
 }
