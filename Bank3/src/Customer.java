@@ -155,21 +155,21 @@ public class Customer extends Person{
 		String checkingBalance = "";
 		if(checking != null){
 			checkingNumber = checking.getNumber() + "";
-			checkingBalance = checking.getBalance() + "";
+			checkingBalance = String.format("%.2f", checking.getBalance()) + "";
 		}
 		
 		String savingsNumber = "";
 		String savingsBalance = "";
 		if(savings != null){
 			savingsNumber =  savings.getNumber() + "";
-			savingsBalance = savings.getBalance() + "";
+			savingsBalance = String.format("%.2f", savings.getBalance()) + "";
 		}
 		
 		String creditNumber = "";
 		String creditBalance = "";
 		if(credit != null){
 			creditNumber =  credit.getNumber() + "";
-			creditBalance = credit.getBalance() + "";
+			creditBalance = String.format("%.2f", credit.getBalance()) + "";
 		}
 		
 		return firstName + "," + lastName + "," + dob + "," + id + "," +
