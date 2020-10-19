@@ -3,22 +3,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BankStatement {
-	private Customer customer;
 	private Account account;
 	private double startingBalance;
 	private double endingBalance;
-	private ArrayList<String> transactions;
+	private ArrayList<Transaction> transactions;
 	
 	public BankStatement(){}
 	
 	public BankStatement(
-		Customer customer,
 		Account account,
 		double startingBalance,
 		double endingBalance,
-		ArrayList<String> transactions
+		ArrayList<Transaction> transactions
 	){
-		this.customer = customer;
 		this.account = account;
 		this.startingBalance = startingBalance;
 		this.endingBalance = endingBalance;
@@ -54,8 +51,8 @@ public class BankStatement {
 			"Starting Balance: " + this.startingBalance + "\n" +
 			"Ending Balance: " + this.endingBalance + "\n";
 		
-		for(String transaction : transactions){
-			string += transaction + "\n";
+		for(Transaction transaction : transactions){
+			string += transaction.getTransaction() + "\n";
 		}
 		
 		return string;
