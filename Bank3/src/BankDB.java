@@ -8,6 +8,7 @@ public class BankDB implements IBankDB{
 	private HashMap<Integer, Savings> numbersToSavings;
 	private HashMap<Integer, Credit> numbersToCredit;
 	private ArrayList<Transaction> transactions;
+	private HashMap<Customer, BankStatement> customerToStatement;
 	
 	
 	public BankDB(){
@@ -16,8 +17,8 @@ public class BankDB implements IBankDB{
 		this.numbersToSavings = new HashMap<>();
 		this.numbersToCredit = new HashMap<>();
 		this.transactions = new ArrayList<>();
+		this.customerToStatement = new HashMap<>();
 	}
-	
 	
 	@Override
 	public void addCustomer(Customer customer) {
@@ -34,6 +35,13 @@ public class BankDB implements IBankDB{
 		if(customer.getCredit() != null){
 			numbersToCredit.put(customer.getCredit().getNumber(), customer.getCredit());
 		}
+		
+		customerToStatement.put(customer, new BankStatement(
+			customer,
+			customer.getChecking().getBalance(),
+			customer.getSavings().getBalance(),
+			customer.getCredit().getBalance()
+		));
 	}
 	
 	@Override
@@ -82,7 +90,14 @@ public class BankDB implements IBankDB{
 	
 	@Override
 	public void addTransaction(Transaction transaction){
+		//add transaction to list
 		transactions.add(transaction);
+		
+		//add transaction to customer's bank statement
+		Customer customer = transaction.getCustomer();
+		if(customer != null) {
+			customerToStatement.get(customer).getTransactions().add(transaction);
+		}
 	}
 	
 	@Override
@@ -92,12 +107,11 @@ public class BankDB implements IBankDB{
 	
 	@Override
 	public Collection<Transaction> getTransactions(Customer customer){
-		ArrayList<Transaction> customerTransactions = new ArrayList<>();
-		for(Transaction transaction : transactions){
-			if(transaction.getCustomer() == customer){
-				customerTransactions.add(transaction);
-			}
-		}
-		return customerTransactions;
+		return customerToStatement.get(customer).getTransactions();
+	}
+	
+	@Override
+	public BankStatement getBankStatement(Customer customer){
+		return customerToStatement.get(customer);
 	}
 }

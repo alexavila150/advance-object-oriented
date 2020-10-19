@@ -286,7 +286,8 @@ public class RunBank {
 		System.out.println("What would you like to do?\n");
 		System.out.println("\tA. Inquire account by name");
 		System.out.println("\tB. Inquire account by type/number");
-		System.out.println("\tC. Sign in page\n");
+		System.out.println("\tC. Generate Bank Statement");
+		System.out.println("\tD. Sign in page\n");
 		String input = scnr.nextLine();
 		
 		switch (input){
@@ -297,6 +298,9 @@ public class RunBank {
 				menu = "askForAccountType";
 				break;
 			case "C":
+				menu = "createBankStatement";
+				break;
+			case "D":
 				menu = "userType";
 				break;
 			default:
@@ -420,8 +424,16 @@ public class RunBank {
 	 ----------------------------------------------------------------------------------------------------------------*/
 	
 	private static void createBankStatement(){
-		BankStatement bankStatement = new BankStatement();
+		//ask for name
+		System.out.println("Whose bank statement do you want to create?");
+		String name = scnr.nextLine();
+		if(!bankDB.containsCustomer(name)){
+			System.out.println("Customer does not exist please try again");
+			return;
+		}
 		
+		bankDB.getBankStatement(bankDB.getCustomer(name)).createStatement();
+		menu = "manager";
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------------------

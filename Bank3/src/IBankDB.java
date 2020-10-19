@@ -23,4 +23,6 @@ public interface IBankDB {
 	Collection<Transaction> getTransactions();
 	
 	Collection<Transaction> getTransactions(Customer customer);
+	
+	BankStatement getBankStatement(Customer customer);
 }
