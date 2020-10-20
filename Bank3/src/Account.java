@@ -94,6 +94,13 @@ public abstract class Account {
 		balance -= amount;
 	}
 	
+	/**
+	 * This method transfer money from this account to the destination account in the parameter
+	 * @param account the account where the money is going to
+	 * @param amount amount of money to be transfer between account
+	 * @throws RuntimeException throws execption if amount was not valid for transaction such as insuffient amount
+	 * or a negative number
+	 */
 	public void transfer(Account account, double amount) throws RuntimeException{
 		//Grab money from this account
 		this.withdraw(amount);

@@ -2,6 +2,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author Alex Avila
+ * @version 1.0
+ * @since 10/10/20
+ * <p>
+ * Each customer has one of this classes in order to store all the transactions
+ * that were made throughout the whole run of the application.
+ */
 public class BankStatement {
 	private Customer customer;
 	private double startingBalanceChecking;
@@ -99,6 +107,9 @@ public class BankStatement {
 		this.transactions = transactions;
 	}
 	
+	/**
+	 * Generates a file and writes all the Bank account information for the Customer here
+	 */
 	public void createStatement(){
 		try {
 			//Name file starting with last name of the user then the first name
@@ -124,21 +135,21 @@ public class BankStatement {
 		if(customer.getChecking() != null){
 			checkingInfo = "Account: Checking-" + customer.getChecking().getNumber() + "\n" +
 				"Starting Balance: $" + startingBalanceChecking + "\n" +
-				"Ending Balance: $" + customer.getChecking().getBalance();
+				"Ending Balance: $" + String.format("%.2f", customer.getChecking().getBalance());
 		}
 		
 		String creditInfo = "";
 		if(customer.getCredit() != null){
 			creditInfo = "Account: Credit-" + customer.getCredit().getNumber() + "\n" +
 				"Starting Balance: $" + startingBalanceCredit + "\n" +
-				"Ending Balance: $" + customer.getCredit().getBalance();
+				"Ending Balance: $" + String.format("%.2f", customer.getCredit().getBalance());
 		}
 		
 		String savingsInfo = "";
 		if(customer.getSavings() != null){
 			savingsInfo = "Account: Savings-" + customer.getSavings().getNumber() + "\n" +
 				"Starting Balance: $" + startingBalanceSavings + "\n" +
-				"Ending Balance: $" + customer.getChecking().getBalance();
+				"Ending Balance: $" + String.format("%.2f", customer.getChecking().getBalance());
 		}
 		
 		

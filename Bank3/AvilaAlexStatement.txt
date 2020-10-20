@@ -1,0 +1,18 @@
+Disney Bank Alex Avila statement!Name: Alex Avila
+Identification Number: 38
+Date of Birth: 19-Oct-65
+Address: "500 W. University Ave El Paso TX 79968"
+Phone Number: "500 W. University Ave El Paso TX 79968"
+Account: Checking-1037
+Starting Balance: $85.09
+Ending Balance: $4125.01
+Account: Savings-2037
+Starting Balance: $516.33
+Ending Balance: $4125.01
+Account: Credit-3037
+Starting Balance: $-1827.58
+Ending Balance: $-1827.58
+Alex Avila deposited $5000.00 on Checking-1037. New balance: 45085.09
+2020/10/19 23:09:50
+Alex Avila transferred $1000.00 to Daniel Mejia. Checking-1037 balance: $4085.09
+2020/10/19 23:09:50

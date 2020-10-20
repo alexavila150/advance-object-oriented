@@ -1,0 +1,24 @@
+Disney Bank Mario Bros statement!Name: Mario Bros
+Identification Number: 104
+Date of Birth: 01/01/1985
+Address: Mushroom Kingdom
+Phone Number: Mushroom Kingdom
+Account: Checking-1103
+Starting Balance: $0.0
+Ending Balance: $340.02
+Account: Savings-2103
+Starting Balance: $0.0
+Ending Balance: $340.02
+
+Mario Bros deposited $500.00 on Checking-1103. New balance: 4500.00
+2020/10/19 23:08:26
+Mario Bros transferred $99.99 from Checking-1103 to Savings-2103. Checking balance: $400.01. Savings-2103 balance: $99.99
+2020/10/19 23:08:44
+Mario Bros transferred $59.99 to Daniel Mejia. Checking-1103 balance: $340.02
+2020/10/19 23:09:04
+Mario Bros made a balance inquire.Checking: $340.02 Savings: $99.99 
+2020/10/19 23:09:09
+Not enough funds to withdraw in transaction: Buzz, Lightyear, Savings, withdraws, , , Savings, 90
+2020/10/19 23:09:50
+Not enough funds to withdraw in transaction: Chip, Disney, Checking, withdraws, , , Savings, 54
+2020/10/19 23:09:50

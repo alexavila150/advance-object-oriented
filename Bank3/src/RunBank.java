@@ -493,8 +493,11 @@ public class RunBank {
 				}
 				
 				// Log message
-				bankDB.addTransaction(new Transaction(user.getFullName() + " made a balance inquire." + checkingString + " " +
-						savingsString + " " + creditString, user));
+				bankDB.addTransaction(
+					new Transaction(user.getFullName() + " made a balance inquire." + checkingString + " " +
+						savingsString + " " + creditString, user
+					)
+				);
 				break;
 			case "B":
 				menu = "deposit";

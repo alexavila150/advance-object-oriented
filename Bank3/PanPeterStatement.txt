@@ -1,0 +1,18 @@
+Disney Bank Peter Pan statement!Name: Peter Pan
+Identification Number: 15
+Date of Birth: 29-May-87
+Address: "1313 Disneyland Dr Anaheim CA 92802"
+Phone Number: "1313 Disneyland Dr Anaheim CA 92802"
+Account: Checking-1014
+Starting Balance: $41.62
+Ending Balance: $41.62
+Account: Savings-2014
+Starting Balance: $2252.52
+Ending Balance: $41.62
+Account: Credit-3014
+Starting Balance: $-1137.78
+Ending Balance: $-1137.78
+Peter Pan withdrew $100.00 from Savings-2014. New balance: 42152.52
+2020/10/19 23:09:50
+Peter Pan transferred $34.04 to Juan Rabelo. Checking-1014 balance: $41.62
+2020/10/19 23:09:50
