@@ -21,14 +21,8 @@ public class RunBank {
 	/*-----------------------------------------------------------------------------------------------------------------
 	                                            Attributes
 	 ----------------------------------------------------------------------------------------------------------------*/
-	
-	// gets the customer instance using name as a key
-	private static HashMap<String, Customer> namesToCustomers;
-	
-	//gets any of the accounts from their respective account number
-	private static HashMap<Integer, Checking> numbersToCheckings;
-	private static HashMap<Integer, Savings> numbersToSavings;
-	private static HashMap<Integer, Credit> numbersToCredit;
+	//Stores information about the customers their accounts and transactions
+	private static IBankDB bankDB;
 	
 	//Scanner of input
 	private static Scanner scnr;
@@ -45,9 +39,6 @@ public class RunBank {
 	//account that user selects to transfer money to
 	private static Account destAccount;
 	
-	//stores the log history to print it later in the log file
-	private static BankTransactionLog logMessages;
-	
 	/*-----------------------------------------------------------------------------------------------------------------
 	                                            Main
 	 ----------------------------------------------------------------------------------------------------------------*/
@@ -59,12 +50,8 @@ public class RunBank {
 	 * @param args arguments for the main method, it is expecting none of them
 	 */
 	public static void main(String[] args){
-		//Initiate the Data Structures
-		namesToCustomers = new HashMap<>();
-		numbersToCheckings = new HashMap<>();
-		numbersToSavings = new HashMap<>();
-		numbersToCredit = new HashMap<>();
-		logMessages = new BankTransactionLog();
+		//Database that will include all information about the bank
+		bankDB = new BankDB();
 		
 		//Welcome message
 		System.out.println("Welcome to DisneyBank");
@@ -125,8 +112,8 @@ public class RunBank {
 						Integer.parseInt(attributes[indexMapping[12]])          //max credit
 					);
 					
-					//Save Customer into hash map
-					namesToCustomers.put(attributes[indexMapping[0]] + " " + attributes[indexMapping[1]], customer);
+					//Save Customer into the database
+					bankDB.addCustomer(customer);
 				}
 				//File was process successfully
 				valid = true;
@@ -135,13 +122,6 @@ public class RunBank {
 				System.out.println("file not found please try again");
 			}
 		}while(!valid);
-		
-		// add all the accounts to their specific hash map
-		for(Customer customer : namesToCustomers.values()){
-			numbersToCheckings.put(customer.getChecking().getNumber(), customer.getChecking());
-			numbersToSavings.put(customer.getSavings().getNumber(), customer.getSavings());
-			numbersToCredit.put(customer.getCredit().getNumber(), customer.getCredit());
-		}
 		
 		// ask user to sign
 		System.out.println("Successfully entered data");
@@ -172,6 +152,9 @@ public class RunBank {
 					break;
 				case "askForCredit":
 					askForCredit();
+					break;
+				case "createBankStatement":
+					createBankStatement();
 					break;
 				case "customerSignIn":
 					customerSignIn();
@@ -229,7 +212,7 @@ public class RunBank {
 				"Checking Starting Balance,Savings Starting Balance,Credit Starting Balance,Max Credit\n");
 			
 			// Write all customers
-			for(Customer customer : namesToCustomers.values()){
+			for(Customer customer : bankDB.getCustomers()){
 				myWriter.write(customer.toCsvLine() + "\n");
 			}
 			
@@ -246,9 +229,9 @@ public class RunBank {
 			myWriter.write("Disney Bank transaction file\n");
 			
 			//gets transaction from iterable
-			Iterator iterator = logMessages.iterator();
-			while(iterator.hasNext()){
-				myWriter.write(iterator.next() + "\n");
+			
+			for(Transaction transaction : bankDB.getTransactions()){
+				myWriter.write(transaction.getTransaction() + "\n");
 			}
 			
 			myWriter.close();
@@ -303,7 +286,8 @@ public class RunBank {
 		System.out.println("What would you like to do?\n");
 		System.out.println("\tA. Inquire account by name");
 		System.out.println("\tB. Inquire account by type/number");
-		System.out.println("\tC. Sign in page\n");
+		System.out.println("\tC. Generate Bank Statement");
+		System.out.println("\tD. Sign in page\n");
 		String input = scnr.nextLine();
 		
 		switch (input){
@@ -314,6 +298,9 @@ public class RunBank {
 				menu = "askForAccountType";
 				break;
 			case "C":
+				menu = "createBankStatement";
+				break;
+			case "D":
 				menu = "userType";
 				break;
 			default:
@@ -329,13 +316,13 @@ public class RunBank {
 		String input = scnr.nextLine();
 		
 		//Check if name is valid
-		if(!namesToCustomers.keySet().contains(input)){
+		if(!bankDB.containsCustomer(input)){
 			System.out.println("Customer does not exist please try again.");
 			return;
 		}
 		
 		//find costumer by name
-		Customer customer = namesToCustomers.get(input);
+		Customer customer = bankDB.getCustomer(input);
 		
 		//Inquire customer's information
 		System.out.println(customer);
@@ -373,13 +360,13 @@ public class RunBank {
 		int input = Integer.parseInt(scnr.nextLine());
 		
 		//check if input is valid
-		if(!numbersToCheckings.keySet().contains(input)){
+		if(!bankDB.containsChecking(input)){
 			System.out.println("not a valid account number please try again");
 			return;
 		}
 		
 		//Get account
-		Checking checking = numbersToCheckings.get(input);
+		Checking checking = (Checking) bankDB.getAccount(input);
 		Customer customer = checking.customer;
 		
 		//Inquire customer's information
@@ -395,13 +382,13 @@ public class RunBank {
 		int input = Integer.parseInt(scnr.nextLine());
 		
 		//check if input is valid
-		if(!numbersToSavings.keySet().contains(input)){
+		if(!bankDB.containsSavings(input)){
 			System.out.println("not a valid account number please try again");
 			return;
 		}
 		
 		//get account
-		Savings savings = numbersToSavings.get(input);
+		Savings savings = (Savings) bankDB.getAccount(input);
 		System.out.println("savings: " + savings.getBalance());
 		Customer customer = savings.getCustomer();
 		
@@ -418,17 +405,34 @@ public class RunBank {
 		int input = Integer.parseInt(scnr.nextLine());
 		
 		//check if input is valid
-		if(!numbersToCredit.keySet().contains(input)){
+		if(!bankDB.containsCredit(input)){
 			System.out.println("not a valid account number please try again");
 			return;
 		}
 		
 		//Get account
-		Credit credit = numbersToCredit.get(input);
+		Credit credit = (Credit) bankDB.getAccount(input);
 		Customer customer = credit.getCustomer();
 		
 		//Inquire customer's information
 		System.out.println(customer);
+		menu = "manager";
+	}
+	
+	/*-----------------------------------------------------------------------------------------------------------------
+	                                            BankStatement
+	 ----------------------------------------------------------------------------------------------------------------*/
+	
+	private static void createBankStatement(){
+		//ask for name
+		System.out.println("Whose bank statement do you want to create?");
+		String name = scnr.nextLine();
+		if(!bankDB.containsCustomer(name)){
+			System.out.println("Customer does not exist please try again");
+			return;
+		}
+		
+		bankDB.getBankStatement(bankDB.getCustomer(name)).createStatement();
 		menu = "manager";
 	}
 	
@@ -445,13 +449,13 @@ public class RunBank {
 		String input = scnr.nextLine();
 		
 		//check if name is in the information
-		if(!namesToCustomers.keySet().contains(input)){
+		if(!bankDB.containsCustomer(input)){
 			System.out.println("Name not found. Please try again");
 			return;
 		}
 		
 		//Print customer's information
-		user = namesToCustomers.get(input);
+		user = bankDB.getCustomer(input);
 		System.out.println("Welcome " + user.getFullName());
 		System.out.println(user);
 		menu = "customerMenu";
@@ -479,18 +483,21 @@ public class RunBank {
 				}
 				
 				String savingsString = "";
-				if(user.getChecking() != null){
+				if(user.getSavings() != null){
 					savingsString = "Savings: $" + String.format("%.2f", user.getSavings().getBalance());
 				}
 				
 				String creditString = "";
-				if(user.getChecking() != null){
+				if(user.getCredit() != null){
 					creditString = "Credit: $" + String.format("%.2f", user.getCredit().getBalance());
 				}
 				
 				// Log message
-				logMessages.add(user.getFullName() + " made a balance inquire." + checkingString + " " +
-					savingsString + " " + creditString);
+				bankDB.addTransaction(
+					new Transaction(user.getFullName() + " made a balance inquire." + checkingString + " " +
+						savingsString + " " + creditString, user
+					)
+				);
 				break;
 			case "B":
 				menu = "deposit";
@@ -558,9 +565,14 @@ public class RunBank {
 				" to " + selectedAccount.getClass().getName());
 			
 			//Log message
-			logMessages.add(user.getFullName() + " deposited $" + String.format("%.2f", input) +
-				" on " + selectedAccount.getClass().getName() + "-" + selectedAccount.number + ". New balance: 4" +
-				String.format("%.2f", selectedAccount.balance));
+			bankDB.addTransaction(
+				new Transaction(
+					user.getFullName() + " deposited $" + String.format("%.2f", input) +
+					" on " + selectedAccount.getClass().getName() + "-" + selectedAccount.number + ". New balance: 4" +
+					String.format("%.2f", selectedAccount.balance),
+					user
+				)
+			);
 		}catch(NumberFormatException e){
 			System.out.println("Please insert a number");
 		}catch (NullPointerException e){
@@ -614,9 +626,12 @@ public class RunBank {
 				" from " + selectedAccount.getClass().getName());
 			
 			//Log message
-			logMessages.add(user.getFullName() + " withdrew $" + String.format("%.2f", input) +
-				" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
-				". New balance: 4" + String.format("%.2f", selectedAccount.balance));
+			bankDB.addTransaction(
+				new Transaction(user.getFullName() + " withdrew $" + String.format("%.2f", input) +
+					" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
+					". New balance: 4" + String.format("%.2f", selectedAccount.balance),
+					user)
+			);
 			
 		}catch(NumberFormatException e){
 			System.out.println("Please insert a number");
@@ -718,13 +733,17 @@ public class RunBank {
 				destAccount.getClass().getName());
 			
 			//Log message
-			logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", input) +
-				" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
-				" to " + destAccount.getClass().getName() + "-" + destAccount.number +
-				". " + selectedAccount.getClass().getName() + " balance: $" +
-				String.format("%.2f", selectedAccount.balance) + ". " +
-				destAccount.getClass().getName() + "-" + destAccount.number + " balance: $" +
-				String.format("%.2f", destAccount.balance));
+			bankDB.addTransaction(
+				new Transaction(user.getFullName() + " transferred $" + String.format("%.2f", input) +
+					" from " + selectedAccount.getClass().getName() + "-" + selectedAccount.number +
+					" to " + destAccount.getClass().getName() + "-" + destAccount.number +
+					". " + selectedAccount.getClass().getName() + " balance: $" +
+					String.format("%.2f", selectedAccount.balance) + ". " +
+					destAccount.getClass().getName() + "-" + destAccount.number + " balance: $" +
+					String.format("%.2f", destAccount.balance),
+					user
+				)
+			);
 		}catch(NumberFormatException e){
 			System.out.println("Please insert a number");
 		}catch(NullPointerException e){
@@ -747,13 +766,13 @@ public class RunBank {
 		System.out.println("Who would you like to send money to?");
 		
 		String name = scnr.nextLine();
-		if(!namesToCustomers.keySet().contains(name) || name.equals(user.getFullName())){
+		if(!bankDB.containsCustomer(name) || name.equals(user.getFullName())){
 			System.out.println("name not found please try again");
 			return;
 		}
 		
 		// get customer from name
-		Customer customer = namesToCustomers.get(name);
+		Customer customer = bankDB.getCustomer(name);
 		System.out.println("How much money do you want to send?");
 		try{
 			double amount = Double.parseDouble(scnr.nextLine());
@@ -765,17 +784,21 @@ public class RunBank {
 				" to " + customer.getFullName());
 			
 			//Log message
-			logMessages.add(user.getFullName() + " transferred $" + String.format("%.2f", amount) +
-				" to " + customer.getFullName() + ". Checking-" + user.getChecking().getNumber() + " balance: $" +
-				String.format("%.2f", user.getChecking().getBalance())
+			bankDB.addTransaction(
+				new Transaction(user.getFullName() + " transferred $" + String.format("%.2f", amount) +
+					" to " + customer.getFullName() + ". Checking-" + user.getChecking().getNumber() + " balance: $" +
+					String.format("%.2f", user.getChecking().getBalance()),
+					user
+				)
 			);
 		}catch(NumberFormatException e){
-			System.out.println("Please insert a number");
+			System.out.println("Please insert a valid number");
 		}catch(NullPointerException e){
 			System.out.println("Customer does not have a Checking account");
 			menu = "customerMenu";
 		}catch(RuntimeException e){
 			System.out.println(e.getMessage() + " please try again");
+			menu = "customerMenu";
 		}
 	}
 	
@@ -793,7 +816,7 @@ public class RunBank {
 		
 		
 		//If name already exist then come back
-		if(namesToCustomers.containsKey(firstName + " " + lastName)){
+		if(bankDB.containsCustomer(firstName + " " + lastName)){
 			System.out.println("Name already exist please try again.");
 			return;
 		}
@@ -808,10 +831,9 @@ public class RunBank {
 		String phone = scnr.nextLine();
 		
 		//Create ID
-		int id = namesToCustomers.size() + 1;
+		int id = bankDB.getCustomers().size() + 1;
 		
 		Savings savings = new Savings(id + 1999, 0);
-		numbersToSavings.put(savings.getNumber(), savings);
 		System.out.println("Congrats " + firstName + " " + lastName + " your account was successfully created\n" +
 			"We have created a Savings account for you with the id " + (id + 1999));
 		
@@ -826,7 +848,6 @@ public class RunBank {
 			switch (input){
 				case "A":
 					checking = new Checking(999 + id, 0);
-					numbersToCheckings.put(checking.getNumber(), checking);
 					validInput = true;
 					break;
 				case "B":
@@ -848,7 +869,6 @@ public class RunBank {
 			switch (input){
 				case "A":
 					credit = new Credit(2999 + id, 0, 5000); //TODO: make max random
-					numbersToCredit.put(credit.getNumber(), credit);
 					validInput = true;
 					break;
 				case "B":
@@ -871,7 +891,7 @@ public class RunBank {
 			credit
 		);
 		
-		namesToCustomers.put(firstName + " " + lastName, customer);
+		bankDB.addCustomer(customer);
 		menu = "userType";
 	}
 	
@@ -917,199 +937,126 @@ public class RunBank {
 	}
 	
 	private static void pays(String[] actions){
-		//Find source user
-		Customer srcCustomer = namesToCustomers.get(actions[0] + " " + actions[1]);
-		
-		//Find Account
-		Account srcAccount;
-		switch (actions[2]){
-			case "Credit":
-				srcAccount = srcCustomer.getCredit();
-				break;
-			case "Checking":
-				srcAccount = srcCustomer.getChecking();
-				break;
-			case "Savings":
-				srcAccount = srcCustomer.getSavings();
-				break;
-			default:
-				return;
-		}
-		
-		//Find dest user
-		Customer destCustomer = namesToCustomers.get(actions[4] + " " + actions[5]);
-		
-		//Find Account
-		Account destAccount;
-		switch (actions[6]){
-			case "Credit":
-				destAccount = destCustomer.getCredit();
-				break;
-			case "Checking":
-				destAccount = destCustomer.getChecking();
-				break;
-			case "Savings":
-				destAccount = destCustomer.getSavings();
-				break;
-			default:
-				return;
-		}
 		
 		try{
+			//Find source user and account
+			Customer srcCustomer = bankDB.getCustomer(actions[0] + " " + actions[1]);
+			Account srcAccount = srcCustomer.getAccountByType(actions[2]);
+			
+			//Find dest user and account
+			Customer destCustomer = bankDB.getCustomer(actions[4] + " " + actions[5]);
+			Account destAccount = destCustomer.getAccountByType(actions[6]);
+			
 			srcAccount.transfer(destAccount, Double.parseDouble(actions[7]));
 			//Log message
-			logMessages.add(srcCustomer.getFullName() + " transferred $" +
+			bankDB.addTransaction(new Transaction(srcCustomer.getFullName() + " transferred $" +
 				String.format("%.2f", Double.parseDouble(actions[7])) +
 				" to " + destCustomer.getFullName() + ". Checking-" +
 				srcCustomer.getChecking().getNumber() + " balance: $" +
-				String.format("%.2f", srcCustomer.getChecking().getBalance())
+				String.format("%.2f", srcCustomer.getChecking().getBalance()), srcCustomer)
 			);
 		}catch(RuntimeException e){
 			String log = e.getMessage() + " in transaction: " + String.join(", ", actions);
-			logMessages.add(log);
+			bankDB.addTransaction(new Transaction(log, null));
 		}
 	}
 	
 	private static void transfers(String[] actions){
-		//Find source user
-		Customer srcCustomer = namesToCustomers.get(actions[0] + " " + actions[1]);
-		
-		//Find Account
-		Account srcAccount;
-		switch (actions[2]){
-			case "Credit":
-				srcAccount = srcCustomer.getCredit();
-				break;
-			case "Checking":
-				srcAccount = srcCustomer.getChecking();
-				break;
-			case "Savings":
-				srcAccount = srcCustomer.getSavings();
-				break;
-			default:
-				return;
-		}
-		
-		//Find dest user
-		Customer destCustomer = namesToCustomers.get(actions[4] + " " + actions[5]);
-		
-		//Find Account
-		Account destAccount;
-		switch (actions[6]){
-			case "Credit":
-				destAccount = destCustomer.getCredit();
-				break;
-			case "Checking":
-				destAccount = destCustomer.getChecking();
-				break;
-			case "Savings":
-				destAccount = destCustomer.getSavings();
-				break;
-			default:
-				return;
-		}
-		
 		try{
+			//Find source user and account
+			Customer srcCustomer = bankDB.getCustomer(actions[0] + " " + actions[1]);
+			Account srcAccount = srcCustomer.getAccountByType(actions[2]);
+			
+			//Find dest user and account
+			Customer destCustomer = bankDB.getCustomer(actions[4] + " " + actions[5]);
+			Account destAccount = destCustomer.getAccountByType(actions[6]);
 			srcAccount.transfer(destAccount, Double.parseDouble(actions[7]));
+			
 			//Log message
-			logMessages.add(srcCustomer.getFullName() + " transferred $" +
+			bankDB.addTransaction(new Transaction(srcCustomer.getFullName() + " transferred $" +
 				String.format("%.2f", Double.parseDouble(actions[7])) +
 				" from " + srcAccount.getClass().getName() + "-" + srcAccount.number +
 				" to " + destAccount.getClass().getName() + "-" + destAccount.number +
 				". " + srcAccount.getClass().getName() + " balance: $" +
 				String.format("%.2f", srcAccount.balance) + ". " +
 				destAccount.getClass().getName() + "-" + destAccount.number + " balance: $" +
-				String.format("%.2f", destAccount.balance)
+				String.format("%.2f", destAccount.balance), srcCustomer)
 			);
 		}catch (NumberFormatException e){
 			System.out.println("Please enter a number");
 		} catch (RuntimeException e){
 			String log = e.getMessage() + " in transaction: " + String.join(", ", actions);
-			logMessages.add(log);
+			bankDB.addTransaction(new Transaction(log, null));
 		}
 		
 	}
 	
 	private static void inquires(String[] actions){
 		//Find customer
-		Customer customer = namesToCustomers.get(actions[0] + " " + actions[1]);
+		Customer customer = bankDB.getCustomer(actions[0] + " " + actions[1]);
+		
 		// Log message
-		logMessages.add(customer.getFullName() + " made a balance inquire. Checking: $" +
+		bankDB.addTransaction(new Transaction(customer.getFullName() + " made a balance inquire. Checking: $" +
 			String.format("%.2f", customer.getChecking().getBalance()) + " Savings: $" +
 			String.format("%.2f", customer.getSavings().getBalance()) + " Credit: $" +
-			String.format("%.2f", customer.getCredit().getBalance()));
+			String.format("%.2f", customer.getCredit().getBalance()),
+			customer)
+		);
 		System.out.println(customer);
 	}
 	
 	private static void withdraws(String[] actions){
-		Customer customer = namesToCustomers.get(actions[0] + " " + actions[1]);
-		Account account = null;
-		switch (actions[2]){
-			case "Savings":
-				account = customer.getSavings();
-				break;
-			case "Checking":
-				account = customer.getChecking();
-				break;
-			case "Credit":
-				account = customer.getCredit();
-				break;
-			default:
-		}
-		
 		try{
+			//Find account and Customer
+			Customer customer = bankDB.getCustomer(actions[0] + " " + actions[1]);
+			Account account = customer.getAccountByType(actions[2]);
 			account.withdraw(Double.parseDouble(actions[7]));
 			
 			//Log message
-			logMessages.add(customer.getFullName() + " withdrew $" + String.format("%.2f", Double.parseDouble(actions[7])) +
+			bankDB.addTransaction(new Transaction(customer.getFullName() +
+				" withdrew $" + String.format("%.2f", Double.parseDouble(actions[7])) +
 				" from " + account.getClass().getName() + "-" + account.number +
-				". New balance: 4" + String.format("%.2f", account.balance));
+				". New balance: 4" + String.format("%.2f", account.balance),
+				customer)
+			);
 		}catch (NullPointerException e){
 			String log = "Failed Transaction: ";
 			for(int i = 0; i < actions.length; i++){
 				log += actions[i];
 			}
-			logMessages.add(log);
+			bankDB.addTransaction(new Transaction(log, null));
 			e.printStackTrace();
 		}catch (RuntimeException e){
 			String log = e.getMessage() + " in transaction: " + String.join(", ", actions);
-			logMessages.add(log);
+			bankDB.addTransaction(new Transaction(log, user));
 		}
 	}
 	
 	private static void deposits(String[] actions){
-		Customer customer = namesToCustomers.get(actions[4] + " " + actions[5]);
-		Account account = null;
-		switch (actions[6]){
-			case "Savings":
-				account = customer.getSavings();
-				break;
-			case "Checking":
-				account = customer.getChecking();
-				break;
-			case "Credit":
-				account = customer.getCredit();
-				break;
-			default:
-				System.out.println("This should not really be happening");
-		}
-		
 		try{
+			//Get customer and account to deposit
+			Customer customer = bankDB.getCustomer(actions[4] + " " + actions[5]);
+			Account account = customer.getAccountByType(actions[6]);
 			account.deposit(Double.parseDouble(actions[7]));
+			
 			//Log message
-			logMessages.add(customer.getFullName() + " deposited $" +
-				String.format("%.2f", Double.parseDouble(actions[7])) +
-				" on " + account.getClass().getName() + "-" + account.getNumber() + ". New balance: 4" +
-				String.format("%.2f", account.getBalance()));
+			bankDB.addTransaction(
+				new Transaction(customer.getFullName() + " deposited $" +
+					String.format("%.2f", Double.parseDouble(actions[7])) +
+					" on " + account.getClass().getName() + "-" + account.getNumber() + ". New balance: 4" +
+					String.format("%.2f", account.getBalance()),
+					customer
+				)
+			);
 		} catch (NullPointerException e){
 			String log = e.getMessage() + " in transaction: " + String.join(", ", actions);
-			logMessages.add(log);
+			bankDB.addTransaction(new Transaction(log, null));
 		} catch (RuntimeException e){
 			String log = e.getMessage() + " in transaction: ";
 			for(int i = 0; i < actions.length; i++){
 				log += actions[i];
 			}
-			logMessages.add(log);
+			bankDB.addTransaction(new Transaction(log, null));
 		}
 	}
 }

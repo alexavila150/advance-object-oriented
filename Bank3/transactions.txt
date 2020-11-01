@@ -1,2 +1,335 @@
 Disney Bank transaction file
-Alex Avila deposited $2000.00 on Checking-1037. New balance: 42085.09
+Mario Bros deposited $500.00 on Checking-1103. New balance: 4500.00
+2020/10/19 23:08:26
+Mario Bros transferred $99.99 from Checking-1103 to Savings-2103. Checking balance: $400.01. Savings-2103 balance: $99.99
+2020/10/19 23:08:44
+Mario Bros transferred $59.99 to Daniel Mejia. Checking-1103 balance: $340.02
+2020/10/19 23:09:04
+Mario Bros made a balance inquire.Checking: $340.02 Savings: $99.99 
+2020/10/19 23:09:09
+Mickey Mouse transferred $100.00 to Donald Duck. Checking-1000 balance: $303.12
+2020/10/19 23:09:50
+Mickey Mouse transferred $400.00 from Savings-2000 to Checking-1000. Savings balance: $4079.46. Checking-1000 balance: $703.12
+2020/10/19 23:09:50
+Mickey Mouse made a balance inquire. Checking: $703.12 Savings: $4079.46 Credit: $-1653.84
+2020/10/19 23:09:50
+Mickey Mouse withdrew $100.00 from Checking-1000. New balance: 4603.12
+2020/10/19 23:09:50
+Mickey Mouse deposited $500.00 on Savings-2000. New balance: 44579.46
+2020/10/19 23:09:50
+Mickey Mouse transferred $300.00 from Savings-2000 to Credit-3000. Savings balance: $4279.46. Credit-3000 balance: $-1353.84
+2020/10/19 23:09:50
+Alberto Miranda deposited $5000.00 on Checking-1036. New balance: 45474.59
+2020/10/19 23:09:50
+Alex Avila deposited $5000.00 on Checking-1037. New balance: 45085.09
+2020/10/19 23:09:50
+Alfonso Beltran deposited $5000.00 on Checking-1038. New balance: 45474.39
+2020/10/19 23:09:50
+Alfredo Rodriguez deposited $5000.00 on Checking-1039. New balance: 46772.98
+2020/10/19 23:09:50
+Alyssandra Cordero deposited $5000.00 on Checking-1040. New balance: 46169.49
+2020/10/19 23:09:50
+Anthony Jasso deposited $5000.00 on Checking-1041. New balance: 45661.74
+2020/10/19 23:09:50
+Arae Zarzosa deposited $5000.00 on Checking-1042. New balance: 46994.56
+2020/10/19 23:09:50
+Brandon Bustamante deposited $5000.00 on Checking-1043. New balance: 45355.39
+2020/10/19 23:09:50
+Cesar Cabrera deposited $5000.00 on Checking-1044. New balance: 46806.19
+2020/10/19 23:09:50
+Christopher Reyes deposited $5000.00 on Checking-1045. New balance: 46330.23
+2020/10/19 23:09:50
+Dafne Bencomo deposited $5000.00 on Checking-1046. New balance: 45519.88
+2020/10/19 23:09:50
+David Baptiste deposited $5000.00 on Checking-1047. New balance: 46076.98
+2020/10/19 23:09:50
+Derek Aguirre deposited $5000.00 on Checking-1048. New balance: 46845.56
+2020/10/19 23:09:50
+Eduardo Garcia deposited $5000.00 on Checking-1049. New balance: 46243.42
+2020/10/19 23:09:50
+Ervey Montes deposited $5000.00 on Checking-1050. New balance: 46584.85
+2020/10/19 23:09:50
+Estevan Ramos deposited $5000.00 on Checking-1051. New balance: 45760.91
+2020/10/19 23:09:50
+Federico Marin deposited $5000.00 on Checking-1052. New balance: 46917.27
+2020/10/19 23:09:50
+Gavin Baechle deposited $5000.00 on Checking-1053. New balance: 46734.37
+2020/10/19 23:09:50
+Gildardo Orea deposited $5000.00 on Checking-1054. New balance: 45291.85
+2020/10/19 23:09:50
+Grecia Navarrete deposited $5000.00 on Checking-1055. New balance: 46622.04
+2020/10/19 23:09:50
+Hernan Garcia deposited $5000.00 on Checking-1056. New balance: 45135.23
+2020/10/19 23:09:50
+Isaiah Landin deposited $5000.00 on Checking-1057. New balance: 46816.52
+2020/10/19 23:09:50
+Jose Rodriguez Ortega deposited $5000.00 on Checking-1058. New balance: 45398.46
+2020/10/19 23:09:50
+Joseph Medina - Sandoval deposited $5000.00 on Checking-1059. New balance: 45903.51
+2020/10/19 23:09:50
+Juan Gutierrez deposited $5000.00 on Checking-1060. New balance: 45526.23
+2020/10/19 23:09:50
+Juan Rabelo deposited $5000.00 on Checking-1061. New balance: 46851.26
+2020/10/19 23:09:50
+Judith Garcia deposited $5000.00 on Checking-1062. New balance: 46740.54
+2020/10/19 23:09:50
+Laura Blanco deposited $5000.00 on Checking-1063. New balance: 46506.74
+2020/10/19 23:09:50
+Laurence Labayen deposited $5000.00 on Checking-1064. New balance: 46079.13
+2020/10/19 23:09:50
+Lidice Castro Jimenez deposited $5000.00 on Checking-1065. New balance: 46942.67
+2020/10/19 23:09:50
+Manuel Melendez Lujan deposited $5000.00 on Checking-1066. New balance: 46311.35
+2020/10/19 23:09:50
+Manuel Ruvalcaba deposited $5000.00 on Checking-1067. New balance: 45870.60
+2020/10/19 23:09:50
+Mauricio Ornelas-Gutierrez deposited $5000.00 on Checking-1068. New balance: 45192.14
+2020/10/19 23:09:50
+Minh Dang deposited $5000.00 on Checking-1069. New balance: 45623.42
+2020/10/19 23:09:50
+Oscar Decena deposited $5000.00 on Checking-1070. New balance: 46450.22
+2020/10/19 23:09:50
+Robert Evans deposited $5000.00 on Checking-1071. New balance: 46223.55
+2020/10/19 23:09:50
+Roberto Carrasco deposited $5000.00 on Checking-1072. New balance: 46152.39
+2020/10/19 23:09:50
+Sofia Hernandez deposited $5000.00 on Checking-1073. New balance: 46515.79
+2020/10/19 23:09:50
+Yulianna Torres deposited $5000.00 on Checking-1074. New balance: 46035.19
+2020/10/19 23:09:50
+Alberto Miranda transferred $1000.00 to Daniel Mejia. Checking-1036 balance: $4474.59
+2020/10/19 23:09:50
+Alex Avila transferred $1000.00 to Daniel Mejia. Checking-1037 balance: $4085.09
+2020/10/19 23:09:50
+Alfonso Beltran transferred $1000.00 to Daniel Mejia. Checking-1038 balance: $4474.39
+2020/10/19 23:09:50
+Alfredo Rodriguez transferred $1000.00 to Daniel Mejia. Checking-1039 balance: $5772.98
+2020/10/19 23:09:50
+Alyssandra Cordero transferred $1000.00 to Daniel Mejia. Checking-1040 balance: $5169.49
+2020/10/19 23:09:50
+Anthony Jasso transferred $1000.00 to Daniel Mejia. Checking-1041 balance: $4661.74
+2020/10/19 23:09:50
+Arae Zarzosa transferred $1000.00 to Daniel Mejia. Checking-1042 balance: $5994.56
+2020/10/19 23:09:50
+Brandon Bustamante transferred $1000.00 to Daniel Mejia. Checking-1043 balance: $4355.39
+2020/10/19 23:09:50
+Cesar Cabrera transferred $1000.00 to Daniel Mejia. Checking-1044 balance: $5806.19
+2020/10/19 23:09:50
+Christopher Reyes transferred $1000.00 to Daniel Mejia. Checking-1045 balance: $5330.23
+2020/10/19 23:09:50
+Dafne Bencomo transferred $1000.00 to Daniel Mejia. Checking-1046 balance: $4519.88
+2020/10/19 23:09:50
+David Baptiste transferred $1000.00 to Daniel Mejia. Checking-1047 balance: $5076.98
+2020/10/19 23:09:50
+Derek Aguirre transferred $1000.00 to Daniel Mejia. Checking-1048 balance: $5845.56
+2020/10/19 23:09:50
+Eduardo Garcia transferred $1000.00 to Daniel Mejia. Checking-1049 balance: $5243.42
+2020/10/19 23:09:50
+Ervey Montes transferred $1000.00 to Daniel Mejia. Checking-1050 balance: $5584.85
+2020/10/19 23:09:50
+Estevan Ramos transferred $1000.00 to Daniel Mejia. Checking-1051 balance: $4760.91
+2020/10/19 23:09:50
+Federico Marin transferred $1000.00 to Daniel Mejia. Checking-1052 balance: $5917.27
+2020/10/19 23:09:50
+Gavin Baechle transferred $1000.00 to Daniel Mejia. Checking-1053 balance: $5734.37
+2020/10/19 23:09:50
+Gildardo Orea transferred $1000.00 to Daniel Mejia. Checking-1054 balance: $4291.85
+2020/10/19 23:09:50
+Grecia Navarrete transferred $1000.00 to Daniel Mejia. Checking-1055 balance: $5622.04
+2020/10/19 23:09:50
+Hernan Garcia transferred $1000.00 to Daniel Mejia. Checking-1056 balance: $4135.23
+2020/10/19 23:09:50
+Isaiah Landin transferred $1000.00 to Daniel Mejia. Checking-1057 balance: $5816.52
+2020/10/19 23:09:50
+Jose Rodriguez Ortega transferred $1000.00 to Daniel Mejia. Checking-1058 balance: $4398.46
+2020/10/19 23:09:50
+Joseph Medina - Sandoval transferred $1000.00 to Daniel Mejia. Checking-1059 balance: $4903.51
+2020/10/19 23:09:50
+Juan Gutierrez transferred $1000.00 to Daniel Mejia. Checking-1060 balance: $4526.23
+2020/10/19 23:09:50
+Juan Rabelo transferred $1000.00 to Daniel Mejia. Checking-1061 balance: $5851.26
+2020/10/19 23:09:50
+Judith Garcia transferred $1000.00 to Daniel Mejia. Checking-1062 balance: $5740.54
+2020/10/19 23:09:50
+Laura Blanco transferred $1000.00 to Daniel Mejia. Checking-1063 balance: $5506.74
+2020/10/19 23:09:50
+Laurence Labayen transferred $1000.00 to Daniel Mejia. Checking-1064 balance: $5079.13
+2020/10/19 23:09:50
+Lidice Castro Jimenez transferred $1000.00 to Daniel Mejia. Checking-1065 balance: $5942.67
+2020/10/19 23:09:50
+Manuel Melendez Lujan transferred $1000.00 to Daniel Mejia. Checking-1066 balance: $5311.35
+2020/10/19 23:09:50
+Manuel Ruvalcaba transferred $1000.00 to Daniel Mejia. Checking-1067 balance: $4870.60
+2020/10/19 23:09:50
+Mauricio Ornelas-Gutierrez transferred $1000.00 to Daniel Mejia. Checking-1068 balance: $4192.14
+2020/10/19 23:09:50
+Minh Dang transferred $1000.00 to Daniel Mejia. Checking-1069 balance: $4623.42
+2020/10/19 23:09:50
+Oscar Decena transferred $1000.00 to Daniel Mejia. Checking-1070 balance: $5450.22
+2020/10/19 23:09:50
+Robert Evans transferred $1000.00 to Daniel Mejia. Checking-1071 balance: $5223.55
+2020/10/19 23:09:50
+Roberto Carrasco transferred $1000.00 to Daniel Mejia. Checking-1072 balance: $5152.39
+2020/10/19 23:09:50
+Sofia Hernandez transferred $1000.00 to Daniel Mejia. Checking-1073 balance: $5515.79
+2020/10/19 23:09:50
+Yulianna Torres transferred $1000.00 to Daniel Mejia. Checking-1074 balance: $5035.19
+2020/10/19 23:09:50
+Daniel Mejia made a balance inquire. Checking: $40947.11 Savings: $2051.62 Credit: $-1231.96
+2020/10/19 23:09:50
+Mickey Mouse withdrew $100.00 from Savings-2000. New balance: 44179.46
+2020/10/19 23:09:50
+Donald Duck transferred $48.46 to Alberto Miranda. Checking-1001 balance: $1980.12
+2020/10/19 23:09:50
+Minnie Mouse withdrew $79.00 from Savings-2002. New balance: 4248.99
+2020/10/19 23:09:50
+Goofy Disney transferred $15.63 to Alfonso Beltran. Checking-1003 balance: $1441.06
+2020/10/19 23:09:50
+Pluto Disney withdrew $77.00 from Savings-2004. New balance: 41545.73
+2020/10/19 23:09:50
+Not enough funds to withdraw in transaction: Chip, Disney, Checking, pays, Alyssandra, Cordero, Checking, 50.99
+2020/10/19 23:09:50
+Dale Disney withdrew $54.00 from Savings-2006. New balance: 44037.61
+2020/10/19 23:09:50
+Cinderella Disney transferred $28.81 to Arae Zarzosa. Checking-1007 balance: $886.73
+2020/10/19 23:09:50
+Ariel Disney withdrew $57.00 from Savings-2008. New balance: 4672.50
+2020/10/19 23:09:50
+Jasmine Disney transferred $28.89 to Cesar Cabrera. Checking-1009 balance: $605.05
+2020/10/19 23:09:50
+Aladdin Disney withdrew $94.00 from Savings-2010. New balance: 43337.15
+2020/10/19 23:09:50
+Simba Disney transferred $39.29 to Dafne Bencomo. Checking-1011 balance: $1297.50
+2020/10/19 23:09:50
+Mufassa Disney withdrew $67.00 from Savings-2012. New balance: 43779.05
+2020/10/19 23:09:50
+Aurora Disney transferred $34.47 to Derek Aguirre. Checking-1013 balance: $308.98
+2020/10/19 23:09:50
+Peter Pan withdrew $100.00 from Savings-2014. New balance: 42152.52
+2020/10/19 23:09:50
+Woody Disney transferred $34.04 to Ervey Montes. Checking-1015 balance: $224.02
+2020/10/19 23:09:50
+Not enough funds to withdraw in transaction: Buzz, Lightyear, Savings, withdraws, , , Savings, 90
+2020/10/19 23:09:50
+Jafar Aladdin transferred $12.36 to Federico Marin. Checking-1017 balance: $505.71
+2020/10/19 23:09:50
+Ursela Mermaid withdrew $56.00 from Savings-2018. New balance: 41447.63
+2020/10/19 23:09:50
+Beast Disney transferred $26.84 to Gildardo Orea. Checking-1019 balance: $1822.19
+2020/10/19 23:09:50
+Belle Disney withdrew $88.00 from Savings-2020. New balance: 42346.75
+2020/10/19 23:09:50
+Cruella De Vil transferred $34.70 to Hernan Garcia. Checking-1021 balance: $1097.91
+2020/10/19 23:09:50
+Scar Lion withdrew $65.00 from Savings-2022. New balance: 44261.32
+2020/10/19 23:09:50
+Simba King transferred $11.31 to Jose Rodriguez Ortega. Checking-1023 balance: $1460.74
+2020/10/19 23:09:50
+Gaston Disney withdrew $78.00 from Savings-2024. New balance: 4916.47
+2020/10/19 23:09:50
+Shere Khan transferred $41.20 to Juan Gutierrez. Checking-1025 balance: $647.57
+2020/10/19 23:09:50
+Captaiin Hook withdrew $86.00 from Savings-2026. New balance: 43209.28
+2020/10/19 23:09:50
+Kaa Disney transferred $11.83 to Judith Garcia. Checking-1027 balance: $916.93
+2020/10/19 23:09:50
+Evil Queen withdrew $86.00 from Savings-2028. New balance: 44758.83
+2020/10/19 23:09:50
+Pinocchio Disney transferred $34.11 to Laurence Labayen. Checking-1029 balance: $1246.66
+2020/10/19 23:09:50
+Prince Eric withdrew $57.00 from Savings-2030. New balance: 44448.00
+2020/10/19 23:09:50
+Quasimodo Disney transferred $25.58 to Manuel Melendez Lujan. Checking-1031 balance: $457.99
+2020/10/19 23:09:50
+Hercules Disney withdrew $85.00 from Savings-2032. New balance: 41303.27
+2020/10/19 23:09:50
+Mulan Disney transferred $36.48 to Mauricio Ornelas-Gutierrez. Checking-1033 balance: $1737.78
+2020/10/19 23:09:50
+Lilo Disney withdrew $59.00 from Savings-2034. New balance: 41883.89
+2020/10/19 23:09:50
+Stitch Disney transferred $29.25 to Oscar Decena. Checking-1035 balance: $358.07
+2020/10/19 23:09:50
+Gaston Disney withdrew $74.00 from Savings-2024. New balance: 4842.47
+2020/10/19 23:09:50
+Mickey Mouse transferred $17.97 to Roberto Carrasco. Checking-1000 balance: $585.15
+2020/10/19 23:09:50
+Donald Duck withdrew $91.00 from Savings-2001. New balance: 43491.37
+2020/10/19 23:09:50
+Minnie Mouse transferred $29.50 to Yulianna Torres. Checking-1002 balance: $1864.66
+2020/10/19 23:09:50
+Goofy Disney withdrew $81.00 from Savings-2003. New balance: 4803.26
+2020/10/19 23:09:50
+Pluto Disney transferred $39.92 to Alex Avila. Checking-1004 balance: $1509.75
+2020/10/19 23:09:50
+Chip Disney withdrew $75.00 from Savings-2005. New balance: 43612.14
+2020/10/19 23:09:50
+Dale Disney transferred $50.39 to Alfredo Rodriguez. Checking-1006 balance: $843.71
+2020/10/19 23:09:50
+Cinderella Disney withdrew $79.00 from Savings-2007. New balance: 42898.94
+2020/10/19 23:09:50
+Ariel Disney transferred $46.88 to Anthony Jasso. Checking-1008 balance: $1535.09
+2020/10/19 23:09:50
+Jasmine Disney withdrew $59.00 from Savings-2009. New balance: 41028.10
+2020/10/19 23:09:50
+Aladdin Disney transferred $25.16 to Brandon Bustamante. Checking-1010 balance: $115.62
+2020/10/19 23:09:50
+Simba Disney withdrew $100.00 from Savings-2011. New balance: 4273.47
+2020/10/19 23:09:50
+Mufassa Disney transferred $33.54 to Christopher Reyes. Checking-1012 balance: $115.14
+2020/10/19 23:09:50
+Mickey Mouse transferred $48.46 to David Baptiste. Checking-1000 balance: $585.15
+2020/10/19 23:09:50
+Donald Duck withdrew $79.00 from Checking-1001. New balance: 41901.12
+2020/10/19 23:09:50
+Minnie Mouse transferred $15.63 to Eduardo Garcia. Checking-1002 balance: $1864.66
+2020/10/19 23:09:50
+Goofy Disney withdrew $77.00 from Checking-1003. New balance: 41364.06
+2020/10/19 23:09:50
+Pluto Disney transferred $50.99 to Estevan Ramos. Checking-1004 balance: $1509.75
+2020/10/19 23:09:50
+Not enough funds to withdraw in transaction: Chip, Disney, Checking, withdraws, , , Savings, 54
+2020/10/19 23:09:50
+Dale Disney transferred $28.81 to Gavin Baechle. Checking-1006 balance: $843.71
+2020/10/19 23:09:50
+Cinderella Disney withdrew $57.00 from Checking-1007. New balance: 4829.73
+2020/10/19 23:09:50
+Ariel Disney transferred $28.89 to Grecia Navarrete. Checking-1008 balance: $1535.09
+2020/10/19 23:09:50
+Jasmine Disney withdrew $94.00 from Checking-1009. New balance: 4511.05
+2020/10/19 23:09:50
+Aladdin Disney transferred $39.29 to Isaiah Landin. Checking-1010 balance: $115.62
+2020/10/19 23:09:50
+Simba Disney withdrew $67.00 from Checking-1011. New balance: 41230.50
+2020/10/19 23:09:50
+Mufassa Disney transferred $34.47 to Joseph Medina - Sandoval. Checking-1012 balance: $115.14
+2020/10/19 23:09:50
+Aurora Disney withdrew $100.00 from Checking-1013. New balance: 4208.98
+2020/10/19 23:09:50
+Peter Pan transferred $34.04 to Juan Rabelo. Checking-1014 balance: $41.62
+2020/10/19 23:09:50
+Woody Disney withdrew $90.00 from Checking-1015. New balance: 4134.02
+2020/10/19 23:09:50
+Buzz Lightyear transferred $12.36 to Laura Blanco. Checking-1016 balance: $629.61
+2020/10/19 23:09:50
+Jafar Aladdin withdrew $56.00 from Checking-1017. New balance: 4449.71
+2020/10/19 23:09:50
+Ursela Mermaid transferred $26.84 to Lidice Castro Jimenez. Checking-1018 balance: $1333.17
+2020/10/19 23:09:50
+Beast Disney withdrew $88.00 from Checking-1019. New balance: 41734.19
+2020/10/19 23:09:50
+Belle Disney transferred $34.70 to Manuel Ruvalcaba. Checking-1020 balance: $517.81
+2020/10/19 23:09:50
+Cruella De Vil withdrew $65.00 from Checking-1021. New balance: 41032.91
+2020/10/19 23:09:50
+Scar Lion transferred $11.31 to Minh Dang. Checking-1022 balance: $941.51
+2020/10/19 23:09:50
+Simba King withdrew $78.00 from Checking-1023. New balance: 41382.74
+2020/10/19 23:09:50
+Gaston Disney transferred $41.20 to Robert Evans. Checking-1024 balance: $168.24
+2020/10/19 23:09:50
+Shere Khan withdrew $86.00 from Checking-1025. New balance: 4561.57
+2020/10/19 23:09:50
+Captaiin Hook transferred $11.83 to Sofia Hernandez. Checking-1026 balance: $369.27
+2020/10/19 23:09:50
+Kaa Disney withdrew $86.00 from Checking-1027. New balance: 4830.93
+2020/10/19 23:09:50

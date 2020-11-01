@@ -145,6 +145,19 @@ public class Customer extends Person{
 		transfer(checking, dest.getChecking(), amount);
 	}
 	
+	public Account getAccountByType(String type) throws RuntimeException{
+		switch(type){
+			case "Savings":
+				return savings;
+			case "Checking":
+				return checking;
+			case "Credit":
+				return credit;
+			default:
+				throw new RuntimeException("not a valid account type");
+		}
+	}
+	
 	/**
 	 * Formats the user information into csv style
 	 * @return String with the Customers information formatted to be a line of the CSV file
