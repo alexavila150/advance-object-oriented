@@ -1013,7 +1013,8 @@ public class RunBank {
 			account.withdraw(Double.parseDouble(actions[7]));
 			
 			//Log message
-			bankDB.addTransaction(new Transaction(customer.getFullName() + " withdrew $" + String.format("%.2f", Double.parseDouble(actions[7])) +
+			bankDB.addTransaction(new Transaction(customer.getFullName() +
+				" withdrew $" + String.format("%.2f", Double.parseDouble(actions[7])) +
 				" from " + account.getClass().getName() + "-" + account.number +
 				". New balance: 4" + String.format("%.2f", account.balance),
 				customer)
